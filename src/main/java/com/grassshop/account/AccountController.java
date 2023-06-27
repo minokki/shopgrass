@@ -9,6 +9,7 @@ public class AccountController {
 
     @GetMapping("/sign-up")
     public String signUpForm(Model model){
+        model.addAttribute("signUpForm",new signUpForm());
         return "account/sign-up";
     }
 }
