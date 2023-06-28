@@ -1,10 +1,7 @@
 package com.grassshop.account;
 
-import com.grassshop.ConsoleMailSender;
-import com.grassshop.domain.Account;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,8 +18,8 @@ import javax.validation.Valid;
 public class AccountController {
 
     private final SignUpFormValidator signUpFormValidator;
-    private final AccountRepository accountRepository;
-    private final JavaMailSender javaMailSender;
+    private final AccountService accountService;
+
 
     @InitBinder("signUpForm") //해당 모델에 초기화 바인더 설정
     public void initBinder(WebDataBinder webDataBinder){
@@ -32,7 +29,7 @@ public class AccountController {
 
     @GetMapping("/sign-up")
     public String signUpForm(Model model){
-        model.addAttribute("signUpForm",new SignUpForm()); //첫자는 소문자
+        model.addAttribute("signUpForm",new SignUpForm());
         return "account/sign-up";
     }
 
@@ -41,27 +38,10 @@ public class AccountController {
         if(errors.hasErrors()){
             return "account/sign-up";
         }
-
-        Account account = Account.builder()
-                .email(signUpForm.getEmail())
-                .nickname(signUpForm.getNickname())
-                .password(signUpForm.getPassword()) //todo 인코딩 해야함
-                .shopCreateByWeb(true)
-                .shopEnrollmentResultByWeb(true)
-                .shopUpdatedByWeb(true)
-                .build();
-        Account newAccount = accountRepository.save(account);  //회원저장
-
-        //이메일
-        newAccount.generateEmailCheckToken();
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(newAccount.getEmail());
-        mailMessage.setSubject("벌초박사, 회원가입 인증");
-        mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken() +
-                "&email=" + newAccount.getEmail());
-        javaMailSender.send(mailMessage);
-
+        accountService.processNewAccount(signUpForm);
         //todo 회원가입 처리
         return "redirect:/";
     }
+
+
 }
