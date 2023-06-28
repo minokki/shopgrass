@@ -12,7 +12,7 @@ public class SignUpForm {
 
     @NotBlank
     @Length(min=3, max=20)
-    @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-zA-Z0-9_-]{3,20}$")   //패턴
+    @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,20}$")   // 패턴 수정
     private String nickname;
 
     @Email
