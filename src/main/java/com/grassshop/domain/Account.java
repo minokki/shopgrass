@@ -24,7 +24,7 @@ public class Account {
 
     private String password;
 
-    private boolean emilVerified;
+    private boolean emailVerified;
 
     private String emailCheckToken;
 
@@ -56,5 +56,10 @@ public class Account {
 
     public void generateEmailCheckToken() {
         this.emailCheckToken= UUID.randomUUID().toString();
+    }
+
+    public void completeSignUp() {
+       this.emailVerified=true;
+       this.joinedAt=LocalDateTime.now();
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,13 +17,12 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
 
 
+    @Transactional
     public void processNewAccount(SignUpForm signUpForm) {
-
-        Account newAccount = saveNewAccount(signUpForm);
+        Account newAccount = saveNewAccount(signUpForm); //아래 메서드는 영속성 컨텍스트 상태임. 그 정보를 가지고 토큰 생성후 저장하려면, 트랜젝션 어노테이션 작성해줘야함
         //이메일 체크토큰 생성
         newAccount.generateEmailCheckToken();
         sentConfirmEmail(newAccount);
-
     }
     private Account saveNewAccount(SignUpForm signUpForm) {
         Account account = Account.builder()
