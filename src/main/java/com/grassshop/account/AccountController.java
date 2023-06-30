@@ -40,7 +40,8 @@ public class AccountController {
         if(errors.hasErrors()){
             return "account/sign-up";
         }
-        accountService.processNewAccount(signUpForm);
+        Account account = accountService.processNewAccount(signUpForm);
+        accountService.login(account);
         //todo 회원가입 처리
         return "redirect:/";
     }
@@ -58,6 +59,7 @@ public class AccountController {
             return view;
         }
         account.completeSignUp();
+        accountService.login(account);
         model.addAttribute("numberOfUser",accountRepository.count());
         model.addAttribute("nickname",account.getNickname());
         return view;

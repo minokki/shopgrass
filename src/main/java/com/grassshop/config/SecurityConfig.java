@@ -32,6 +32,7 @@ public class SecurityConfig {
     @Bean  //정적 리소스 파일 시큐리티가 무시할수 있게.
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
+                .mvcMatchers("/node_modules/**")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }
