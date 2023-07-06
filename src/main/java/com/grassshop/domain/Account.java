@@ -3,6 +3,7 @@ package com.grassshop.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -53,13 +54,19 @@ public class Account {
 
     private boolean shopUpdatedByWeb;
 
+    private LocalDateTime emailCheckTokenGeneratedAt;
+
 
     public void generateEmailCheckToken() {
         this.emailCheckToken= UUID.randomUUID().toString();
+        this.emailCheckTokenGeneratedAt = LocalDateTime.now();
     }
 
     public void completeSignUp() {
        this.emailVerified=true;
        this.joinedAt=LocalDateTime.now();
+    }
+    public boolean canSendConfirmEmail() {
+        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
     }
 }
