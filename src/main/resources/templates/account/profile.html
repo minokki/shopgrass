@@ -12,14 +12,14 @@
 <div class="container">
     <div class="row mt-5 justify-content-center">
         <div class="col-2">
-            <svg th:if="${#strings.isEmpty(account.profileImage)}" class="img-fluid float-left rounded img-thumbnail"
-                 th:data-jdenticon-value="${account.nickname}" width="125" height="125"></svg>
-            <svg th:if="${!#strings.isEmpty(account.profileImage)}" class="img-fluid float-left rounded img-thumbnail"
-                 th:src="${account.profileImage}" width="125" height="125"></svg>
+            <svg th:if="${#strings.isEmpty(account?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+                 width="200" height="200" class="rounded border bg-light"></svg>
+            <img th:if="${!#strings.isEmpty(account?.profileImage)}" th:src="${account.profileImage}"
+                 width="200" height="200" class="rounded border"/>
         </div>
         <div class="col-8">
             <h1 class="display-4" th:text="${account.nickname}">mino</h1>
-            <p class="lead" th:if="${!#strings.isEmpty(account.bio)}" th:text="${profile.bio}">bio</p>
+            <p class="lead" th:if="${!#strings.isEmpty(account.bio)}" th:text="${account.bio}">bio</p>
             <p class="lead" th:if="${#strings.isEmpty(account.bio) && isOwner}">한 줄 소개를 추가하세요.</p>
         </div>
     </div>

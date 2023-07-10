@@ -1,6 +1,7 @@
 package com.grassshop.account;
 
 import com.grassshop.domain.Account;
+import com.grassshop.settings.Profile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -84,5 +85,14 @@ public class AccountService implements UserDetailsService {
     public void completeSingUP(Account account) {
         account.completeSignUp();
         login(account);
+    }
+
+    public void updateProfile(Account account, Profile profile) {
+        account.setUrl(profile.getUrl());
+        account.setOccupation(profile.getOccupation());
+        account.setLocation(profile.getLocation());
+        account.setBio(profile.getBio());
+        account.setProfileImage(profile.getProfileImage());
+        accountRepository.save(account);
     }
 }
