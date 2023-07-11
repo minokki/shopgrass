@@ -26,29 +26,12 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <form th:action="@{/search/study}" class="form-inline" method="get">
-          <input class="form-control mr-sm-2" name="keyword"git type="search" placeholder="검색창" aria-label="Search" />
-        </form>
-      </li>
-    </ul>
-
     <ul class="navbar-nav ms-auto justify-content-end me-3">
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="nav-link" th:href="@{/login}">로그인</a>
       </li>
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="nav-link" th:href="@{/sign-up}">가입</a>
-      </li>
-      <li class="nav-item" sec:authorize="isAuthenticated()">
-        <a class="nav-link" th:href="@{/notifications}">
-          <i class="fa fa-bell-o" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li class="nav-item" sec:authorize="isAuthenticated()">
-        <a class="nav-link btn btn-outline-primary" th:href="@{/notifications}">
-          <i class="fa fa-plus" aria-hidden="true"></i> 벌초박사++</a>
       </li>
       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
@@ -64,7 +47,6 @@
             <span sec:authentication="name">Username</span>
           </h6>
           <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
-          <a class="dropdown-item" >스터디</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
           <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
@@ -83,14 +65,8 @@
      th:href="@{/settings/profile}">프로필</a>
   <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'password'}? active" href="#"
      th:href="@{/settings/password}">패스워드</a>
-  <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'notifications'}? active" href="#"
-     th:href="@{/settings/notifications}">알림</a>
-  <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'tags'}? active" href="#"
-     th:href="@{/settings/tags}">관심주제</a>
-  <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'zones'}? active" href="#"
-     th:href="@{/settings/zones}">활동지역</a>
-  <a class="list-group-item list-group-item-danger" th:classappend="${currentMenu == 'account'}? active" href="#"
-     th:href="@{/settings/account}">계정</a>
+  <a class="list-group-item list-group-item-danger" th:classappend="${currentMenu == 'nickname'}? active" href="#"
+     th:href="@{/settings/nickname}">계정</a>
 </div>
 
 

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -23,6 +24,9 @@ class SettingsControllerTest {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @AfterEach
     void afterEach(){
@@ -71,4 +75,47 @@ class SettingsControllerTest {
         Assertions.assertNull(account.getBio());
     }
 
+    @WithAccount("mino")
+    @DisplayName("프로필 수정 폼")
+    @Test
+    void updatePasswordForm() throws Exception {
+        mockMvc.perform(get("/settings/password"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("passwordForm"));
+    }
+    @WithAccount("mino")
+    @DisplayName("패스워드 수정- 정상")
+    @Test
+    void updatePassword() throws Exception {
+        String newPassword = "00000000";
+        String newPasswordConfirm = "00000000";
+        mockMvc.perform(post("/settings/password")
+                        .param("newPassword", newPassword)
+                        .param("newPasswordConfirm",newPasswordConfirm)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/settings/password"))
+                .andExpect(flash().attributeExists("message"));
+
+        Account account = accountRepository.findByNickname("mino");
+        Assertions.assertTrue(passwordEncoder.matches("00000000",account.getPassword()));
+    }
+
+    @WithAccount("mino")
+    @DisplayName("패스워드 수정 - 오류")
+    @Test
+    void updatePassword_Error() throws Exception {
+        String newPassword = "00000000";
+        String newPasswordConfirm = "00000001";
+        mockMvc.perform(post("/settings/password")
+                        .param("newPassword", newPassword)
+                        .param("newPasswordConfirm", newPasswordConfirm)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("settings/password"))
+                .andExpect(model().hasErrors())
+                .andExpect(model().attributeExists("passwordForm"))
+                .andExpect(model().attributeExists("account"));
+    }
 }
