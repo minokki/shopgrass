@@ -3,68 +3,74 @@
 <div th:replace="fragments.html :: head"></div>
 
 <body class="bg-light">
-<div th:replace="fragments.html :: main-nav"></div>
 
+<!-- form-nav -->
+<div th:replace="fragments.html :: form-nav"></div>
 
-<div class="container">
-    <div class="py-5 text-center">
-        <h2>계정 만들기</h2>
-    </div>
+<!-- 컨텐츠 영역-->
+<div class="container-form">
+    <h1 style="margin-bottom: 30px;">회원가입</h1>
     <div class="row justify-content-center">
-        <form class="needs-validation col-sm-6" action="#"
+        <form class="needs-validation col-12" action="#"
               th:action="@{/sign-up}" th:object="${signUpForm}" method="post" novalidate>
             <div class="form-group">
-                <label for="nickname">닉네임</label>
                 <input id="nickname" type="text" th:field="*{nickname}" class="form-control"
-                       placeholder="mino" aria-describedby="nicknameHelp" required minlength="3" maxlength="20">
+                       placeholder="닉네임" aria-describedby="nicknameHelp" required minlength="3" maxlength="20"
+                       th:classappend="${#fields.hasErrors('nickname')} ? 'is-invalid' : ''">
                 <small id="nicknameHelp" class="form-text text-muted">
-                    공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.
+                    공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입 후에 변경할 수 있습니다.
                 </small>
-                <small class="invalid-feedback">닉네임을 입력하세요.</small>
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Nickname Error</small>
+                <div>
+                    <small class="invalid-feedback">닉네임을 입력하세요.</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">닉네임 오류</small>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="email">이메일</label>
+            <div class="form-group" style="margin-top: 15px;">
                 <input id="email" type="email" th:field="*{email}" class="form-control"
-                       placeholder="your@email.com" aria-describedby="emailHelp" required>
+                       placeholder="your@email.com" aria-describedby="emailHelp" required
+                       th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
                 <small id="emailHelp" class="form-text text-muted">
                     벌초박사는 사용자의 이메일을 공개하지 않습니다.
                 </small>
+                <div>
                 <small class="invalid-feedback">이메일을 입력하세요.</small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="password">패스워드</label>
+            <div class="form-group" style="margin-top: 15px;">
                 <input id="password" type="password" th:field="*{password}" class="form-control"
-                       aria-describedby="passwordHelp" required minlength="8" maxlength="50">
+                       aria-describedby="passwordHelp" required minlength="8" maxlength="50" placeholder="Password"
+                       th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
                 <small id="passwordHelp" class="form-text text-muted">
                     8자 이상 50자 이내로 입력하세요. 영문자, 숫자, 특수기호를 사용할 수 있으며 공백은 사용할 수 없습니다.
                 </small>
+                <div>
                 <small class="invalid-feedback">패스워드를 입력하세요.</small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
+                </div>
             </div>
 
-            <div class="form-group">
-                <button class="btn btn-primary btn-block col-sm-12" type="submit"
-                        aria-describedby="submitHelp">가입하기</button>
-                <small id="submitHelp" class="form-text text-muted">
-                    <a href="#">약관</a>에 동의하시면 가입하기 버튼을 클릭하세요.
-                </small>
+            <div class="form-group" style="margin-top: 30px;">
+                <button class="btn btn-success btn-block col-sm-12" type="submit"
+                        aria-describedby="submitHelp" s>가입하기</button>
             </div>
         </form>
     </div>
 </div>
 
+<!-- form-footer -->
+<div th:replace="fragments.html :: form-footer"></div>
 
-    <div th:replace="fragments.html :: footer"></div>
-
+<!-- jdention-->
 <script>
     $(document).ready(function() {
         jdenticon.update();
     });
 </script>
+
+<!-- form-validation -->
 <script type="application/javascript" th:fragment="form-validation"></script>
 
 </body>

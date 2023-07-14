@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments.html :: head"></head>
+<head th:replace="fragments.html :: head">
+    <!-- index css -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
 
 
-<body class="bg-light">
+<body class="bg-light" style="height: 100vh;">
+
 <div th:replace="fragments.html :: main-nav"></div>
 
-<div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
-    벌초박사 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요.
-</div>
-
-
-
-<div class="container">
-    <div class="py-5 text-center">
-        <h2>벌초박사</h2>
+<!-- 캐러셀 -->
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" style="height: 100vh;">
+        <div class="carousel-item active">
+            <img src="/images/111.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/images/111.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/images/111.jpg" class="d-block w-100" alt="...">
+        </div>
     </div>
 </div>
 
 
-<div th:replace="fragments.html :: footer"></div>
+    <div th:replace="fragments.html :: footer"></div>
+</div>
 
 
 

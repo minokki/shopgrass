@@ -26,6 +26,12 @@ public class AccountController {
         webDataBinder.addValidators(signUpFormValidator);
        // addValidators() 메소드를 사용하여 유효성 검증기를 등록하면, 해당 폼 데이터의 유효성 검증을 수행할 수 있음
     }
+
+    //이용약관 이동
+    @GetMapping("/terms")
+    public String terms(){
+        return "account/terms";
+    }
     //회원가입 get
     @GetMapping("/sign-up")
     public String signUpForm(Model model){

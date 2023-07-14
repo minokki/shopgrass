@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments.html :: head">
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<head th:replace="fragments.html :: main-head">
 </head>
 
 
@@ -85,8 +84,14 @@
 </div>
 
 
-<div th:replace="fragments.html :: footer"></div>
+<div th:replace="fragments.html :: main-footer"></div>
 
+<!-- jdention-->
+<script>
+    $(document).ready(function() {
+        jdenticon.update();
+    });
+</script>
 
 </body>
 </html>

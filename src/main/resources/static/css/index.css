@@ -1,0 +1,4 @@
+.carousel-item img {
+    height: 100vh; /* 화면 전체 높이로 설정 */
+    object-fit: cover; /* 이미지를 캐러셀 항목에 맞게 조정 */
+}
