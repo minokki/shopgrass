@@ -1,0 +1,63 @@
+/* 네브바 햄버거 스타일 */
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
+    position: relative;
+    top: 0px;  /* top 위치를 조절하여 원하는 위치에 설정 */
+    right: 0px; /* right 위치를 조절하여 원하는 위치에 설정 */
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:hover {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+    display: block;
+    width: 30px;
+    height: 2px;
+    position: relative;
+    background: #000;
+    transition: all 0.35s ease-out;
+}
+
+.navbar-toggler .navbar-toggler-icon::before,
+.navbar-toggler .navbar-toggler-icon::after {
+    width: 30px;
+    height: 2px;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    content: '';
+    transition: all 0.35s ease-out;
+}
+
+.navbar-toggler .navbar-toggler-icon::before {
+    transform: translateY(-10px); /* 아이콘 간격 조정 */
+}
+
+.navbar-toggler .navbar-toggler-icon::after {
+    transform: translateY(10px); /* 아이콘 간격 조정 */
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background: transparent;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+    transform: translateY(0) rotate(45deg);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+    transform: translateY(0) rotate(-45deg);
+}
+/* 햄버거 끝*/
+
+/* 네비게이션 목록 */
+.menu-item {
+    font-weight: bold;
+    margin-right: 20px;
+    font-size: 20px;
+}

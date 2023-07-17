@@ -2,28 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="fragments.html :: main-head">
+
 </head>
 
 
 <body class="bg-light">
 <div th:replace="fragments.html :: main-nav"></div>
 
-<div class="container">
+<div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
     <div class="row mt-5 justify-content-center">
-        <div class="col-2">
+        <div class="col-md-2 col-sm-4">
             <svg th:if="${#strings.isEmpty(account?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
-                 width="200" height="200" class="rounded border bg-light"></svg>
+                 style="width: 100%; max-width: 200px; height: auto;" class="rounded border bg-light"></svg>
             <img th:if="${!#strings.isEmpty(account?.profileImage)}" th:src="${account.profileImage}"
-                 width="200" height="200" class="rounded border"/>
+                 style="width: 100%; max-width: 200px; height: auto;" class="rounded border"/>
         </div>
-        <div class="col-8">
+        <div class="col-md-8 col-sm-8">
             <h1 class="display-4" th:text="${account.nickname}">mino</h1>
             <p class="lead" th:if="${!#strings.isEmpty(account.bio)}" th:text="${account.bio}">bio</p>
             <p class="lead" th:if="${#strings.isEmpty(account.bio) && isOwner}">한 줄 소개를 추가하세요.</p>
         </div>
     </div>
 
-    <div class="row mt-3 justify-content-center">
+    <div class="row mt-3 mb-5 justify-content-center">
         <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
@@ -38,36 +39,36 @@
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                      aria-labelledby="v-pills-profile-tab">
                     <p th:if="${!#strings.isEmpty(account.url)}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-link col-1"></i>
-                            </span>
+                        <span style="font-size: 20px;">
+                            <i class="fa fa-link col-1"></i>
+                        </span>
                         <span th:text="${account.url}" class="col-11"></span>
                     </p>
                     <p th:if="${!#strings.isEmpty(account.occupation)}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-briefcase col-1"></i>
-                            </span>
+                        <span style="font-size: 20px;">
+                            <i class="fa fa-briefcase col-1"></i>
+                        </span>
                         <span th:text="${account.occupation}" class="col-9"></span>
                     </p>
                     <p th:if="${!#strings.isEmpty(account.location)}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-location-arrow col-1"></i>
-                            </span>
+                        <span style="font-size: 20px;">
+                            <i class="fa fa-location-arrow col-1"></i>
+                        </span>
                         <span th:text="${account.location}" class="col-9"></span>
                     </p>
                     <p th:if="${isOwner}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-envelope-o col-1"></i>
-                            </span>
+                        <span style="font-size: 20px;">
+                            <i class="fa fa-envelope-o col-1"></i>
+                        </span>
                         <span th:text="${account.email}" class="col-9"></span>
                     </p>
                     <p th:if="${isOwner || account.emailVerified}">
-                            <span style="font-size: 20px;">
-                                <i class="fa fa-calendar-o col-1"></i>
-                            </span>
+                        <span style="font-size: 20px;">
+                            <i class="fa fa-calendar-o col-1"></i>
+                        </span>
                         <span th:if="${isOwner && !account.emailVerified}" class="col-9">
-                                <a href="#" th:href="@{'/checkemail?email=' + ${account.email}}">가입을 완료하려면 이메일을 확인하세요.</a>
-                            </span>
+                            <a href="#" th:href="@{'/check-email?email=' + ${account.email}}">가입을 완료하려면 이메일을 확인하세요.</a>
+                        </span>
                         <span th:text="${#temporals.format(account.joinedAt, 'yyyy년 M월 가입')}" class="col-9"></span>
                     </p>
                     <div th:if="${isOwner}">
@@ -80,18 +81,13 @@
             </div>
         </div>
     </div>
-
 </div>
 
 
-<div th:replace="fragments.html :: main-footer"></div>
+<!-- form-footer-->
+<div th:replace="fragments.html :: form-footer"></div>
 
-<!-- jdention-->
-<script>
-    $(document).ready(function() {
-        jdenticon.update();
-    });
-</script>
+
 
 </body>
 </html>

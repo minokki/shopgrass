@@ -4,10 +4,12 @@
 <!-- main-head -->
 <head th:fragment="main-head">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShopGrass</title>
-
-  <!-- nav css -->
-  <link rel="stylesheet" type="text/css" href="css/nav.css">
+  <!-- form-footer css -->
+  <link rel="stylesheet" type="text/css" href="/css/form-footer.css">
+  <!-- form-footer css -->
+  <link rel="stylesheet" type="text/css" href="/css/main-nav.css">
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
   <!-- font-awesome(아이콘) -->
@@ -37,8 +39,8 @@
 </head>
 
 <!-- main-nav -->
-<nav th:fragment="main-nav" class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/" th:href="@{/}">
+<nav th:fragment="main-nav" class="navbar  bg-light navbar-expand-lg shadow-sm">
+  <a class="navbar-brand" href="/" th:href="@{/}" style="margin-left: 4%;">
     <img src="/images/logo.png" class="img-fluid" id="logo" alt="회사로고" width="200" height="50">
   </a>
   <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +50,6 @@
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ms-auto justify-content-end me-3">
-      <li class="nav-item menu-item">
-        <a class="nav-link" href="company.html">회사소개</a>
-      </li>
       <li class="nav-item dropdown menu-item">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           예초/벌초
@@ -74,11 +73,8 @@
       <li class="nav-item menu-item">
         <a class="nav-link" href="#">고객센터</a>
       </li>
-      <li class="nav-item menu-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
     </ul>
-    <ul class="navbar-nav ms-auto justify-content-end me-3">
+    <ul class="navbar-nav justify-content-end"style="margin-right: 2%;">
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="nav-link" th:href="@{/login}">로그인</a>
       </li>
@@ -90,12 +86,12 @@
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           <svg th:if="${#strings.isEmpty(account?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
-               width="35" height="35" class="rounded border bg-light"></svg>
+               width="45" height="45" class="rounded border bg-light"></svg>
           <img th:if="${!#strings.isEmpty(account?.profileImage)}" th:src="${account.profileImage}"
-               width="35" height="35" class="rounded border"/>
+               width="45" height="45" class="rounded border"/>
 
         </a>
-        <div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="userDropdown">
+        <div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="userDropdown" >
           <h6 class="dropdown-header">
             <span sec:authentication="name">Username</span>
           </h6>
@@ -112,7 +108,7 @@
 </nav>
 
 <!-- form-nav -->
-<nav th:fragment="form-nav" class="navbar-form">
+<nav th:fragment="form-nav" class="navbar-form bg-light">
   <a href="/" th:href="@{/}"><img src="images/logo.png" alt="로고"></a>
 </nav>
 

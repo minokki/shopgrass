@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments.html :: head">
+<head th:replace="fragments.html :: main-head">
 </head>
 
 
 <body class="bg-light">
 <div th:replace="fragments.html :: main-nav"></div>
 
-<div class="container">
-  <div class="row mt-5 justify-content-center">
+<div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
+  <div class="row mt-5 mb-5 justify-content-center">
     <div class="col-2">
       <div th:replace="fragments.html :: settings-menu(currentMenu='nickname')"></div>
     </div>
@@ -38,15 +38,15 @@
             </small>
             <small class="invalid-feedback">닉네임을 입력하세요.</small>
             <small class="form-text text-danger" th:if="${#fields.hasErrors('nickname')}"
-                   th:errors="*{nickname}">nickname error</small>
+                   th:errors="*{nickname}" style="display: block">nickname error</small>
           </div>
-          <div class="form-group">
+          <div class="form-group mt-2">
             <button class="btn btn-primary btn-block" type="submit" aria-describedby="submitHelp">수정하기</button>
           </div>
         </form>
       </div>
 
-      <div class="row">
+      <div class="row mt-5">
         <div class="col-sm-12">
           <h2 class="text-danger">계정 삭제</h2>
           <div class="alert alert-danger" role="alert">
@@ -58,6 +58,9 @@
     </div>
   </div>
 </div>
+
+<!-- form-footer-->
+<div th:replace="fragments.html :: form-footer"></div>
 
 <script type="application/javascript" th:fragment="form-validation">
 </script>
