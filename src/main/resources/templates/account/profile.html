@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments.html :: main-head">
+<head th:replace="fragments-main.html :: main-head">
 
 </head>
 
 
 <body class="bg-light">
-<div th:replace="fragments.html :: main-nav"></div>
+<div th:replace="fragments-main.html :: nav"></div>
 
 <div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
     <div class="row mt-5 justify-content-center">
@@ -85,7 +85,7 @@
 
 
 <!-- form-footer-->
-<div th:replace="fragments.html :: form-footer"></div>
+<div th:replace="fragments-form.html :: footer"></div>
 
 
 

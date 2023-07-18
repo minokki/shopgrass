@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments.html :: form-head">
+<head th:replace="fragments-form.html :: head">
 </head>
 
 <body class="bg-light">
 
 <!-- form-navbar -->
-<div th:replace="fragments.html :: form-nav"></div>
+<div th:replace="fragments-form.html :: nav"></div>
 
 <!-- 콘텐츠 영역-->
 <div class="container-fluid">
@@ -374,7 +374,7 @@
 </div>
 
 <!-- form-footer-->
-<div th:replace="fragments.html :: form-footer"></div>
+<div th:replace="fragments-form.html :: footer"></div>
 
 <!-- 이용약관 체크 js-->
 <script>

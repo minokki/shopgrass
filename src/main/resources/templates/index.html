@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments.html :: main-head">
-
-</head>
+<head th:replace="fragments-main.html :: index-head"></head>
 
 <body class="bg-light">
-<div th:replace="fragments.html :: main-nav" class="navbar"></div>
+<div th:replace="fragments-main.html :: nav" class="navbar"></div>
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
@@ -19,7 +18,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <div class="carousel-image" style="background-image: url('/images/12.png'); animation: zoom 10s infinite;">
+            <div class="carousel-image" style="background-image: url('/images/ccc.jpg'); animation: zoom 10s infinite;">
                 <div class="carousel-caption text-center">
                     <h3>드론</h3>
                     <p>고기능 드론 기술로 어려운 장소도 쉽게 관리하고, 빠르게 정보를 수집합니다.</p>
@@ -27,103 +26,158 @@
             </div>
         </div>
         <div class="carousel-item">
-            <div class="carousel-image" style="background-image: url('/images/logo.png'); animation: zoom 10s infinite;">
+            <div class="carousel-image" style="background-image: url('/images/eeeee.jpg'); animation: zoom 10s infinite;">
                 <div class="carousel-caption text-center">
                     <h3>드론</h3>
                     <p>고기능 드론 기술로 어려운 장소도 쉽게 관리하고, 빠르게 정보를 수집합니다.</p>
                 </div>
             </div>
         </div>
+        <!-- 경고 메시지 -->
+        <div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}" style="position: absolute; top: 0; left: 0; right: 0; z-index: 999;">
+            벌초박사 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요.
+        </div>
     </div>
 </div>
 
-<section class="home-reserve" style="height: 150px;"></section>
-<style>
-    /* 캐러셀 */
 
-    .carousel {
-        height: 100vh; /* 화면 전체 높이로 설정 */
-    }
-    .carousel-item {
-        background-size: cover;
-        background-position: center center;
+<section class="home-reserve" style="height: 100px;"></section>
 
-        background-size: 100% 100%;
-        transition: background-size 2.5s;
-        height: 100%; /* 각 캐러셀 항목을 화면 전체 높이로 설정 */
-        background-attachment: fixed;
-    }
-    .carousel-inner {
-        height: 100%; /* 내부 요소를 화면 전체 높이로 설정 */
+<!-- 첫번째 소개 -->
+<section class="content-story">
+    <div class="content-section">
+        <div class="inner-section">
+            <h2 >벌초</h2>
+            <h3><br>잔디 예초</h3>
+            <div class="text">
+                <div class="text-inner">
+                    <p class="j">예초(Pre-emergent) 관련 드론은 농작물이 아직 싹을 틔우기 전에 잡초의 발생을 예방하고 <br>
+                        제어하기 위해 사용되는 드론입니다. <br>
+                        이 드론은 다양한 기술과 장비를 활용하여 작물에 해로운 잡초의 번식과 확산을 억제하고, <br>
+                        작물의 성장을 보호하고 향상시키는 역할을 합니다. </p>
+                    <div class="btn-more-inner">
+                        <a href="/our-story">
+                            MORE
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="10" viewBox="0 0 60 10">
+                                <path d="M1,5 L59,5" stroke="#000" stroke-width="1" fill="none" />
+                                <path d="M54,1 L59,5 L54,9" stroke="#000" stroke-width="1" fill="none" />
+                            </svg>
+                        </a>
+                     </div>
+                </div>
+            </div>
+        </div>
 
-    }
-    @keyframes zoom {
-        0% {
-            background-size: 120% 120%;
-        }
-        50% {
-            background-size: 100% 100%;
-        }
-        100% {
-            background-size: 120% 120%;
-        }
-    }
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="/images/55.jpg" alt="Image 1" class="image">
+                </div>
+                <div class="swiper-slide"></div>
+            </div>
+            <!-- 추가: 페이드 효과를 위한 슬라이더 효과 클래스 설정 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
 
-    .carousel-image {
-        width: 100%;
-        height: 92vh;
-        background-size: cover;
-        background-position: center;
-    }
-    /* == 캐러셀 끝 == */
+<!-- 두번째 소개 -->
+<section class="content-story">
+    <div class="content-section">
+        <div class="image-container_2">
+            <div class="image-wrapper_2">
+                <div class="swiper-slide">
+                    <img src="/images/33.jpg" alt="Image 1" class="image">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/images/44.jpg" alt="Image 1" class="image">
+                </div>
+            </div>
+        </div>
+        <div class="inner-section">
+            <h2 >벌초</h2>
+            <h3><br>잔디 예초</h3>
+            <div class="text">
+                <div class="text-inner">
+                    <p class="j">예초(Pre-emergent) 관련 드론은 농작물이 아직 싹을 틔우기 전에 잡초의 발생을 예방하고 <br>
+                        제어하기 위해 사용되는 드론입니다. <br>
+                        이 드론은 다양한 기술과 장비를 활용하여 작물에 해로운 잡초의 번식과 확산을 억제하고, <br>
+                        작물의 성장을 보호하고 향상시키는 역할을 합니다. </p>
+                    <div class="btn-more-inner">
+                        <a href="/our-story">
+                            MORE
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="10" viewBox="0 0 60 10">
+                                <path d="M1,5 L59,5" stroke="#000" stroke-width="1" fill="none" />
+                                <path d="M54,1 L59,5 L54,9" stroke="#000" stroke-width="1" fill="none" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 두번째 소개 끝 -->
 
-    /* 캐러셀 텍스트 */
-    .carousel-caption {
-        position: absolute;
-        right: 15%;
-        bottom: 20px;
-        left: 15%;
-        z-index: 10;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        color: #fff;
-        text-align: center;
-        animation: slide-in 3s;
-    }
+<!-- 세번째 소개 -->
+<section class="content-story">
+    <div class="content-section">
+        <div class="inner-section">
+            <h2 >벌초</h2>
+            <h3><br>잔디 예초</h3>
+            <div class="text">
+                <div class="text-inner">
+                    <p class="j">예초(Pre-emergent) 관련 드론은 농작물이 아직 싹을 틔우기 전에 잡초의 발생을 예방하고 <br>
+                        제어하기 위해 사용되는 드론입니다. <br>
+                        이 드론은 다양한 기술과 장비를 활용하여 작물에 해로운 잡초의 번식과 확산을 억제하고, <br>
+                        작물의 성장을 보호하고 향상시키는 역할을 합니다. </p>
+                    <div class="btn-more-inner">
+                        <a href="/our-story">
+                            MORE
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="10" viewBox="0 0 60 10">
+                                <path d="M1,5 L59,5" stroke="#000" stroke-width="1" fill="none" />
+                                <path d="M54,1 L59,5 L54,9" stroke="#000" stroke-width="1" fill="none" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    .carousel-item:nth-child(1) .carousel-caption {
-        bottom: 30%; /* 첫 번째 슬라이드의 텍스트 위치 변경 */
-    }
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="/images/22.jpg" alt="Image 1" class="image">
+                </div>
+                <div class="swiper-slide"></div>
+            </div>
+            <!-- 추가: 페이드 효과를 위한 슬라이더 효과 클래스 설정 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
 
-    .carousel-item:nth-child(2) .carousel-caption {
-        bottom: 30%; /* 두 번째 슬라이드의 텍스트 위치 변경 */
-    }
 
-    .carousel-item:nth-child(3) .carousel-caption {
-        bottom: 30%; /* 세 번째 슬라이드의 텍스트 위치 변경 */
-    }
+<section class="home-reserve" style="height: 100px;">
+</section>
+<section class="home-reserve" style="height: 600px; background-image: url('/images/123.jpg'); background-attachment: fixed; background-position: center bottom;">
+</section>
 
-    /* 캐러셀 텍스트 애니메이션 */
-    @keyframes slide-in {
-        0% {
-            transform: translateY(100%); /* 텍스트가 아래에서 시작 */
-            opacity: 0;
-        }
-        100% {
-            transform: translateY(0); /* 텍스트가 원래 위치로 올라옴 */
-            opacity: 1;
-        }
-    }
-    /* == 캐러셀 텍스트 끝 == */
-</style>
 
-<script>
-    //  캐러셀이 마우스 오버 시 일시 중지되는 동작을 제어
-    var myCarousel = document.querySelector('#carouselExampleControls')
-    var carousel = new bootstrap.Carousel(myCarousel, {
-        pause: false
-    });
-</script>
+<footer>
+
+    <ul class="footer_const">
+        <li>시행 <span>고팡</span></li>
+        <li>시공 <span>벌초박사</span></li>
+    </ul>
+    <p>홈페이지에 사용된 CG 및 이미지 컷은 소비자의 이해를 돕기위한 것으로 사업과정 및 실제 시공에 따라 변경될 수 있습니다.<br>본 홈페이지는 옥동 경남아너스빌 ubc 공식홈페이지입니다.<br>온라인대행. (주)로빈스앤컴퍼니&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;서울특별시 강남구 학동로97길 43-5(청담동)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;대표. 강명훈&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;등록번호. 220-86-53288</p>
+    <h6>2022 POWERED BY Robins &amp; Company. ALL RIGHT RESERVED.</h6>
+    <img src="img/common/main_footer_bg.png" alt="" class="main_footer_bg">
+</footer>
+
+
+<!-- carousel-js -->
+<script th:replace="fragments-main.html :: carousel-javascript"></script>
 
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments.html :: main-head"></head>
+<head th:replace="fragments-form.html :: head"></head>
 <body class="bg-light">
-<div th:replace="fragments.html :: main-nav"></div>
+<div th:replace="fragments-form.html :: nav"></div>
 
 <div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
   <div class="py-5 text-center">
@@ -47,7 +47,8 @@
   </div>
 </div>
 
-<div th:replace="fragments.html :: form-footer"></div>
-<script th:replace="fragments.html :: form-validation"></script>
+<div th:replace="fragments-form.html :: footer"></div>
+
+<script th:replace="fragments-form.html :: form-validation"></script>
 </body>
 </html>
