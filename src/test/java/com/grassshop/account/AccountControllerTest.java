@@ -1,6 +1,8 @@
 package com.grassshop.account;
 
 import com.grassshop.domain.Account;
+import com.grassshop.mail.EmailMessage;
+import com.grassshop.mail.EmailService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -30,7 +32,8 @@ class AccountControllerTest {
 
     @Autowired MockMvc mockMvc;
     @Autowired AccountRepository accountRepository;
-    @MockBean JavaMailSender javaMailSender;
+    @MockBean
+    EmailService emailService;
 
     @DisplayName("인증메일 확인 - 입력값 오류")
     @Test
@@ -108,7 +111,7 @@ class AccountControllerTest {
         //이메일이 존재하는지
         assertTrue(accountRepository.existsByEmail("regular2644@gmail.com"));
         //메일 보내기 기능 확인
-        then(javaMailSender).should().send(any(SimpleMailMessage.class));
+        then(emailService).should().sendEmail(any(EmailMessage.class));
     }
 
 }

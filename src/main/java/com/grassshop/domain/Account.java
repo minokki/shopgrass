@@ -3,7 +3,6 @@ package com.grassshop.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -42,19 +41,13 @@ public class Account {
     @Lob @Basic(fetch = FetchType.LAZY)  //lob = 텍스트 타입
     private String profileImage;
 
-    private boolean shopCreateByEmail;
-
-    private boolean shopCreateByWeb;
-
-    private boolean shopEnrollmentResultByEmail;
-
-    private boolean shopEnrollmentResultByWeb;
-
-    private boolean shopUpdatedByEmail;
-
-    private boolean shopUpdatedByWeb;
-
     private LocalDateTime emailCheckTokenGeneratedAt;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;  // 사용자의 권한 정보 (USER 또는 ADMIN)
+
+    @Column(nullable = false)
+    private String userType;
 
 
     public void generateEmailCheckToken() {
@@ -67,7 +60,7 @@ public class Account {
        this.joinedAt=LocalDateTime.now();
     }
     public boolean canSendConfirmEmail() {
-        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusMinutes(5));
     }
 
     public boolean isValidToken(String token) {

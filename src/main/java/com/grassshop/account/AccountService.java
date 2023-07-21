@@ -1,11 +1,15 @@
 package com.grassshop.account;
 
+import com.grassshop.config.AppProperties;
 import com.grassshop.domain.Account;
-import com.grassshop.settings.PasswordForm;
+import com.grassshop.domain.Role;
+import com.grassshop.mail.EmailMessage;
+import com.grassshop.mail.EmailService;
 import com.grassshop.settings.Profile;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import lombok.extern.slf4j.Slf4j;
+import com.grassshop.domain.Role; // com.grassshop.domain.Role을 import
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -16,24 +20,29 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
-    private final JavaMailSender javaMailSender;
+    private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
+    private final TemplateEngine templateEngine;
+    private final AppProperties appProperties;
 
 
     public Account processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm); //아래 메서드는 영속성 컨텍스트 상태임. 그 정보를 가지고 토큰 생성후 저장하려면, 트랜젝션 어노테이션 작성해줘야함
         //이메일 체크토큰 생성
         newAccount.generateEmailCheckToken();
-        sentConfirmEmail(newAccount);
+//        sentConfirmEmail(newAccount);
         return newAccount;
     }
     private Account saveNewAccount(SignUpForm signUpForm) {
@@ -41,21 +50,30 @@ public class AccountService implements UserDetailsService {
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())
                 .password(passwordEncoder.encode(signUpForm.getPassword())) //패스워드 인코드
-                .shopCreateByWeb(true)
-                .shopEnrollmentResultByWeb(true)
-                .shopUpdatedByWeb(true)
+                .role(Role.USER)
+                .userType(signUpForm.getUserType())
                 .build();
         Account newAccount = accountRepository.save(account);  //회원저장
         return newAccount;
     }
 
+    //인증 이메일 보내기
     public void sentConfirmEmail(Account newAccount) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(newAccount.getEmail());
-        mailMessage.setSubject("벌초박사, 회원가입 인증");
-        mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken() +
+        Context context = new Context();
+        context.setVariable("link","/check-email-token?token=" + newAccount.getEmailCheckToken() +
                 "&email=" + newAccount.getEmail());
-        javaMailSender.send(mailMessage);
+        context.setVariable("nickname",newAccount.getNickname());
+        context.setVariable("linkName", "이메일 인증하기");
+        context.setVariable("message","벌초박사 서비스를 사용하려면 링크를 클릭하세요.");
+        context.setVariable("host",appProperties.getHost());
+        String message = templateEngine.process("mail/email-link", context);
+
+        EmailMessage emailMessage = EmailMessage.builder()
+                .to(newAccount.getEmail())
+                .subject("벌초박사, 회원가입 인증")
+                .message(message)
+                .build();
+        emailService.sendEmail(emailMessage);
     }
 
 
@@ -109,12 +127,23 @@ public class AccountService implements UserDetailsService {
         login(account);
     }
 
+//    로그인링크
     public void sendLoginLing(Account account) {
-        account.generateEmailCheckToken();
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(account.getEmail());
-        mailMessage.setSubject("벌초박사, 로그인 링크");
-        mailMessage.setText("/login-by-email?token=" + account.getEmailCheckToken() + "&email=" + account.getEmail());
-        javaMailSender.send(mailMessage);
+        Context context = new Context();
+        context.setVariable("link","/login-by-email?token=" + account.getEmailCheckToken() + "&email=" + account.getEmail());
+        context.setVariable("nickname",account.getNickname());
+        context.setVariable("linkName", "이메일로 로그인하기");
+        context.setVariable("message","로그인 하려면 아래 링크를 클릭하세요.");
+        context.setVariable("host",appProperties.getHost());
+        String message = templateEngine.process("mail/email-link", context);
+
+        EmailMessage emailMessage = EmailMessage.builder()
+                .to(account.getEmail())
+                .subject("벌초박사, 로그인 링크")
+                .message(message)
+                        .build();
+
+        emailService.sendEmail(emailMessage);
+
     }
 }

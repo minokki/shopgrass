@@ -22,4 +22,8 @@ public class SignUpForm {
     @NotBlank
     @Length(min = 8, max=50)
     private String password;
+
+    @NotBlank(message = "선택되지 않았습니다. 버튼을 선택하고 다시 진행해주세요.")
+    private String userType;
+
 }

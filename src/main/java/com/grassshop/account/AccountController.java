@@ -32,6 +32,7 @@ public class AccountController {
     public String terms(){
         return "account/terms";
     }
+
     //회원가입 get
     @GetMapping("/sign-up")
     public String signUpForm(Model model){
@@ -46,7 +47,6 @@ public class AccountController {
         }
         Account account = accountService.processNewAccount(signUpForm);
         accountService.login(account);
-        //todo 회원가입 처리
         return "redirect:/";
     }
     //이메일 토큰
@@ -72,13 +72,14 @@ public class AccountController {
     @GetMapping("/check-email")
     public String checkEmail(@CurrentUser Account account, Model model){
         model.addAttribute("email",account.getEmail());
+        accountService.sentConfirmEmail(account);
         return "account/check-email";
     }
     //인증메일 재전송
     @GetMapping("resend-confirm-email")
     public String resendConfirmEmail(@CurrentUser Account account, Model model){
         if(!account.canSendConfirmEmail()){
-            model.addAttribute("error","인증 이메일은 1시간에 한번만 전송할 수 있습니다.");
+            model.addAttribute("error","인증 이메일은 5분에 한번만 전송할 수 있습니다.");
             model.addAttribute("email", account.getEmail());
             return "account/check-email";
         }

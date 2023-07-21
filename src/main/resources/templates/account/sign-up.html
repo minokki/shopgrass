@@ -52,6 +52,25 @@
                 </div>
             </div>
 
+            <div class="form-group" style="margin-top: 15px; display: flex; justify-content: center;">
+                <div style="flex: 1; text-align: center;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="buyer" name="userType" value="수요자" required th:checked="${signUpForm.userType == '수요자'}">
+                        <label class="custom-control-label" for="buyer">수요자</label>
+                    </div>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="seller" name="userType" value="공급자" required th:checked="${signUpForm.userType == '공급자'}">
+                        <label class="custom-control-label" for="seller">공급자</label>
+                    </div>
+                </div>
+            </div>
+            <small class="form-text text-muted" style="display: block">
+                공급자와 수요자를 확인하고 있습니다. 버튼 하나를 선택해주세요.
+            </small>
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('userType')}" th:errors="*{userType}" style=" display: block">userType Error</small>
+
             <div class="form-group" style="margin-top: 30px;">
                 <button class="btn btn-success btn-block col-sm-12" type="submit"
                         aria-describedby="submitHelp" s>가입하기</button>
