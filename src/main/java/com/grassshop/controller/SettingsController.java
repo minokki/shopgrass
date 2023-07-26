@@ -1,9 +1,14 @@
-package com.grassshop.settings;
+package com.grassshop.controller;
 
-import com.grassshop.account.AccountRepository;
-import com.grassshop.account.AccountService;
+import com.grassshop.dto.NicknameForm;
+import com.grassshop.dto.PasswordForm;
+import com.grassshop.dto.Profile;
+import com.grassshop.repository.AccountRepository;
+import com.grassshop.service.AccountService;
 import com.grassshop.account.CurrentUser;
 import com.grassshop.domain.Account;
+import com.grassshop.validator.NicknameFormValidator;
+import com.grassshop.validator.PasswordFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

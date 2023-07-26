@@ -1,4 +1,4 @@
-package com.grassshop.settings;
+package com.grassshop.dto;
 
 import com.grassshop.domain.Account;
 import lombok.Data;

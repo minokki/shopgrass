@@ -1,5 +1,6 @@
-package com.grassshop.settings;
+package com.grassshop.validator;
 
+import com.grassshop.dto.PasswordForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

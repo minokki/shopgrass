@@ -1,6 +1,6 @@
 package com.grassshop.config;
 
-import com.grassshop.account.AccountService;
+import com.grassshop.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,6 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -34,6 +32,7 @@ public class SecurityConfig {
                 .mvcMatchers("/", "/login", "/sign-up", "/check-email-token","/login-by-email",
                         "/email-login", "/check-email-login","terms", "login-link", "/profile/*").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+                .mvcMatchers("/admin/**").hasRole("ADMIN") // 고객센터 메뉴는 ADMIN 권한 필요
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

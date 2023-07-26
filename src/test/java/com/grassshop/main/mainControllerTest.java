@@ -1,8 +1,8 @@
 package com.grassshop.main;
 
-import com.grassshop.account.AccountRepository;
-import com.grassshop.account.AccountService;
-import com.grassshop.account.SignUpForm;
+import com.grassshop.repository.AccountRepository;
+import com.grassshop.service.AccountService;
+import com.grassshop.dto.SignUpForm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

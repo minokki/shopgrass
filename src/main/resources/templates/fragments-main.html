@@ -80,8 +80,8 @@
           <li><a class="dropdown-item" href="#">서비스 3</a></li>
         </ul>
       </li>
-      <li class="nav-item menu-item">
-        <a class="nav-link" href="#">고객센터</a>
+      <li class="nav-item menu-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+        <a class="nav-link" href="#" th:href="@{/item/itemView}" >고객센터</a>
       </li>
     </ul>
     <ul class="navbar-nav justify-content-end"style="margin-right: 2%;">
@@ -198,4 +198,5 @@
     speed: 3000, // 이미지 전환 속도 (ms)
   });
 </script>
+
 </html>

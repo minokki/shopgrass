@@ -1,14 +1,16 @@
-package com.grassshop.account;
+package com.grassshop.service;
 
+import com.grassshop.repository.AccountRepository;
+import com.grassshop.account.UserAccount;
 import com.grassshop.config.AppProperties;
 import com.grassshop.domain.Account;
-import com.grassshop.domain.Role;
+import com.grassshop.constant.Role;
+import com.grassshop.dto.SignUpForm;
 import com.grassshop.mail.EmailMessage;
 import com.grassshop.mail.EmailService;
-import com.grassshop.settings.Profile;
+import com.grassshop.dto.Profile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.grassshop.domain.Role; // com.grassshop.domain.Role을 import
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -45,7 +47,7 @@ public class AccountService implements UserDetailsService {
 //        sentConfirmEmail(newAccount);
         return newAccount;
     }
-    private Account saveNewAccount(SignUpForm signUpForm) {
+    public Account saveNewAccount(SignUpForm signUpForm) {
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())
@@ -76,15 +78,15 @@ public class AccountService implements UserDetailsService {
         emailService.sendEmail(emailMessage);
     }
 
-
+//로그인
     public void login(Account account) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                new UserAccount(account),
-                account.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_USER")));
+                new UserAccount(account), //사용자 정보
+                account.getPassword(), //사용자 패스워드
+                new UserAccount(account).getAuthorities()); // 여기서 authorities 메서드를 이용하여 권한 추가
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(token);
-    }
+}
 
     @Transactional(readOnly = true)
     @Override

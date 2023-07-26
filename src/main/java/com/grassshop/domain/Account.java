@@ -1,5 +1,6 @@
 package com.grassshop.domain;
 
+import com.grassshop.constant.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode(of="id")
 @Builder @AllArgsConstructor @NoArgsConstructor
-public class Account {
+public class Account extends BaseEntity{
 
     @Id @GeneratedValue
     private Long id;

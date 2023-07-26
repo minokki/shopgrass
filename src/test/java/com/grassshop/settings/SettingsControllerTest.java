@@ -1,7 +1,7 @@
 package com.grassshop.settings;
 
 import com.grassshop.WithAccount;
-import com.grassshop.account.AccountRepository;
+import com.grassshop.repository.AccountRepository;
 import com.grassshop.domain.Account;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

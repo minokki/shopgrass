@@ -1,4 +1,4 @@
-package com.grassshop.settings;
+package com.grassshop.dto;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

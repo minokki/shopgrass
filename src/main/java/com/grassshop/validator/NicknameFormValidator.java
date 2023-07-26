@@ -1,7 +1,8 @@
-package com.grassshop.settings;
+package com.grassshop.validator;
 
-import com.grassshop.account.AccountRepository;
+import com.grassshop.repository.AccountRepository;
 import com.grassshop.domain.Account;
+import com.grassshop.dto.NicknameForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

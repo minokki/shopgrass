@@ -1,4 +1,4 @@
-package com.grassshop.domain;
+package com.grassshop.constant;
 
 public enum Role {
     USER,

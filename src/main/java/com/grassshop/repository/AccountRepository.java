@@ -1,4 +1,4 @@
-package com.grassshop.account;
+package com.grassshop.repository;
 
 import com.grassshop.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

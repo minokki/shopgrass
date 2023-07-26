@@ -1,5 +1,7 @@
-package com.grassshop.account;
+package com.grassshop.validator;
 
+import com.grassshop.repository.AccountRepository;
+import com.grassshop.dto.SignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
