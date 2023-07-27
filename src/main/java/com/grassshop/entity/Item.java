@@ -1,4 +1,4 @@
-package com.grassshop.domain;
+package com.grassshop.entity;
 
 import com.grassshop.constant.ItemStatus;
 import com.grassshop.dto.ItemFormDto;

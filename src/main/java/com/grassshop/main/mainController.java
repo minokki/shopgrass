@@ -1,7 +1,7 @@
 package com.grassshop.main;
 
 import com.grassshop.account.CurrentUser;
-import com.grassshop.domain.Account;
+import com.grassshop.entity.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

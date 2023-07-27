@@ -1,10 +1,8 @@
 package com.grassshop.dto;
 
 import com.grassshop.constant.ItemStatus;
-import com.grassshop.domain.Item;
+import com.grassshop.entity.Item;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;

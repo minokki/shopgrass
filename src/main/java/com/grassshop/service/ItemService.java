@@ -1,7 +1,7 @@
 package com.grassshop.service;
 
-import com.grassshop.domain.Item;
-import com.grassshop.domain.ItemImg;
+import com.grassshop.entity.Item;
+import com.grassshop.entity.ItemImg;
 import com.grassshop.dto.ItemFormDto;
 import com.grassshop.dto.ItemImgDto;
 import com.grassshop.repository.ItemImgRepository;
@@ -68,6 +68,8 @@ public class ItemService {
             itemImgService.updateItemImg(itemImgIds.get(i),
                     itemImgFileList.get(i));
         }
+
+
 
         return item.getId();
     }

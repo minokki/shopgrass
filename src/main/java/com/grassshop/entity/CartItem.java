@@ -1,4 +1,4 @@
-package com.grassshop.domain;
+package com.grassshop.entity;
 
 import lombok.Getter;
 import lombok.Setter;

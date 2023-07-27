@@ -1,10 +1,9 @@
 package com.grassshop.service;
 
 import com.grassshop.constant.ItemStatus;
-import com.grassshop.domain.Item;
-import com.grassshop.domain.ItemImg;
+import com.grassshop.entity.Item;
+import com.grassshop.entity.ItemImg;
 import com.grassshop.dto.ItemFormDto;
-import com.grassshop.dto.SignUpForm;
 import com.grassshop.repository.ItemImgRepository;
 import com.grassshop.repository.ItemRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

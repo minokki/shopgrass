@@ -1,6 +1,6 @@
 package com.grassshop.dto;
 
-import com.grassshop.domain.Account;
+import com.grassshop.entity.Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;

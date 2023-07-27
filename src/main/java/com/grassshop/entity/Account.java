@@ -1,7 +1,8 @@
-package com.grassshop.domain;
+package com.grassshop.entity;
 
 import com.grassshop.constant.Role;
 import lombok.*;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ import java.util.UUID;
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Account extends BaseEntity{
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     @Column(unique = true)
@@ -39,7 +41,8 @@ public class Account extends BaseEntity{
 
     private String location;
 
-    @Lob @Basic(fetch = FetchType.LAZY)  //lob = 텍스트 타입
+    @Lob
+    @Basic(fetch = FetchType.LAZY)  //lob = 텍스트 타입
     private String profileImage;
 
     private LocalDateTime emailCheckTokenGeneratedAt;

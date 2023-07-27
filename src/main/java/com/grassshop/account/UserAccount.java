@@ -1,7 +1,7 @@
 package com.grassshop.account;
 
 import com.grassshop.constant.Role;
-import com.grassshop.domain.Account;
+import com.grassshop.entity.Account;
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

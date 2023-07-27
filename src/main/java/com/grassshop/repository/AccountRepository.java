@@ -1,6 +1,6 @@
 package com.grassshop.repository;
 
-import com.grassshop.domain.Account;
+import com.grassshop.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

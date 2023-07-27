@@ -1,6 +1,6 @@
 package com.grassshop.account;
 
-import com.grassshop.domain.Account;
+import com.grassshop.entity.Account;
 import com.grassshop.mail.EmailMessage;
 import com.grassshop.mail.EmailService;
 import com.grassshop.repository.AccountRepository;

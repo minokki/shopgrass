@@ -4,7 +4,7 @@ import com.grassshop.repository.AccountRepository;
 import com.grassshop.service.AccountService;
 import com.grassshop.account.CurrentUser;
 import com.grassshop.dto.SignUpForm;
-import com.grassshop.domain.Account;
+import com.grassshop.entity.Account;
 import com.grassshop.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 

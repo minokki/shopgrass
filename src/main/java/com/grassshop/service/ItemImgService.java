@@ -1,6 +1,6 @@
 package com.grassshop.service;
 
-import com.grassshop.domain.ItemImg;
+import com.grassshop.entity.ItemImg;
 import com.grassshop.repository.ItemImgRepository;
 import com.grassshop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public class ItemImgService {
             //기존 이미지 파일 삭제
             if(!StringUtils.isEmpty(savedItemImg.getImgName())) {
                 fileService.deleteFile(itemImgLocation+"/"+
-                        savedItemImg.getImgName());
+                        savedItemImg.getOriImgName());
             }
 
             String oriImgName = itemImgFile.getOriginalFilename();

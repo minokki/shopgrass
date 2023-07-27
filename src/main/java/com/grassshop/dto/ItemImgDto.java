@@ -1,7 +1,6 @@
 package com.grassshop.dto;
 
-import com.grassshop.domain.Item;
-import com.grassshop.domain.ItemImg;
+import com.grassshop.entity.ItemImg;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;

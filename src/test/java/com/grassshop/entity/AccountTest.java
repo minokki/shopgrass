@@ -1,4 +1,4 @@
-package com.grassshop.domain;
+package com.grassshop.entity;
 
 import com.grassshop.repository.AccountRepository;
 import org.junit.jupiter.api.DisplayName;
