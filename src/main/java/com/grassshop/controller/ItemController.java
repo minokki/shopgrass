@@ -112,7 +112,7 @@ public class ItemController {
 
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
     public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 
         Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
         model.addAttribute("items", items);
@@ -135,7 +135,7 @@ public class ItemController {
         return "item/itemMain";
     }
 
-    @GetMapping(value = "item/{itemId}")
+    @GetMapping(value = "/item/{itemId}")
     public String getItemDetail(Model model, @PathVariable("itemId") Long itemId) {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         model.addAttribute("item", itemFormDto);

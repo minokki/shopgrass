@@ -52,18 +52,29 @@ public class BoardMainService {
 
     @Transactional(readOnly = true)
     public BoardMainFormDto getBoardMainDtl(Long boardMainId) {
+        // boardMainId에 해당하는 BoardMain 엔티티 조회
+        BoardMain boardMain = boardMainRepository.findById(boardMainId).orElseThrow(EntityNotFoundException::new);
 
+        // boardMainId에 해당하는 BoardMainImg 엔티티들 조회
         List<BoardMainImg> boardMainImgList = boardMainImgRepository.findByBoardMainIdOrderByIdAsc(boardMainId);
 
-        List<BoardMainImgDto> boardMainImgDtoList = new ArrayList<>();
+        // BoardMainFormDto에 필요한 정보 설정
+        BoardMainFormDto boardMainFormDto = new BoardMainFormDto();
+        boardMainFormDto.setId(boardMain.getId());
+        boardMainFormDto.setTitle(boardMain.getTitle());
+        boardMainFormDto.setContent(boardMain.getContent());
+
+        // BoardMainImg 엔티티의 example 값을 기준으로 이미지들을 분류하여 설정
         for (BoardMainImg boardMainImg : boardMainImgList) {
             BoardMainImgDto boardMainImgDto = BoardMainImgDto.ofv(boardMainImg);
-            boardMainImgDtoList.add(boardMainImgDto);
+            if (Example.BEFORE.equals(boardMainImg.getExample())) {
+                boardMainFormDto.setBeforeImgUrl(boardMainImg.getImgUrl());
+            } else if (Example.AFTER.equals(boardMainImg.getExample())) {
+                boardMainFormDto.setAfterImgUrl(boardMainImg.getImgUrl());
+            }
         }
 
-        BoardMain boardMain = boardMainRepository.findById(boardMainId).orElseThrow(EntityNotFoundException::new);
-        BoardMainFormDto boardMainFormDto = BoardMainFormDto.ofv(boardMain);
-        boardMainFormDto.setBoardMainImgDtoList(boardMainImgDtoList);
+        // 반환
         return boardMainFormDto;
     }
 

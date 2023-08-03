@@ -14,9 +14,9 @@ public class BoardMainImgDto {
 
     private String oriImgName;
 
-    private String imgUrl;
+    private String BeforeImgUrl;
 
-    private String repImgYn;
+    private String AfterImgUrl;
 
     private static ModelMapper modelMapper = new ModelMapper();
 

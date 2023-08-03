@@ -96,7 +96,7 @@ public class BoardMainController {
 
     @GetMapping(value = {"/admin/boardMains", "/admin/boardMains/{page}"})
     public String boardMainManage(BoardSearchDto boardSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 
         Page<BoardMain> boardMains = boardMainService.getAdminBoardMainPage(boardSearchDto, pageable);
         model.addAttribute("boardMains", boardMains);
@@ -116,5 +116,12 @@ public class BoardMainController {
         model.addAttribute("maxPage", 5);
 
         return "boardMain/boardMain";
+    }
+
+    @GetMapping(value = "/boardMain/{boardMainId}")
+    public String boardMainDtl(Model model, @PathVariable("boardMainId") Long boardMainId) {
+        BoardMainFormDto boardMainFormDto = boardMainService.getBoardMainDtl(boardMainId);
+        model.addAttribute("boardMain", boardMainFormDto);
+        return "boardMain/boardMainDetail";
     }
 }

@@ -19,6 +19,10 @@ public class BoardMainFormDto {
     @NotBlank(message = "내용은필수")
     private String content;
 
+    private String afterImgUrl; // after 이미지의 URL
+
+    private String beforeImgUrl; // before 이미지의 URL
+
     //게시글 수정시 이미지 정보 저장하는 리스트
     private List<BoardMainImgDto> boardMainImgDtoList = new ArrayList<>();
 
