@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .mvcMatchers("/", "/login", "/sign-up", "/check-email-token","/login-by-email",
                         "/email-login", "/check-email-login","terms", "login-link", "/profile/*").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+                .mvcMatchers("/images/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN") // 고객센터 메뉴는 ADMIN 권한 필요
                 .anyRequest().authenticated()
                 .and()
@@ -54,6 +55,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .mvcMatchers("/node_modules/**")
+                .mvcMatchers("/img/**")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }

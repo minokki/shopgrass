@@ -29,6 +29,7 @@ public class Item extends BaseEntity{
     @Column(nullable = false)
     private int stockNumber;
 
+    @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
     @Lob

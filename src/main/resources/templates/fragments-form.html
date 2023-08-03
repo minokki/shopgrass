@@ -17,7 +17,7 @@
 
 <!-- nav -->
 <nav th:fragment="nav" class="navbar-form bg-light">
-  <a href="/" th:href="@{/}"><img src="/images/logo.png" alt="로고"></a>
+  <a href="/" th:href="@{/}"><img src="/img/logo.png" alt="로고"></a>
 </nav>
 
 <!-- profile-menu -->
@@ -28,6 +28,16 @@
      th:href="@{/settings/password}">패스워드</a>
   <a class="list-group-item list-group-item-danger" th:classappend="${currentMenu == 'nickname'}? active" href="#"
      th:href="@{/settings/nickname}">계정</a>
+</div>
+
+<!-- account-menu -->
+<div th:fragment="account-menu (accountMenu)" class="list-group">
+  <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'profile'}? active" href="#"
+     th:href="@{'/profile/' + ${#authentication.name}}">소개</a>
+  <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'board'}? active" href="#"
+     th:href="@{/admin/boardMains}">시공사례</a>
+  <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'item'}? active" href="#"
+     th:href="@{/admin/items}">물품보기</a>
 </div>
 
 <!-- form-footer -->

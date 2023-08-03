@@ -2,6 +2,7 @@ package com.grassshop.controller;
 
 import com.grassshop.dto.ItemFormDto;
 import com.grassshop.dto.ItemSearchDto;
+import com.grassshop.dto.MainItemDto;
 import com.grassshop.entity.Item;
 import com.grassshop.service.ItemImgService;
 import com.grassshop.service.ItemService;
@@ -110,7 +111,7 @@ public class ItemController {
     }
 
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
-    public String itemManage(ItemSearchDto itemSearchDto , @PathVariable("page")Optional<Integer> page, Model model) {
+    public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
 
         Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
@@ -118,5 +119,26 @@ public class ItemController {
         model.addAttribute("itemSearchDto", itemSearchDto);
         model.addAttribute("maxPage", 5);
         return "item/itemMng";
+    }
+
+    //    물품 목록이동
+    @GetMapping(value = "/item/items")
+    public String getItemMain(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model) {
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+
+        model.addAttribute("items", items);
+        model.addAttribute("itemSearchDto", itemSearchDto);
+        model.addAttribute("maxPage", 5);
+
+        return "item/itemMain";
+    }
+
+    @GetMapping(value = "item/{itemId}")
+    public String getItemDetail(Model model, @PathVariable("itemId") Long itemId) {
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        model.addAttribute("item", itemFormDto);
+        return "item/itemDetail";
     }
 }

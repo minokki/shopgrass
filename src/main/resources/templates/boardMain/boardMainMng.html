@@ -12,58 +12,57 @@
 <div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
     <div class="row mt-5 mb-5 justify-content-center">
         <div class="col-2">
-            <div th:replace="fragments-form.html :: account-menu(accountMenu='item')"></div>
+            <div th:replace="fragments-form.html :: account-menu(accountMenu='board')"></div>
         </div>
 
         <div class="col-8">
-    <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
-        <h1>물품 검색</h1>
+    <form th:action="@{'/admin/boardMain/' + ${boardMains.number}}" role="form" method="get" th:object="${boardMains}">
+        <h1>시공사례 검색</h1>
         <table class="table">
             <thead>
             <tr>
-                <td class="bg-light">상품아이디</td>
-                <td class="bg-light">상품명</td>
-                <td class="bg-light">상태</td>
+                <td class="bg-light">시공사례번호</td>
+                <td class="bg-light">장소</td>
                 <td class="bg-light">등록자</td>
                 <td class="bg-light">등록일</td>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${items.getContent()}" class="bg-light">
-                <td th:text="${item.id}" class="bg-light"></td>
+            <tr th:each="boardMain : ${boardMains.getContent()}">
+                <td th:text="${boardMain.id}" class="bg-light"></td>
                 <td class="bg-light">
-                    <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
+                    <a th:href="'/admin/boardMain/'+${boardMain.id}" th:text="${boardMain.title}"></a>
                 </td>
-                <td th:text="${item.itemStatus}" class="bg-light"></td>
-             <td th:text="${item.createBy}" class="bg-light"></td>
-                <td th:text="${item.regTime}" class="bg-light"></td>
+             <td th:text="${boardMain.createBy}" class="bg-light"></td>
+                <td th:text="${boardMain.regTime}" class="bg-light"></td>
             </tr>
             </tbody>
         </table>
 
-        <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+        <div th:with="start=${(boardMains.number/maxPage)*maxPage + 1}, end=(${(boardMains.totalPages == 0) ? 1 : (start + (maxPage - 1) < boardMains.totalPages ? start + (maxPage - 1) : boardMains.totalPages)})" >
             <ul class="pagination justify-content-center">
 
-                <li class="page-item" th:classappend="${items.first}?'disabled'">
-                    <a th:onclick="'javascript:page(' + ${items.number - 1} + ')'" aria-label='Previous' class="page-link">
+                <li class="page-item" th:classappend="${boardMains.first}?'disabled'">
+                    <a th:onclick="'javascript:page(' + ${boardMains.number - 1} + ')'" aria-label='Previous' class="page-link">
                         <span aria-hidden='true'>Previous</span>
                     </a>
                 </li>
 
-                <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${boardMains.number eq page-1}?'active':''">
                     <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
                 </li>
 
-                <li class="page-item" th:classappend="${items.last}?'disabled'">
-                    <a th:onclick="'javascript:page(' + ${items.number + 1} + ')'" aria-label='Next' class="page-link">
+                <li class="page-item" th:classappend="${boardMains.last}?'disabled'">
+                    <a th:onclick="'javascript:page(' + ${boardMains.number + 1} + ')'" aria-label='Next' class="page-link">
                         <span aria-hidden='true'>Next</span>
                     </a>
                 </li>
 
             </ul>
+
         </div>
 
-        <div class="form-inline justify-content-center" th:object="${itemSearchDto}" style="display: flex; flex-wrap: wrap;">
+        <div class="form-inline justify-content-center" th:object="${boardSearchDto}" style="display: flex; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; margin-right: 10px;">
                 <select th:field="*{searchDateType}" class="form-control bg-light" style="width:auto;">
                     <option value="all">전체기간</option>
@@ -74,22 +73,12 @@
                 </select>
             </div>
             <div style="display: flex; align-items: center; margin-right: 10px;">
-
-                <select th:field="*{itemStatus}" class="form-control bg-light" style="width:auto;">
-                    <option value="">판매상태(전체)</option>
-                    <option value="SELL">판매</option>
-                    <option value="SOLD_OUT">품절</option>
-                </select>
-            </div>
-            <div style="display: flex; align-items: center; margin-right: 10px;">
-
                 <select th:field="*{searchBy}" class="form-control bg-light" style="width:auto;">
-                    <option value="itemNm">상품명</option>
+                    <option value="title">제목</option>
                     <option value="createdBy">등록자</option>
                 </select>
             </div>
             <div style="display: flex; align-items: center; margin-right: 10px;">
-
                 <input th:field="*{searchQuery}" type="text" class="form-control bg-light" placeholder="검색어를 입력해주세요">
             </div>
             <button id="searchBtn" type="submit" class="btn btn-primary">검색</button>
@@ -97,9 +86,8 @@
     </form>
 </div>
 </div>
-
-<!-- form-footer-->
 <div th:replace="fragments-form.html :: footer"></div>
+    <!-- form-footer-->
 
 <script th:inline="javascript">
 
@@ -112,12 +100,10 @@
 
     function page(page){
         var searchDateType = $("#searchDateType").val();
-        var itemStatus = $("#itemStatus").val();
         var searchBy = $("#searchBy").val();
         var searchQuery = $("#searchQuery").val();
 
-        location.href="/admin/items/" + page + "?searchDateType=" + searchDateType
-            + "&itemStatus=" + itemStatus
+        location.href="/admin/boardMains/" + page + "?searchDateType=" + searchDateType
             + "&searchBy=" + searchBy
             + "&searchQuery=" + searchQuery;
     }

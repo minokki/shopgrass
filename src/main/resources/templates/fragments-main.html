@@ -51,7 +51,7 @@
 <!-- nav -->
 <nav th:fragment="nav" class="navbar  bg-light navbar-expand-lg shadow-sm">
   <a class="navbar-brand" href="/" th:href="@{/}" style="margin-left: 4%;">
-    <img src="/images/logo.png" class="img-fluid" id="logo" alt="회사로고" width="200" height="50">
+    <img src="/img/logo.png" class="img-fluid" id="logo" alt="회사로고" width="200" height="50">
   </a>
   <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon border-0"></span>
@@ -79,10 +79,19 @@
           <li><a class="dropdown-item" href="#">서비스 3</a></li>
         </ul>
       </li>
+      <li class="nav-item menu-item">
+        <a class="nav-link" href="#" th:href="@{/boardMain/boardMains}" >시공사례</a>
+      </li>
+      <li class="nav-item menu-item">
+        <a class="nav-link" href="#" th:href="@{/item/items}" >물품목록</a>
+      </li>
       <li class="nav-item menu-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
         <a class="nav-link" href="#" th:href="@{/item/itemView}" >고객센터</a>
       </li>
     </ul>
+
+
+
     <ul class="navbar-nav justify-content-end"style="margin-right: 2%;">
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="nav-link" th:href="@{/login}">로그인</a>
@@ -120,7 +129,7 @@
 <footer th:fragment="footer">
   <div class="row justify-content-center align-items-center">
     <div class="col-auto">
-      <img class="mb-2" src="/images/logo.png" alt="" style="width: 150px;">
+      <img class="mb-2" src="/img/logo.png" alt="" style="width: 150px;">
     </div>
     <div class="col-auto">
       <small class="d-block mb-3 text-muted">&copy; 2020</small>

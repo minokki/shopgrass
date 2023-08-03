@@ -1,6 +1,7 @@
 package com.grassshop.service;
 
 import com.grassshop.dto.ItemSearchDto;
+import com.grassshop.dto.MainItemDto;
 import com.grassshop.entity.Item;
 import com.grassshop.entity.ItemImg;
 import com.grassshop.dto.ItemFormDto;
@@ -73,9 +74,16 @@ public class ItemService {
         }
         return item.getId();
     }
+
     //상품데이터 조회
     @Transactional(readOnly = true)
-    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 }
