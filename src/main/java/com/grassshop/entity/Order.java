@@ -17,7 +17,7 @@ import java.util.List;
 public class Order extends BaseEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
 
@@ -33,4 +33,27 @@ public class Order extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //주문상태
 
+    public void addOrderItem(OrderItem orderItem) {
+        orderItemList.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public static Order createOrder(Account account, List<OrderItem> orderItemList) {
+        Order order = new Order();
+        order.setAccount(account);
+        for (OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItemList) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
 }

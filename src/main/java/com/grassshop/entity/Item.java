@@ -1,5 +1,6 @@
 package com.grassshop.entity;
 
+import com.grassshop.Exception.OutOfStockException;
 import com.grassshop.constant.ItemStatus;
 import com.grassshop.dto.ItemFormDto;
 import lombok.Getter;
@@ -43,5 +44,13 @@ public class Item extends BaseEntity{
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemStatus = itemFormDto.getItemStatus();
         this.itemDetail = itemFormDto.getItemDetail();
+    }
+
+    public void removeStock(int stockNumber) {
+        int restStock = this.stockNumber - stockNumber;
+        if (stockNumber < 0) {
+            throw new OutOfStockException("상품 재고가 부족합니다. (현재 재고 수량: " + this.stockNumber + ")");
+        }
+        this.stockNumber = restStock;
     }
 }

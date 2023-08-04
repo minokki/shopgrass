@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments-main.html :: index-head">
+<head th:replace="fragments-main.html :: main-head">
+
 </head>
 <body>
 <div th:replace="fragments-main.html :: nav" class="navbar"></div>
@@ -39,7 +40,7 @@
       <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
     </div>
       <div th:if="${item.itemStatus == T(com.grassshop.constant.ItemStatus).SELL}" class="text-right">
-          <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
+          <button type="button" class="btn btn-light border border-primary btn-lg">장바구니 담기</button>
           <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
       </div>
       <div th:unless="${item.itemStatus == T(com.grassshop.constant.ItemStatus).SELL}" class="text-right">
@@ -60,104 +61,104 @@
   <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
 </div>
 
-<!--<script th:inline="javascript">-->
-<!--  $(document).ready(function(){-->
+<script th:inline="javascript">
+  // $(document).ready(function(){
+  //
+  //   calculateToalPrice();
+  //
+  //   $("#count").change( function(){
+  //     calculateToalPrice();
+  //   });
+  // });
+  //
+  // function calculateToalPrice(){
+  //   var count = $("#count").val();
+  //   var price = $("#price").val();
+  //   var totalPrice = price*count;
+  //   $("#totalPrice").html(totalPrice + '원');
+  // }
 
-<!--    calculateToalPrice();-->
+  function order(){
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
 
-<!--    $("#count").change( function(){-->
-<!--      calculateToalPrice();-->
-<!--    });-->
-<!--  });-->
+    var url = "/order";
+    var paramData = {
+      itemId : $("#itemId").val(),
+      count : $("#count").val()
+    };
 
-<!--  function calculateToalPrice(){-->
-<!--    var count = $("#count").val();-->
-<!--    var price = $("#price").val();-->
-<!--    var totalPrice = price*count;-->
-<!--    $("#totalPrice").html(totalPrice + '원');-->
-<!--  }-->
+    var param = JSON.stringify(paramData);
 
-<!--  function order(){-->
-<!--    var token = $("meta[name='_csrf']").attr("content");-->
-<!--    var header = $("meta[name='_csrf_header']").attr("content");-->
+    $.ajax({
+      url      : url,
+      type     : "POST",
+      contentType : "application/json",
+      data     : param,
+      beforeSend : function(xhr){
+        /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+        xhr.setRequestHeader(header, token);
+      },
+      dataType : "json",
+      cache   : false,
+      success  : function(result, status){
+        alert("주문이 완료 되었습니다.");
+        location.href='/';
+      },
+      error : function(jqXHR, status, error){
 
-<!--    var url = "/order";-->
-<!--    var paramData = {-->
-<!--      itemId : $("#itemId").val(),-->
-<!--      count : $("#count").val()-->
-<!--    };-->
+        if(jqXHR.status == '401'){
+          alert('로그인 후 이용해주세요');
+          location.href='/login';
+        } else{
+          alert(jqXHR.responseText);
+        }
 
-<!--    var param = JSON.stringify(paramData);-->
+      }
+    });
+  }
 
-<!--    $.ajax({-->
-<!--      url      : url,-->
-<!--      type     : "POST",-->
-<!--      contentType : "application/json",-->
-<!--      data     : param,-->
-<!--      beforeSend : function(xhr){-->
-<!--        /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */-->
-<!--        xhr.setRequestHeader(header, token);-->
-<!--      },-->
-<!--      dataType : "json",-->
-<!--      cache   : false,-->
-<!--      success  : function(result, status){-->
-<!--        alert("주문이 완료 되었습니다.");-->
-<!--        location.href='/';-->
-<!--      },-->
-<!--      error : function(jqXHR, status, error){-->
+  // function addCart(){
+  //   var token = $("meta[name='_csrf']").attr("content");
+  //   var header = $("meta[name='_csrf_header']").attr("content");
+  //
+  //   var url = "/cart";
+  //   var paramData = {
+  //     itemId : $("#itemId").val(),
+  //     count : $("#count").val()
+  //   };
+  //
+  //   var param = JSON.stringify(paramData);
+  //
+  //   $.ajax({
+  //     url      : url,
+  //     type     : "POST",
+  //     contentType : "application/json",
+  //     data     : param,
+  //     beforeSend : function(xhr){
+  //       /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+  //       xhr.setRequestHeader(header, token);
+  //     },
+  //     dataType : "json",
+  //     cache   : false,
+  //     success  : function(result, status){
+  //       alert("상품을 장바구니에 담았습니다.");
+  //       location.href='/';
+  //     },
+  //     error : function(jqXHR, status, error){
+  //
+  //       if(jqXHR.status == '401'){
+  //         alert('로그인 후 이용해주세요');
+  //         location.href='/members/login';
+  //       } else{
+  //         alert(jqXHR.responseText);
+  //       }
+  //
+  //     }
+  //   });
+  // }
 
-<!--        if(jqXHR.status == '401'){-->
-<!--          alert('로그인 후 이용해주세요');-->
-<!--          location.href='/members/login';-->
-<!--        } else{-->
-<!--          alert(jqXHR.responseText);-->
-<!--        }-->
-
-<!--      }-->
-<!--    });-->
-<!--  }-->
-
-<!--  function addCart(){-->
-<!--    var token = $("meta[name='_csrf']").attr("content");-->
-<!--    var header = $("meta[name='_csrf_header']").attr("content");-->
-
-<!--    var url = "/cart";-->
-<!--    var paramData = {-->
-<!--      itemId : $("#itemId").val(),-->
-<!--      count : $("#count").val()-->
-<!--    };-->
-
-<!--    var param = JSON.stringify(paramData);-->
-
-<!--    $.ajax({-->
-<!--      url      : url,-->
-<!--      type     : "POST",-->
-<!--      contentType : "application/json",-->
-<!--      data     : param,-->
-<!--      beforeSend : function(xhr){-->
-<!--        /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */-->
-<!--        xhr.setRequestHeader(header, token);-->
-<!--      },-->
-<!--      dataType : "json",-->
-<!--      cache   : false,-->
-<!--      success  : function(result, status){-->
-<!--        alert("상품을 장바구니에 담았습니다.");-->
-<!--        location.href='/';-->
-<!--      },-->
-<!--      error : function(jqXHR, status, error){-->
-
-<!--        if(jqXHR.status == '401'){-->
-<!--          alert('로그인 후 이용해주세요');-->
-<!--          location.href='/members/login';-->
-<!--        } else{-->
-<!--          alert(jqXHR.responseText);-->
-<!--        }-->
-
-<!--      }-->
-<!--    });-->
-<!--  }-->
-
-<!--</script>-->
+</script>
 
 <style>
     .mgb-15{
