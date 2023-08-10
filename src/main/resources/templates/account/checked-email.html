@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments-form.html :: head"></div>
 
-<body class="bg-light">
+<head th:replace="fragments/head.html :: form-head"></head>
 
-    <div th:replace="fragments-form.html :: nav"></div>
+<body>
+<!-- form-navbar-->
+<div th:replace="fragments/navbar.html :: form-nav" class="nav-bar"></div>
 
     <div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
     <div class="py-5 text-center" th:if="${error}">
@@ -23,6 +24,6 @@
     </div>
     </div>
 
-    <div th:replace="fragments-form.html :: footer"></div>
+    <div th:replace="fragments/footer.html :: form-footer"></div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.grassshop.main;
+package com.grassshop.controller;
 
 import com.grassshop.account.CurrentUser;
 import com.grassshop.entity.Account;
@@ -19,7 +19,7 @@ public class mainController {
 
     @GetMapping("/login")
         public String login(){
-            return "login";
+            return "account/login";
         }
     }
 

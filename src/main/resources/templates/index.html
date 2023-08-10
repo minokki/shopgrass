@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments-main.html :: index-head"></head>
+<head th:replace="fragments/head.html :: main-head"></head>
 
-<body class="bg-light">
-<div th:replace="fragments-main.html :: nav" class="navbar"></div>
+<body>
+<div th:replace="fragments/navbar.html :: main-nav" class="nav-bar"></div>
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
@@ -39,8 +39,6 @@
         </div>
     </div>
 </div>
-
-
 <section class="home-reserve" style="height: 100px;"></section>
 
 <!-- 첫번째 소개 -->
@@ -163,21 +161,10 @@
 <section class="home-reserve" style="height: 600px; background-image: url('/img/123.jpg'); background-attachment: fixed; background-position: center bottom;">
 </section>
 
-
-<footer>
-
-    <ul class="footer_const">
-        <li>시행 <span>고팡</span></li>
-        <li>시공 <span>벌초박사</span></li>
-    </ul>
-    <p>홈페이지에 사용된 CG 및 이미지 컷은 소비자의 이해를 돕기위한 것으로 사업과정 및 실제 시공에 따라 변경될 수 있습니다.<br>본 홈페이지는 옥동 경남아너스빌 ubc 공식홈페이지입니다.<br>온라인대행. (주)로빈스앤컴퍼니&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;서울특별시 강남구 학동로97길 43-5(청담동)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;대표. 강명훈&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;등록번호. 220-86-53288</p>
-    <h6>2022 POWERED BY Robins &amp; Company. ALL RIGHT RESERVED.</h6>
-    <img src="" alt="" class="main_footer_bg">
-</footer>
-
-
-<!-- carousel-js -->
-<script th:replace="fragments-main.html :: carousel-javascript"></script>
+<!-- footer -->
+<footer th:replace="fragments/footer.html :: main-footer"></footer>
+<!-- navbar-js -->
+<script th:replace="fragments/navbar.html :: navbar-javascript"></script>
 
 </body>
 </html>

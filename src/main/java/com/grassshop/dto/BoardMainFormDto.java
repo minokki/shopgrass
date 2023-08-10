@@ -19,6 +19,8 @@ public class BoardMainFormDto {
     @NotBlank(message = "내용은필수")
     private String content;
 
+    private String imgUrl;
+
     private String afterImgUrl; // after 이미지의 URL
 
     private String beforeImgUrl; // before 이미지의 URL

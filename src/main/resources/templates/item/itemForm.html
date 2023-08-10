@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments-main.html :: index-head">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="fragments/head.html :: main-head"></head>
+
 <body>
-<div th:replace="fragments-main.html :: nav" class="navbar"></div>
-<div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
+<div th:replace="fragments/navbar.html :: main-nav" class="nav-bar"></div>
+
+<div class="container border" style="margin-top: 6%; border-radius: 30px; overflow: hidden;">
 
     <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
 
@@ -86,8 +89,16 @@
     </form>
 
 </div>
+<!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- footer -->
+<footer th:replace="fragments/footer.html :: main-footer"></footer>
+
+<!-- navbar-js -->
+<script th:replace="fragments/navbar.html :: navbar-javascript"></script>
+
+<!-- 사용자 스크립트 -->
 <script th:inline="javascript">
     $(document).ready(function(){
         var errorMessage = [[${errorMessage}]];
@@ -113,7 +124,6 @@
             $(this).siblings(".custom-file-label").html(fileName);
         });
     }
-
 </script>
 </body>
 </html>

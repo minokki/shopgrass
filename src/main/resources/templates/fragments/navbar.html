@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--main navbar-->
+<div th:fragment="main-nav" class="nav-bar">
+    <div class="con height-100p flex flex-jc-sb">
+        <a href="/" class="logo flex flex-ai-c">
+            <img src="/img/logo.png" alt="" height="100">
+        </a>
+
+        <nav class="menu-box-1">
+            <ul class="flex height-100p">
+                <li>
+                    <a href="#" class="height-100p flex flex-ai-c">회사소개</a>
+                    <ul>
+                        <li><a href="/">회사소개</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="height-100p flex flex-ai-c">예초·벌초</a>
+                    <ul>
+                        <li><a href="#">견적</a></li>
+                        <li><a href="#" th:href="@{/boardMain/boardMains}" >시공 사례</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="height-100p flex flex-ai-c">SHOP</a>
+                    <ul>
+                        <li><a href="#" th:href="@{/item/items}" >물품판매</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="height-100p flex flex-ai-c">고객센터</a>
+                    <ul>
+                        <li><a href="#">공지사항</a></li>
+                        <li><a href="#">Q&A</a></li>
+                        <li><a href="#">오시는 길</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="separator"></span>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="height-100p flex flex-ai-c" th:href="@{/login}">로그인</a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="height-100p flex flex-ai-c" th:href="@{/terms}">회원가입</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a class="height-100p flex flex-ai-c">
+                        <svg th:if="${#strings.isEmpty(account?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+                             width="50" height="50" class="rounded border bg-light"></svg>
+                        <img th:if="${!#strings.isEmpty(account?.profileImage)}" th:src="${account.profileImage}"
+                             width="50" height="50" class="rounded border"/>
+                    </a>
+                    <ul>
+                        <li><h4 sec:authentication="name">Username</h4></li>
+                        <li><a class="height-100p flex flex-ai-c" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a></li>
+                        <li><a class="height-100p flex flex-ai-c" href="#" th:href="@{'/settings/profile'}">설정</a></li>
+                        <li>
+                            <form action="#" th:action="@{/logout}" method="post">
+                            <button type="submit">로그아웃</button>
+                        </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="bg"></div>
+        </nav>
+    </div>
+</div>
+
+<!-- form-nav -->
+<div th:fragment="form-nav" class="navbar-form">
+    <a href="/" th:href="@{/}"><img src="/img/logo.png" alt="로고" height="100"></a>
+</div>
+
+<!-- main navbar 마우스 오버시 height추가-->
+<script type="application/javascript" th:fragment="navbar-javascript">
+    function NavBar__init(){
+        $('.nav-bar .menu-box-1 > ul > li:not(.nav-item)').mouseenter(function(){
+            var height = $(this).find(' > ul').height();
+
+            $('.nav-bar .menu-box-1 > .bg').addClass('active');
+            $('.nav-bar .menu-box-1 > .bg').css('height',height + 10);
+        });
+
+        $('.nav-bar .menu-box-1 > ul > li').mouseleave(function(){
+            $('.nav-bar .menu-box-1 > .bg').removeClass('active');
+            $('.nav-bar .menu-box-1 > .bg').css('height',0);
+        });
+    }
+
+    NavBar__init();
+</script>
+</html>

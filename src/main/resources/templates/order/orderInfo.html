@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="fragments/head.html :: profile-head"></head>
+
+<body>
+<div th:replace="fragments/navbar.html :: main-nav" class="nav-bar"></div>
+
+<!-- 사용자 CSS 추가 -->
+  <style>
+    .repImgDiv{
+      margin-right:15px;
+      margin-left:15px;
+      height:auto;
+    }
+    .repImg{
+      height:100px;
+      width:100px;
+    }
+    .card{
+      width:750px;
+      height:100%;
+      padding:30px;
+      margin-bottom:20px;
+    }
+    .fs18{
+      font-size:18px
+    }
+    .fs24{
+      font-size:24px
+    }
+  </style>
+
+<div class="container border" style="margin-top: 6%; border-radius: 30px; overflow: hidden;">
+  <div class="row mt-5 mb-5 justify-content-center">
+    <div class="col-2">
+      <div th:replace="fragments/profile-menu.html :: account-menu(accountMenu='order')"></div>
+    </div>
+    <div class="col-8">
+  <h1>
+    구매 이력
+  </h1>
+
+  <div th:each="order : ${orders.getContent()}">
+
+    <div class="d-flex mb-3 align-self-center">
+      <h4 th:text="${order.orderDate} + ' 주문'"></h4>
+      <div class="ml-3">
+        <th:block th:if="${order.orderStatus == T(com.grassshop.constant.OrderStatus).ORDER}">
+          <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+        </th:block>
+        <th:block th:unless="${order.orderStatus == T(com.grassshop.constant.OrderStatus).ORDER}">
+          <h4>(취소 완료)</h4>
+        </th:block>
+      </div>
+    </div>
+    <div class="card d-flex">
+      <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
+        <div class="repImgDiv">
+          <img th:src="${orderItem.imgUrl}" class = "rounded repImg" th:alt="${orderItem.itemNm}">
+        </div>
+        <div class="align-self-center w-75">
+          <span th:text="${orderItem.itemNm}" class="fs24 font-weight-bold"></span>
+          <div class="fs18 font-weight-light">
+            <span th:text="${orderItem.orderPrice} +'원'"></span>
+            <span th:text="${orderItem.count} +'개'"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >
+    <ul class="pagination justify-content-center">
+
+      <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
+        <a th:href="@{'/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
+          <span aria-hidden='true'>Previous</span>
+        </a>
+      </li>
+
+      <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${orders.number eq page-1}?'active':''">
+        <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+      </li>
+
+      <li class="page-item" th:classappend="${orders.number+1 ge orders.totalPages}?'disabled':''">
+        <a th:href="@{'/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
+          <span aria-hidden='true'>Next</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+    </div>
+    </div>
+</div>
+<!-- form-footer-->
+<div th:replace="fragments/footer.html :: form-footer"></div>
+
+<!-- navbar-js -->
+<script th:replace="fragments/navbar.html :: navbar-javascript"></script>
+
+<!-- 사용자 스크립트 추가 -->
+<script>
+  function cancelOrder(orderId) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    var url = "/order/" + orderId + "/cancel";
+    var paramData = {
+      orderId: orderId,
+    };
+
+    var param = JSON.stringify(paramData);
+
+    // 주문을 취소하기 전에 사용자에게 확인 요청하는 얼럿 창을 띄웁니다.
+    var confirmCancel = confirm("주문을 취소하시겠습니까?");
+
+    if (confirmCancel) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        contentType: "application/json",
+        data: param,
+        beforeSend: function(xhr) {
+          /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+          xhr.setRequestHeader(header, token);
+        },
+        dataType: "json",
+        cache: false,
+        success: function(result, status) {
+          alert("주문이 취소되었습니다.");
+          location.href = '/orders/' + [[${page}]];
+        },
+        error: function(jqXHR, status, error) {
+          if (jqXHR.status == '401') {
+            alert('로그인 후 이용해주세요');
+            location.href = '/login';
+          } else {
+            alert(jqXHR.responseText);
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

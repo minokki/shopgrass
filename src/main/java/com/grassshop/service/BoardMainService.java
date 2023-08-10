@@ -68,10 +68,14 @@ public class BoardMainService {
         for (BoardMainImg boardMainImg : boardMainImgList) {
             BoardMainImgDto boardMainImgDto = BoardMainImgDto.ofv(boardMainImg);
             if (Example.BEFORE.equals(boardMainImg.getExample())) {
+                boardMainImgDto.setBeforeImgUrl(boardMainImg.getImgUrl());
                 boardMainFormDto.setBeforeImgUrl(boardMainImg.getImgUrl());
             } else if (Example.AFTER.equals(boardMainImg.getExample())) {
+                boardMainImgDto.setAfterImgUrl(boardMainImg.getImgUrl());
                 boardMainFormDto.setAfterImgUrl(boardMainImg.getImgUrl());
             }
+            // 이미지 정보를 리스트에 추가
+            boardMainFormDto.getBoardMainImgDtoList().add(boardMainImgDto);
         }
 
         // 반환
@@ -86,7 +90,6 @@ public class BoardMainService {
 
         //이미지 등록
         for (int i = 0; i < multipartFiles.size(); i++) {
-
             boardMainImgService.updateBoardMainImg(boardMainImgIds.get(i), multipartFiles.get(i));
         }
         return boardMain.getId();

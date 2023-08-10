@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head.html :: form-head"></div>
 
-<head th:replace="fragments-form.html :: head">
-</head>
-
-<body class="bg-light">
-
-<!-- form-navbar -->
-<div th:replace="fragments-form.html :: nav"></div>
-
+<body>
+<!-- form-nav -->
+<div th:replace="fragments/navbar.html :: form-nav"></div>
 <!-- 콘텐츠 영역-->
 <div class="container-fluid">
   <div class="row justify-content-center align-items-center">
@@ -374,7 +370,7 @@
 </div>
 
 <!-- form-footer-->
-<div th:replace="fragments-form.html :: footer"></div>
+<div th:replace="fragments/footer.html :: form-footer"></div>
 
 <!-- 이용약관 체크 js-->
 <script>

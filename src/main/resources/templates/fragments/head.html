@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="main-head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>ShopGrass</title>
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/carousel.css">
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <!-- font-awesome(아이콘) -->
+  <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
+  <!-- 제이쿼리 -->
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 부트스트랩 js -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jdenticon(프로필사진) -->
+  <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
+
+</head>
+
+<!-- profile-head -->
+<head th:fragment="profile-head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>ShopGrass</title>
+  <!-- nav css -->
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <!-- form-footer css -->
+  <link rel="stylesheet" type="text/css" href="/css/form-footer.css">
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <!-- 제이쿼리 -->
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 부트스트랩 js -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<!-- form-head -->
+<head th:fragment="form-head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopGrass</title>
+  <!-- nav css -->
+  <link rel="stylesheet" type="text/css" href="/css/form-nav.css">
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <!-- 제이쿼리 -->
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 부트스트랩 js -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+</html>

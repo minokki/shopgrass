@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments-main.html :: main-head">
+<head th:replace="fragments/head.html :: profile-head"></head>
 
-</head>
+<body>
+<div th:replace="fragments/navbar.html :: main-nav" class="nav-bar"></div>
 
-
-<body class="bg-light">
-<div th:replace="fragments-main.html :: nav"></div>
-
-<div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
+<div class="container border" style="margin-top: 6%; border-radius: 30px; overflow: hidden;">
   <div class="row mt-5 mb-5 justify-content-center">
     <div class="col-2">
         <div th:replace="fragments-form.html :: settings-menu(currentMenu='profile')"></div>
@@ -108,8 +106,15 @@
     </div>
 </div>
 
+
 <!-- form-footer-->
-<div th:replace="fragments-form.html :: footer"></div>
+<div th:replace="fragments/footer.html :: form-footer"></div>
+
+<!-- navbar-js -->
+<script th:replace="fragments/navbar.html :: navbar-javascript"></script>
+
+<!-- form-validation-->
+<script type="application/javascript" th:fragment="form-validation"></script>
 
 <link href="/node_modules/cropper/dist/cropper.min.css" rel="stylesheet">
 <script src="/node_modules/cropper/dist/cropper.min.js"></script>

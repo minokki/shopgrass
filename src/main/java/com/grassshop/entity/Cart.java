@@ -22,4 +22,10 @@ public class Cart extends BaseEntity{
     @JoinColumn(name = "account_id")
     private Account account;
 
+    public static Cart createCart(Account account) {
+        Cart cart = new Cart();
+        cart.setAccount(account);
+        return cart;
+    }
+
 }

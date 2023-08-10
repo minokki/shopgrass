@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments-main.html :: index-head">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="fragments/head.html :: main-head"></head>
+
 <body>
-<div th:replace="fragments-main.html :: nav" class="navbar"></div>
+<div th:replace="fragments/navbar.html :: main-nav" class="nav-bar"></div>
+
+<div th:replace="fragments/carousel.html :: carousel" class="carousel"></div>
+
 <div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
 
     <form role="form" method="post" enctype="multipart/form-data" th:object="${boardMainFormDto}">
@@ -63,7 +68,12 @@
     </form>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- footer -->
+<footer th:replace="fragments/footer.html :: main-footer"></footer>
+
+<!-- navbar-js -->
+<script th:replace="fragments/navbar.html :: navbar-javascript"></script>
 
 <script th:inline="javascript">
     $(document).ready(function(){
@@ -75,7 +85,6 @@
         bindDomEvent();
 
     });
-
     function bindDomEvent(){
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();  //이미지 파일명

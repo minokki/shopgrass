@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments-main.html :: main-head">
+<head th:replace="fragments/head.html :: profile-head"></head>
 
-</head>
+<body>
+<div th:replace="fragments/navbar.html :: main-nav" class="nav-bar"></div>
 
-
-<body class="bg-light">
-<div th:replace="fragments-main.html :: nav"></div>
+<div th:replace="fragments/carousel.html :: carousel" class="carousel"></div>
 
 <div class="container border" style="margin-top: 3%; border-radius: 30px; overflow: hidden;">
     <div class="row mt-5 mb-5 justify-content-center">
         <div class="col-2">
-            <div th:replace="fragments-form.html :: account-menu(accountMenu='board')"></div>
+            <div th:replace="fragments/profile-menu.html :: account-menu(accountMenu='board')"></div>
         </div>
 
         <div class="col-8">
@@ -21,20 +21,20 @@
         <table class="table">
             <thead>
             <tr>
-                <td class="bg-light">시공사례번호</td>
-                <td class="bg-light">장소</td>
-                <td class="bg-light">등록자</td>
-                <td class="bg-light">등록일</td>
+                <td>시공사례번호</td>
+                <td>장소</td>
+                <td>등록자</td>
+                <td>등록일</td>
             </tr>
             </thead>
             <tbody>
             <tr th:each="boardMain : ${boardMains.getContent()}">
-                <td th:text="${boardMain.id}" class="bg-light"></td>
-                <td class="bg-light">
+                <td th:text="${boardMain.id}"></td>
+                <td>
                     <a th:href="'/admin/boardMain/'+${boardMain.id}" th:text="${boardMain.title}"></a>
                 </td>
-             <td th:text="${boardMain.createBy}" class="bg-light"></td>
-                <td th:text="${boardMain.regTime}" class="bg-light"></td>
+             <td th:text="${boardMain.createBy}"></td>
+                <td th:text="${boardMain.regTime != null ? #temporals.format(boardMain.regTime, 'yyyy-MM-dd HH:mm:ss') : ''}"></td>
             </tr>
             </tbody>
         </table>
@@ -64,7 +64,7 @@
 
         <div class="form-inline justify-content-center" th:object="${boardSearchDto}" style="display: flex; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; margin-right: 10px;">
-                <select th:field="*{searchDateType}" class="form-control bg-light" style="width:auto;">
+                <select th:field="*{searchDateType}" class="form-control" style="width:auto;">
                     <option value="all">전체기간</option>
                     <option value="1d">1일</option>
                     <option value="1w">1주</option>
@@ -73,13 +73,13 @@
                 </select>
             </div>
             <div style="display: flex; align-items: center; margin-right: 10px;">
-                <select th:field="*{searchBy}" class="form-control bg-light" style="width:auto;">
+                <select th:field="*{searchBy}" class="form-control" style="width:auto;">
                     <option value="title">제목</option>
                     <option value="createdBy">등록자</option>
                 </select>
             </div>
             <div style="display: flex; align-items: center; margin-right: 10px;">
-                <input th:field="*{searchQuery}" type="text" class="form-control bg-light" placeholder="검색어를 입력해주세요">
+                <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
             </div>
             <button id="searchBtn" type="submit" class="btn btn-primary">검색</button>
         </div>
@@ -87,11 +87,15 @@
 </div>
 </div>
 </div>
-    <div th:replace="fragments-form.html :: footer"></div>
-    <!-- form-footer-->
 
-<script th:inline="javascript">
+<!-- form-footer-->
+<div th:replace="fragments/footer.html :: form-footer"></div>
 
+<!-- navbar-js -->
+<script th:replace="fragments/navbar.html :: navbar-javascript"></script>
+
+<!--사용 스크립트 추가-->
+<script>
     $(document).ready(function(){
         $("#searchBtn").on("click",function(e) {
             e.preventDefault();
@@ -110,7 +114,6 @@
     }
 
 </script>
-
 
 </body>
 </html>

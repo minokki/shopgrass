@@ -19,7 +19,7 @@ public class Account extends BaseEntity{
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "email",unique = true)
     private  String email;
 
     @Column(unique = true)

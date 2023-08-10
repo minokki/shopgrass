@@ -21,7 +21,7 @@ public class Order extends BaseEntity{
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -29,6 +29,8 @@ public class Order extends BaseEntity{
     private List<OrderItem> orderItemList = new ArrayList<>();
 
     private LocalDateTime orderDate; //주문일
+
+    private LocalDateTime cancelDate; //주문 취소일
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //주문상태
@@ -55,5 +57,13 @@ public class Order extends BaseEntity{
             totalPrice += orderItem.getTotalPrice();
         }
         return totalPrice;
+    }
+
+    public void cancelOrder(){
+        this.orderStatus = OrderStatus.CANCEL;
+        this.cancelDate = LocalDateTime.now();
+        for (OrderItem orderItem : orderItemList) {
+            orderItem.cancel();
+        }
     }
 }

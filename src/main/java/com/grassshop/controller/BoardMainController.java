@@ -33,8 +33,9 @@ public class BoardMainController {
     private final BoardMainService boardMainService;
 
     @GetMapping(value = "/boardMain/new")
-    public String boardMainForm(Model model) {
+    public String boardMainForm(@CurrentUser Account account,Model model) {
         model.addAttribute("boardMainFormDto", new BoardMainFormDto());
+        model.addAttribute(account);
         return "boardMain/boardMainForm";
     }
 
@@ -47,9 +48,11 @@ public class BoardMainController {
 
         if (multipartFiles.get(0).isEmpty() && boardMainFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 이미지는 필수 입력");
+            return "boardMain/boardMainForm";
         }
 
         try {
+
             boardMainService.saveBoardMain(boardMainFormDto, multipartFiles);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품등록중 에러 발생");
@@ -60,9 +63,10 @@ public class BoardMainController {
     }
 
     @GetMapping("/admin/boardMain/{boardMainId}")
-    public String boardMainDtl(@PathVariable("boardMainId") Long boardMainId, Model model) {
+    public String boardMainDtl(@CurrentUser Account account, @PathVariable("boardMainId") Long boardMainId, Model model) {
         try {
             BoardMainFormDto boardMainFormDto = boardMainService.getBoardMainDtl(boardMainId);
+            model.addAttribute(account);
             model.addAttribute("boardMainFormDto", boardMainFormDto);
         } catch (EntityNotFoundException e) {
             model.addAttribute("errorMessage", "존재하지 않는 게시글");
@@ -95,10 +99,11 @@ public class BoardMainController {
     }
 
     @GetMapping(value = {"/admin/boardMains", "/admin/boardMains/{page}"})
-    public String boardMainManage(BoardSearchDto boardSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+    public String boardMainManage(@CurrentUser Account account, BoardSearchDto boardSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 
         Page<BoardMain> boardMains = boardMainService.getAdminBoardMainPage(boardSearchDto, pageable);
+        model.addAttribute(account);
         model.addAttribute("boardMains", boardMains);
         model.addAttribute("boardSearchDto", boardSearchDto);
         model.addAttribute("maxPage", 5);
@@ -106,11 +111,11 @@ public class BoardMainController {
     }
 
     @GetMapping(value = "/boardMain/boardMains")
-    public String getBoardMain(BoardSearchDto boardSearchDto, Optional<Integer> page, Model model) {
+    public String getBoardMain(@CurrentUser Account account, BoardSearchDto boardSearchDto, Optional<Integer> page, Model model) {
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 12);
         Page<MainBoardDto> boardMains = boardMainService.getMainBoardPage(boardSearchDto, pageable);
-
+        model.addAttribute(account);
         model.addAttribute("boardMains", boardMains);
         model.addAttribute("boardSearchDto", boardSearchDto);
         model.addAttribute("maxPage", 5);
@@ -119,8 +124,9 @@ public class BoardMainController {
     }
 
     @GetMapping(value = "/boardMain/{boardMainId}")
-    public String boardMainDtl(Model model, @PathVariable("boardMainId") Long boardMainId) {
+    public String boardMainDtl(@CurrentUser Account account, Model model, @PathVariable("boardMainId") Long boardMainId) {
         BoardMainFormDto boardMainFormDto = boardMainService.getBoardMainDtl(boardMainId);
+        model.addAttribute(account);
         model.addAttribute("boardMain", boardMainFormDto);
         return "boardMain/boardMainDetail";
     }

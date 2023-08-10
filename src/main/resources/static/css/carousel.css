@@ -1,0 +1,58 @@
+/* 이미지와 텍스트를 감싸는 컨테이너 */
+.carousel-inner .carousel-item .image-container {
+    position: relative;
+}
+
+/* 텍스트 가운데 정렬 */
+.carousel-inner .carousel-item .carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.carousel-inner .carousel-item.active .carousel-caption {
+    transform: translateY(-50%);
+    opacity: 1;
+}
+
+/* 텍스트 스타일 및 애니메이션 */
+.carousel-inner .carousel-item .carousel-caption .carousel-text {
+    margin-top: 10px;
+    font-size: 40px;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateX(10%);
+    transition: background-color 1.2s ease-in-out, opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+}
+
+.carousel-inner .carousel-item.active .carousel-caption .carousel-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* 동그란 버튼 스타일 */
+.carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    margin: 0 5px !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border: none !important;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.carousel-indicators .active {
+    background-color: rgba(255, 255, 255, 1) !important;
+}

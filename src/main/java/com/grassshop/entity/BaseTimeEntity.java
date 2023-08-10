@@ -1,5 +1,6 @@
 package com.grassshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,10 +19,11 @@ import java.time.LocalDateTime;
 public abstract class BaseTimeEntity {
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime regTime;
 
     @LastModifiedDate
+    @Column(columnDefinition = "DATETIME")
     private LocalDateTime updateTime;
 
 }

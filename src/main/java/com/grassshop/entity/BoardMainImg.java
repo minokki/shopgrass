@@ -29,7 +29,7 @@ public class BoardMainImg extends BaseEntity {
     private Example example;  // before,after 이미지
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Board_main_id")
+    @JoinColumn(name = "board_main_id")
     private BoardMain boardMain;
 
     public void updateBoardMainImg(String imgName, String oriImgName, String imgUrl) {

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments-form.html :: head"></div>
+<div th:replace="fragments/head.html :: form-head"></div>
 
-<body class="bg-light">
-
+<body>
 <!-- form-nav -->
-<div th:replace="fragments-form.html :: nav"></div>
+<div th:replace="fragments/navbar.html :: form-nav"></div>
 
 <!-- 컨텐츠 영역-->
 <div class="container-form">
@@ -80,14 +79,7 @@
 </div>
 
 <!-- form-footer -->
-<div th:replace="fragments-form.html :: footer"></div>
-
-<!-- jdention-->
-<script>
-    $(document).ready(function() {
-        jdenticon.update();
-    });
-</script>
+<div th:replace="fragments/footer.html :: form-footer"></div>
 
 <!-- form-validation -->
 <script type="application/javascript" th:fragment="form-validation"></script>
