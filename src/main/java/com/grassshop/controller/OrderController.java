@@ -8,17 +8,13 @@ import com.grassshop.dto.OrderSearchDto;
 import com.grassshop.entity.Account;
 import com.grassshop.entity.Order;
 import com.grassshop.service.OrderService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.security.Security;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +67,7 @@ public class OrderController {
         model.addAttribute("orders", orderInfoDtos);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("maxPage", 5);
-        return "order/orderInfo";
+        return "order/order_info";
     }
 
     @PostMapping(value = "/order/{orderId}/cancel")
@@ -96,7 +91,7 @@ public class OrderController {
         model.addAttribute("orderSearchDto", orderSearchDto);
         model.addAttribute("maxPage", 5);
 
-        return "order/orderMng";
+        return "order/order_mng";
     }
 }
 

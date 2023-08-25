@@ -30,10 +30,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up", "/check-email-token","/login-by-email",
-                        "/email-login", "/check-email-login","terms", "login-link", "/profile/*").permitAll()
+                        "/email-login", "/check-email-login","terms","/company/*", "login-link", "/profile/*").permitAll()
+                .mvcMatchers("/boardMain/*","/item/*")
+                .permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .mvcMatchers("/images/**").permitAll()
-                .mvcMatchers("/admin/**").hasRole("ADMIN") // 고객센터 메뉴는 ADMIN 권한 필요
+                .mvcMatchers("/admin/**").hasRole("ADMIN") //  ADMIN 권한 필요
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

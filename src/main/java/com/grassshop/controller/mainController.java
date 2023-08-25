@@ -16,10 +16,19 @@ public class mainController {
         }
         return "index";
     }
+    @GetMapping("/company/company_info")
+    public String company_info(@CurrentUser Account account,Model model){
+        if( account != null) {
+            model.addAttribute(account);
+        }
+        return "company/company_info";
+    }
+
+
 
     @GetMapping("/login")
         public String login(){
-            return "account/login";
+            return "account/account_login";
         }
     }
 

@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,11 @@ public class BoardMainFormDto {
     private String afterImgUrl; // after 이미지의 URL
 
     private String beforeImgUrl; // before 이미지의 URL
+
+    @Column(updatable = false, columnDefinition = "DATETIME")
+    private LocalDateTime createDate;
+
+    private String createBy;
 
     //게시글 수정시 이미지 정보 저장하는 리스트
     private List<BoardMainImgDto> boardMainImgDtoList = new ArrayList<>();

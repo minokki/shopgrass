@@ -65,7 +65,7 @@ public class AccountService implements UserDetailsService {
         context.setVariable("linkName", "이메일 인증하기");
         context.setVariable("message","벌초박사 서비스를 사용하려면 링크를 클릭하세요.");
         context.setVariable("host",appProperties.getHost());
-        String message = templateEngine.process("mail/email-link", context);
+        String message = templateEngine.process("mail/email_link", context);
 
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(newAccount.getEmail())
@@ -134,7 +134,7 @@ public class AccountService implements UserDetailsService {
         context.setVariable("linkName", "이메일로 로그인하기");
         context.setVariable("message","로그인 하려면 아래 링크를 클릭하세요.");
         context.setVariable("host",appProperties.getHost());
-        String message = templateEngine.process("mail/email-link", context);
+        String message = templateEngine.process("mail/email_link", context);
 
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(account.getEmail())

@@ -48,7 +48,7 @@ public class SettingsController {
         model.addAttribute(account);
         model.addAttribute(new Profile(account));
 
-        return "settings/profile";
+        return "settings/setting_profile";
     }
 
     @PostMapping("/settings/profile")
@@ -56,7 +56,7 @@ public class SettingsController {
                                     Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
             model.addAttribute(account);
-            return "settings/profile";
+            return "settings/setting_profile";
         }
         accountService.updateProfile(account, profile);
         attributes.addFlashAttribute("message", "프로필을 수정했습니다");
@@ -68,7 +68,7 @@ public class SettingsController {
     public String passwordUpdateForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
         model.addAttribute(new PasswordForm());
-        return "settings/password";
+        return "settings/setting_password";
     }
 
     @PostMapping("/settings/password")
@@ -76,7 +76,7 @@ public class SettingsController {
                                  Errors errors, Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
             model.addAttribute(account);
-            return "settings/password";
+            return "settings/setting_password";
         }
         accountService.updatePassword(account, passwordForm.getNewPassword());
         attributes.addFlashAttribute("message", "패스워드를 변경했습니다");
@@ -88,7 +88,7 @@ public class SettingsController {
     public String nicknameUpdateForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
         model.addAttribute(new NicknameForm());
-        return "settings/nickname";
+        return "settings/setting_nickname";
     }
 
     @PostMapping("/settings/nickname")
@@ -96,7 +96,7 @@ public class SettingsController {
                                  Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
             model.addAttribute(account);
-            return "settings/nickname";
+            return "settings/setting_nickname";
         }
         accountService.updateNickname(account, nicknameForm.getNickname());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");

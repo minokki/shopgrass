@@ -1,6 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+
+<head th:fragment="index-head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopGrass</title>
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <!-- font-awesome(아이콘) -->
+  <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
+  <!-- 부트스트랩 js -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- 제이쿼리 -->
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- jdenticon(프로필사진) -->
+  <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
+
+  <!-- slick불러오기 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+
+  <!-- aos 불러오기 -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/main-nav.css">
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/main-footer.css">
+
+  <!-- index js -->
+  <script src="js/index.js"></script>
+
+  <script src="js/main-nav.js"></script>
+
+</head>
+
+<head th:fragment="index-head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopGrass</title>
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <!-- font-awesome(아이콘) -->
+  <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
+  <!-- 부트스트랩 js -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- 제이쿼리 -->
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- jdenticon(프로필사진) -->
+  <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/main-nav.css">
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/main-footer.css">
+
+  <!-- index js -->
+  <script src="js/index.js"></script>
+
+  <script src="js/main-nav.js"></script>
+
+</head>
+
+
 <head th:fragment="main-head">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +75,11 @@
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <title>ShopGrass</title>
   <!--  css -->
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/css/main-nav.css">
   <!--  css -->
   <link rel="stylesheet" type="text/css" href="/css/carousel.css">
+  <!--  css -->
+  <link rel="stylesheet" type="text/css" href="/css/main-footer.css">
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
   <!-- font-awesome(아이콘) -->
@@ -32,7 +101,7 @@
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <title>ShopGrass</title>
   <!-- nav css -->
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/css/main-nav.css">
   <!-- form-footer css -->
   <link rel="stylesheet" type="text/css" href="/css/form-footer.css">
   <!-- 부트스트랩 -->

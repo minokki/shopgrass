@@ -63,6 +63,8 @@ public class BoardMainService {
         boardMainFormDto.setId(boardMain.getId());
         boardMainFormDto.setTitle(boardMain.getTitle());
         boardMainFormDto.setContent(boardMain.getContent());
+        boardMainFormDto.setCreateDate(boardMain.getRegTime());
+        boardMainFormDto.setCreateBy(boardMain.getCreateBy());
 
         // BoardMainImg 엔티티의 example 값을 기준으로 이미지들을 분류하여 설정
         for (BoardMainImg boardMainImg : boardMainImgList) {

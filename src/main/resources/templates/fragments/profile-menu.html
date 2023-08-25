@@ -18,10 +18,13 @@
     <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'order'}? active" href="#"
        th:href="@{/orders}">구매이력</a>
     <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'orderAdmin'}? active" href="#"
+       th:if="${#request.isUserInRole('ADMIN')}"
        th:href="@{/admin/orders}">주문목록</a>
     <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'board'}? active" href="#"
+       th:if="${#request.isUserInRole('ADMIN')}"
        th:href="@{/admin/boardMains}">시공사례</a>
     <a class="list-group-item list-group-item-action" th:classappend="${accountMenu == 'item'}? active" href="#"
+       th:if="${#request.isUserInRole('ADMIN')}"
        th:href="@{/admin/items}">물품보기</a>
 </div>
 

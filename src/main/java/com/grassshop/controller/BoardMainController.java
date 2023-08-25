@@ -7,7 +7,6 @@ import com.grassshop.dto.MainBoardDto;
 import com.grassshop.entity.Account;
 import com.grassshop.entity.BoardMain;
 import com.grassshop.service.BoardMainService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,19 +35,19 @@ public class BoardMainController {
     public String boardMainForm(@CurrentUser Account account,Model model) {
         model.addAttribute("boardMainFormDto", new BoardMainFormDto());
         model.addAttribute(account);
-        return "boardMain/boardMainForm";
+        return "boardMain/board_form";
     }
 
     @PostMapping(value = "/admin/boardMain/new")
     public String boardMainNew(@Valid BoardMainFormDto boardMainFormDto, BindingResult bindingResult, Model model,
                                @RequestParam("boardMainImgFile") List<MultipartFile> multipartFiles) {
         if (bindingResult.hasErrors()) {
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
 
         if (multipartFiles.get(0).isEmpty() && boardMainFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 이미지는 필수 입력");
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
 
         try {
@@ -56,7 +55,7 @@ public class BoardMainController {
             boardMainService.saveBoardMain(boardMainFormDto, multipartFiles);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품등록중 에러 발생");
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
         return "redirect:/";
 
@@ -71,9 +70,9 @@ public class BoardMainController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("errorMessage", "존재하지 않는 게시글");
             model.addAttribute("boardMainFormDto", new BoardMainFormDto());
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
-        return "boardMain/boardMainForm";
+        return "boardMain/board_form";
     }
 
     @PostMapping("/admin/boardMain/{boardMainId}")
@@ -81,19 +80,19 @@ public class BoardMainController {
                                   @RequestParam("boardMainImgFile") List<MultipartFile> multipartFiles, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
 
         if (multipartFiles.get(0).isEmpty() && boardMainFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 이미지는 필수값");
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
 
         try {
             boardMainService.updateBoardMain(boardMainFormDto, multipartFiles);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "게시글 수정중 에러 발생");
-            return "boardMain/boardMainForm";
+            return "boardMain/board_form";
         }
         return "redirect:/";
     }
@@ -107,27 +106,30 @@ public class BoardMainController {
         model.addAttribute("boardMains", boardMains);
         model.addAttribute("boardSearchDto", boardSearchDto);
         model.addAttribute("maxPage", 5);
-        return "boardMain/boardMainMng";
+        return "boardMain/board_mng";
     }
 
     @GetMapping(value = "/boardMain/boardMains")
     public String getBoardMain(@CurrentUser Account account, BoardSearchDto boardSearchDto, Optional<Integer> page, Model model) {
-
+        if( account != null) {
+            model.addAttribute(account);
+        }
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 12);
         Page<MainBoardDto> boardMains = boardMainService.getMainBoardPage(boardSearchDto, pageable);
-        model.addAttribute(account);
         model.addAttribute("boardMains", boardMains);
         model.addAttribute("boardSearchDto", boardSearchDto);
         model.addAttribute("maxPage", 5);
 
-        return "boardMain/boardMain";
+        return "boardMain/board_main";
     }
 
     @GetMapping(value = "/boardMain/{boardMainId}")
     public String boardMainDtl(@CurrentUser Account account, Model model, @PathVariable("boardMainId") Long boardMainId) {
+        if( account != null) {
+            model.addAttribute(account);
+        }
         BoardMainFormDto boardMainFormDto = boardMainService.getBoardMainDtl(boardMainId);
-        model.addAttribute(account);
         model.addAttribute("boardMain", boardMainFormDto);
-        return "boardMain/boardMainDetail";
+        return "boardMain/board_detail";
     }
 }

@@ -1,0 +1,29 @@
+a {
+    text-decoration-line: none;
+}
+.container{
+    margin-top: 3%; overflow: hidden; position: relative;
+    max-width:1520px;
+}
+
+.new_button {
+    position: relative;
+    right: 0;
+    bottom: 5%;
+}
+.needs-validation{
+    display: flex;
+    justify-content: flex-end;
+}
+.needs-validation button{
+    font-size: 20px;
+}
+.paging{
+    padding-bottom: 100px;
+}
+
+@media (min-width: 1400px) {
+    container{
+        max-width:1520px !important;
+    }
+}

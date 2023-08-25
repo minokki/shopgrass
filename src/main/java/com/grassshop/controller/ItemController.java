@@ -6,7 +6,6 @@ import com.grassshop.dto.ItemSearchDto;
 import com.grassshop.dto.MainItemDto;
 import com.grassshop.entity.Account;
 import com.grassshop.entity.Item;
-import com.grassshop.service.ItemImgService;
 import com.grassshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,7 +36,7 @@ public class ItemController {
     public String itemForm(@CurrentUser Account account, Model model) {
         model.addAttribute("itemFormDto", new ItemFormDto());
         model.addAttribute(account);
-        return "item/itemForm";
+        return "item/item_form";
     }
 
     //상품등록
@@ -45,7 +44,7 @@ public class ItemController {
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
         if (bindingResult.hasErrors()) {
-            return "item/itemForm";
+            return "item/item_form";
         }
 
         List<MultipartFile> validItemImgFileList = itemImgFileList.stream()  //업로드된 이미지만 변수에 저장
@@ -54,14 +53,14 @@ public class ItemController {
 
         if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 이미지는 필수값");
-            return "item/itemForm";
+            return "item/item_form";
         }
 
         try {
             itemService.saveItem(itemFormDto, validItemImgFileList); //상품 저장 로직
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품등록중 에러가 발생했습니다");
-            return "item/itemForm";
+            return "item/item_form";
         }
 
         return "redirect:/";
@@ -77,16 +76,16 @@ public class ItemController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
             model.addAttribute("itemFormDto", new ItemFormDto());
-            return "item/itemForm";
+            return "item/item_form";
         }
-        return "item/itemForm";
+        return "item/item_form";
     }
 
     @PostMapping(value = "/admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
                              @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
         if (bindingResult.hasErrors()) {
-            return "item/itemForm";
+            return "item/item_form";
         }
         List<MultipartFile> validItemImgFileList = itemImgFileList.stream()  //업로드된 이미지만 변수에 저장
                 .filter(file -> file.getSize() > 0)
@@ -94,7 +93,7 @@ public class ItemController {
 
         if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
-            return "item/itemForm";
+            return "item/item_form";
         }
 
 
@@ -103,7 +102,7 @@ public class ItemController {
 
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
-            return "item/itemForm";
+            return "item/item_form";
         }
 
         return "redirect:/";
@@ -118,29 +117,33 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("itemSearchDto", itemSearchDto);
         model.addAttribute("maxPage", 5);
-        return "item/itemMng";
+        return "item/item_mng";
     }
 
-    //    물품 목록이동
+    //물품 목록이동
     @GetMapping(value = "/item/items")
     public String getItemMain(@CurrentUser Account account, ItemSearchDto itemSearchDto, Optional<Integer> page, Model model) {
+        if( account != null) {
+            model.addAttribute(account);
+        }
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
         Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
-
-        model.addAttribute(account);
         model.addAttribute("items", items);
         model.addAttribute("itemSearchDto", itemSearchDto);
         model.addAttribute("maxPage", 5);
 
-        return "item/itemMain";
+        return "item/item_main";
     }
 
     @GetMapping(value = "/item/{itemId}")
     public String getItemDetail(@CurrentUser Account account, Model model, @PathVariable("itemId") Long itemId) {
+        if( account != null) {
+            model.addAttribute(account);
+        }
+
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-        model.addAttribute(account);
         model.addAttribute("item", itemFormDto);
-        return "item/itemDetail";
+        return "item/item_detail";
     }
 }
