@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout_community}">
+
+<div layout:fragment="content">
+  <div class="container">
+
+    <form role="form" method="post" th:object="${ntcFormDto}">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <p class="h2">
+        공지사항 등록
+      </p>
+
+      <input type="hidden" th:field="*{id}">
+
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">제목</span>
+        </div>
+        <input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력해주세요">
+      </div>
+      <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
+
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">상품 상세 내용</span>
+        </div>
+        <textarea class="form-control" aria-label="With textarea" th:field="*{content}"></textarea>
+      </div>
+      <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect data</p>
+
+      <button th:formaction="@{/admin/ntc/write}" type="submit" class="btn btn-primary">저장</button>
+    </form>
+
+  </div>
+
+</div>
+
+</html>

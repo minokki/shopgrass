@@ -5,16 +5,13 @@
       layout:decorate="~{layouts/layout_company}">
 <head>
   <style>
-    .my-padding {
-      padding: 120px 0;
-    }
     .company-intro-text {
       padding-top: 100px; /* Increase or decrease this value as needed */
     }
 
     #Info {
       color: #333; /* dark grey text */
-      padding: 50px 0; /* vertical padding */
+      padding-bottom: 50px;
     }
 
     #Info h1 {
@@ -84,11 +81,9 @@
 
 
 
-    /* Drones Section Styles */
-
     .drones {
       padding: 60px 0; /* vertical padding */
-
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       color: #333; /* dark grey text */
     }
     .drones h1 {
@@ -138,20 +133,15 @@
 </head>
 <div layout:fragment="content">
 
-  <div class="container">
+  <div class="container" style="margin-top: 3%">
     <main>
-      <!-- Info Section -->
       <section id="Info" >
         <div class="container">
           <h1>회사 소개 </h1>
           <h2>About Our Company</h2>
-          <p style="font-size: 1.3em;">
+          <p style="font-size: 1.3em; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);padding: 20px">
             저희는 예초 관련 분야에서 선도적인 솔루션을 제공하는 기업입니다. 예초 작업의 진행 상황을 드론으로 촬영하여 고객님께 신속하고 정확한 정보를 제공함으로써 고객님의 신뢰도를 크게 높이고자 노력하고 있습니다. 이를 통해 우리는 예초 전문기업으로서의 입지를 더욱 강화하고 성장해 나가고자 합니다.
           </p>
-
-
-
-            <!-- Add the rest of the paragraph here -->
           </p>
           <h3 style="border-bottom: 1px solid black; padding: 10px; margin-bottom: 20px;">주요 서비스</h3>
           <ul>
@@ -178,7 +168,6 @@
               </p>
 
             </li>
-            <!-- Add more list items for other services -->
           </ul>
         </div>
       </section>
@@ -189,16 +178,12 @@
           <h2 class="text-center">"새로운 시선으로 환경을 관리하는 리더, 우리 회사입니다."</h2>
           <div class="row align-items-center">
             <div class="col-lg-6 d-flex justify-content-center align-items-center">
-              <!-- 드론 이미지 -->
               <img src="/img/company.jpg" class="img-fluid rounded mb-3" alt="드론 이미지" style="width: 500px;height: 330px;">
             </div>
             <div class="col-lg-6" >
-              <!-- 드론 서비스 소개 텍스트 -->
               <p class="lead">저희 회사는 최신 기술의 드론을 이용하여 효율적인 서비스를 제공하고 있습니다.</p>
               <h2>혁신적인 드론기술</h2>
-              <!-- 추가적인 설명 -->
               <p>여러분의 공간은 우리의 열망과 노력의 대상입니다. 우리는 예초 관리 분야에서 선도적인 서비스를 제공하는 회사로, 아름다운 환경을 창조하고 유지하는 것을 사명으로 삼고 있습니다.
-
                 우리의 예초 서비스는 어떻게 여러분의 공간을 더 아름답게 만들어 줄 수 있는지에 대한 열정과 전문성을 갖추고 있습니다. 우리는 최신 기술과 노하우를 활용하여 식물들이 건강하게 자랄 수 있는 최상의 조건을 제공합니다.
               </p>
             </div>
@@ -206,8 +191,7 @@
         </div>
       </section>
 
-
-      <!-- 서비스 섹션 -->
+      <!-- 서비스 -->
       <section id="services" class="services py-5">
         <div class="container">
           <h2 class="text-center" style="border-bottom: 1px solid black; padding: 20px;">Our Services</h2>
@@ -216,7 +200,7 @@
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="icon-container">
-                    <i class="fa fa-cogs fa-3x icon-style"></i>
+                    <i class="fas fa-cogs fa-3x icon-style"></i>
                   </div>
                   <h4 class="card-title">전문가들의 손길</h4>
                   <p class="card-text" style="text-align: left; font-size: 18px;">
@@ -229,7 +213,7 @@
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="icon-container">
-                    <i class="fa fa-paper-plane-o fa-5x icon-style"></i>
+                    <i class="fa-solid fa-place-of-worship icon-style"></i>
                   </div>
                   <h4 class="card-title">혁신적인 드론 기술</h4>
                   <p class="card-text" style="text-align: left; font-size: 18px;">
@@ -242,7 +226,7 @@
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="icon-container">
-                    <i class="fa fa-leaf fa-3x icon-style"></i>
+                    <i class="fas fa-leaf fa-3x icon-style"></i>
                   </div>
                   <h4 class="card-title">아름다움과 기능의 조화</h4>
                   <p class="card-text" style="text-align: left; font-size: 18px;">
@@ -255,7 +239,7 @@
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="icon-container">
-                    <i class="fa fa-clock-o fa-3x icon-style"></i>
+                    <i class="fas fa-clock fa-3x icon-style"></i>
                   </div>
                   <h4 class="card-title">시간과 노력 절약</h4>
                   <p class="card-text" style="text-align: left; font-size: 18px;">
@@ -267,11 +251,8 @@
           </div>
         </div>
       </section>
-      <!-- 이하 내용은 필요에 따라 추가/수정 -->
-      <!-- ... -->
       <div class="b-example-divider" style="height: 70px;"></div>
     </main>
-    <!-- 페이지 영역 끝 -->
 
   </div>
 

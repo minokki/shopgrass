@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-
+    document.querySelector("#shopAlert").addEventListener("click", function() {
+        alert("해당 페이지는 준비 중입니다.");
+    });
     /**
      * slick 불러오기
      */

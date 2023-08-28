@@ -31,6 +31,14 @@ public class BoardMainController {
 
     private final BoardMainService boardMainService;
 
+    @GetMapping(value = "/boardMain/info")
+    public String boardMainInfo(@CurrentUser Account account, Model model){
+        if( account != null) {
+            model.addAttribute(account);
+        }
+        return "boardMain/board_info";
+    }
+
     @GetMapping(value = "/boardMain/new")
     public String boardMainForm(@CurrentUser Account account,Model model) {
         model.addAttribute("boardMainFormDto", new BoardMainFormDto());

@@ -663,6 +663,9 @@ a {
     transition:all 0.8s;
     overflow:hidden;
 }
+.main-2 .main-2-box > ul > li:not(:first-child) > .box{
+    display: block;
+}
 
 .main-2 .main-2-box > ul > li:not(:first-child) > .box::before {
     content:"";
@@ -681,6 +684,7 @@ a {
     transform:scale(2);
     opacity:0;
     z-index:5;
+    display: block;
 }
 
 /* 메인-2 콘텐츠 속 텍스트 */

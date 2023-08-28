@@ -21,25 +21,25 @@
         <a href="/"><img alt="Brand" src="/img/logo.png"></a>
       </div>
       <ul>
-        <li class="dropdown"><a href="/"><span>회사소개</span></a>
+        <li class="dropdown"><a href="#"><span>회사소개</span></a>
           <ul>
             <li><a th:href="@{/company/company_info}">회사소개</a></li>
           </ul>
         </li>
         <li class="dropdown"><a href="#"><span>예초·벌초</span></a>
           <ul>
-            <li><a href="#">견적</a></li>
+            <li><a href="#" th:href="@{/boardMain/info}">견적</a></li>
             <li><a href="#" th:href="@{/boardMain/boardMains}" >시공 사례</a></li>
           </ul>
         </li>
         <li class="dropdown"><a href="#"><span>SHOP</span></a>
           <ul>
-            <li><a href="#" th:href="@{/item/items}" >물품판매</a></li>
+            <li><a id="showAlert" href="#" >물품판매</a></li>
           </ul>
         </li>
         <li class="dropdown"><a href="my_page"><span>고객센터</span></a>
           <ul>
-            <li><a href="#">공지사항</a></li>
+            <li><a href="#" th:href="@{/community/ntcs}">공지사항</a></li>
             <li><a href="#">Q&A</a></li>
             <li><a href="#">오시는 길</a></li>
           </ul>
