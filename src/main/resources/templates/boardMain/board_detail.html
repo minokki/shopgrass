@@ -37,7 +37,7 @@
 <div layout:fragment="content">
   <div class="container">
     <h1 style="text-align: center; flex: 1;"><b>시공사례</b></h1>
-  <input type="hidden" id="itemId" th:value="${boardMain.id}">
+  <input type="hidden" id="Id" th:value="${boardMain.id}">
 
     <table>
       <tr class="write_title">
@@ -62,7 +62,8 @@
     </table>
 
     <div style="padding: 30px; background-color: #f2f2f2; margin-bottom: 100px; display: flex; justify-content: flex-end;">
-      <a href="/boardMain/list" style="background-color: #fff; padding: 30px; border-radius: 5px;">리스트</a>
+      <a href="#" th:href="@{'/admin/boardMain/' + ${boardMainId}}" style="background-color: #fff; padding: 30px; border-radius: 5px;">수정</a>
+      <a href="#" th:href="@{/boardMain/boardMains}" style="background-color: #fff; padding: 30px; border-radius: 5px;">리스트</a>
     </div>
 
 </div>

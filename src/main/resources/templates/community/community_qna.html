@@ -15,8 +15,8 @@
     <div class="container">
         <div class="row">
 
-                <form th:action="@{'/ntcs/' + ${ntcs.number}}" role="form" method="get" th:object="${ntcs}">
-                    <h1 class="text-center" style="margin-bottom: 50px;">공지사항</h1>
+                <form th:action="@{'/qnas/' + ${qnas.number}}" role="form" method="get" th:object="${qnas}">
+                    <h1 class="text-center" style="margin-bottom: 50px;">Q&A</h1>
                     <table class="table border">
                         <thead>
                         <tr>
@@ -28,36 +28,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="ntc : ${ntcs.getContent()}">
-                            <td th:text="${ntc.id}"></td>
+                        <tr th:each="qna : ${qnas.getContent()}">
+                            <td th:text="${qna.id}"></td>
                             <td>
-                                <a th:href="'/community/ntc/'+${ntc.id}" th:text="${ntc.title}"></a>
+                                <a th:href="'/community/qna/'+${qna.id}" th:text="${qna.title}"></a>
                             </td>
-                            <td th:text="${ntc.createBy}"></td>
-                            <td th:text="${ntc.regTime != null ? #temporals.format(ntc.regTime, 'yyyy-MM-dd HH:mm:ss') : ''}"></td>
+                            <td th:text="${qna.createBy}"></td>
+                            <td th:text="${qna.regTime != null ? #temporals.format(qna.regTime, 'yyyy-MM-dd HH:mm:ss') : ''}"></td>
                         </tr>
                         </tbody>
                     </table>
                     <!-- 게시글 작성 버튼 추가 -->
                     <div class="text-end mt-4">
-                        <a href="/admin/ntc/new" class="btn btn-primary">게시글 작성</a>
+                        <a href="/qna/new" class="btn btn-primary">게시글 작성</a>
                     </div>
 
-                    <div th:with="start=${(ntcs.number/maxPage)*maxPage + 1}, end=(${(ntcs.totalPages == 0) ? 1 : (start + (maxPage - 1) < ntcs.totalPages ? start + (maxPage - 1) : ntcs.totalPages)})" >
+                    <div th:with="start=${(qnas.number/maxPage)*maxPage + 1}, end=(${(qnas.totalPages == 0) ? 1 : (start + (maxPage - 1) < qnas.totalPages ? start + (maxPage - 1) : qnas.totalPages)})" >
                         <ul class="pagination justify-content-center">
 
-                            <li class="page-item" th:classappend="${ntcs.first}?'disabled'">
-                                <a th:onclick="'javascript:page(' + ${ntcs.number - 1} + ')'" aria-label='Previous' class="page-link">
+                            <li class="page-item" th:classappend="${qnas.first}?'disabled'">
+                                <a th:onclick="'javascript:page(' + ${qnas.number - 1} + ')'" aria-label='Previous' class="page-link">
                                     <span aria-hidden='true'>Previous</span>
                                 </a>
                             </li>
 
-                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${ntcs.number eq page-1}?'active':''">
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${qnas.number eq page-1}?'active':''">
                                 <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
                             </li>
 
-                            <li class="page-item" th:classappend="${ntcs.last}?'disabled'">
-                                <a th:onclick="'javascript:page(' + ${ntcs.number + 1} + ')'" aria-label='Next' class="page-link">
+                            <li class="page-item" th:classappend="${qnas.last}?'disabled'">
+                                <a th:onclick="'javascript:page(' + ${qnas.number + 1} + ')'" aria-label='Next' class="page-link">
                                     <span aria-hidden='true'>Next</span>
                                 </a>
                             </li>
@@ -66,7 +66,7 @@
 
                     </div>
 
-                    <div class="form-inline justify-content-center" th:object="${ntcSearchDto}" style="display: flex; flex-wrap: wrap;">
+                    <div class="form-inline justify-content-center" th:object="${qnaSearchDto}" style="display: flex; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center; margin-right: 10px;">
                             <select th:field="*{searchDateType}" class="form-control" style="width:auto;">
                                 <option value="all">전체기간</option>
@@ -103,7 +103,7 @@
                 var searchBy = $("#searchBy").val();
                 var searchQuery = $("#searchQuery").val();
 
-                location.href="/community/ntcs/" + page + "?searchDateType=" + searchDateType
+                location.href="/community/qnas/" + page + "?searchDateType=" + searchDateType
                     + "&searchBy=" + searchBy
                     + "&searchQuery=" + searchQuery;
             }

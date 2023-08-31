@@ -7,10 +7,10 @@
 <div layout:fragment="content">
   <div class="container">
 
-    <form role="form" method="post" th:object="${ntcFormDto}">
+    <form role="form" method="post" th:object="${qnaFormDto}">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       <p class="h2">
-        공지사항 등록
+        Q&A 등록
       </p>
 
       <input type="hidden" th:field="*{id}">
@@ -31,11 +31,11 @@
       </div>
       <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect data</p>
 
-      <div th:if="${#strings.isEmpty(ntcFormDto.id)}" style="text-align: center">
-        <button th:formaction="@{/admin/ntc/new}" type="submit" class="btn btn-primary">저장</button>
+      <div th:if="${#strings.isEmpty(qnaFormDto.id)}" style="text-align: center">
+        <button th:formaction="@{/qna/write}" type="submit" class="btn btn-primary">저장</button>
       </div>
-      <div th:unless="${#strings.isEmpty(ntcFormDto.id)}" style="text-align: center">
-        <button th:formaction="@{'/admin/ntc/' + ${ntcFormDto.id} }" type="submit" class="btn btn-primary">수정</button>
+      <div th:unless="${#strings.isEmpty(qnaFormDto.id)}" style="text-align: center">
+        <button th:formaction="@{'/qna/' + ${qnaFormDto.id} }" type="submit" class="btn btn-primary">수정</button>
       </div>
     </form>
 

@@ -1,6 +1,7 @@
 package com.grassshop.dto;
 
 import com.grassshop.entity.Ntc;
+import com.grassshop.entity.Qna;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -11,14 +12,14 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class NtcFormDto {
+public class QnaFormDto {
 
     private Long id;
 
-    @NotBlank(message = "제목은 필수")
+    @NotBlank(message = "제목은 필수 값")
     private String title;
 
-    @NotBlank(message = "내용은 필수")
+    @NotBlank(message = "내용은 필수 값")
     private String content;
 
     @Column(updatable = false, columnDefinition = "DATETIME")
@@ -28,7 +29,8 @@ public class NtcFormDto {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public Ntc createNtc(){
-        return modelMapper.map(this, Ntc.class);
+    public Qna createQna(){
+        return modelMapper.map(this, Qna.class);
     }
+
 }

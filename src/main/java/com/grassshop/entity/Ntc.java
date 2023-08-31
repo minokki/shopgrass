@@ -1,5 +1,6 @@
 package com.grassshop.entity;
 
+import com.grassshop.dto.NtcFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,15 +8,15 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Community_ntc")
+@Table(name = "ntc")
 @Getter
 @Setter
 @ToString
-public class CommunityNtc extends BaseEntity {
+public class Ntc extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "community_ntc_id")
+    @Column(name= "ntc_id")
     private Long id;
 
     @Column(nullable = false,length = 50)
@@ -24,4 +25,9 @@ public class CommunityNtc extends BaseEntity {
     @Lob
     @Column(nullable = false)
     private String content;
+
+    public void updateNtc(NtcFormDto ntcFormDto) {
+        this.title = ntcFormDto.getTitle();
+        this.content = ntcFormDto.getContent();
+    }
 }
