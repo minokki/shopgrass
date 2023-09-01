@@ -24,6 +24,14 @@ public class mainController {
         return "company/company_info";
     }
 
+    @GetMapping("/community/companyMap")
+    public String company_map(@CurrentUser Account account, Model model) {
+        if( account != null) {
+            model.addAttribute(account);
+        }
+        return "community/community_companyMap";
+    }
+
 
 
     @GetMapping("/login")
