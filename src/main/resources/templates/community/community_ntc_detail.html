@@ -6,25 +6,38 @@
 <head>
 <style>
   table {
-    border-collapse: collapse;
     width: 100%;
-    margin-bottom: 50px;
+    border-collapse: collapse; /* 테이블 셀 경계 제거 */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
   }
 
   th, td {
-    border: 1px solid #ddd;
-    padding: 24px 12px;
-
-  }
-  .write_info td{
-    text-align: center;
-  }
-  .write_info,.write_title td{
-    background-color: #f2f2f2;
+    padding: 16px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #f2f2f2; /* 데이터 셀 아래에 경계선 추가 */
   }
 
   th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+  }
+
+  .write_info td {
+    text-align: center;
     background-color: #f2f2f2;
+  }
+
+  .write_title td {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  }
+
+  .container {
+    padding: 20px;
   }
 
   .image-container {
@@ -36,9 +49,8 @@
 </head>
 <div layout:fragment="content">
   <div class="container">
-    <h1 style="text-align: center; flex: 1;"><b>공지사항</b></h1>
+    <h1 style="text-align: center; padding: 24px;"><b>공지사항</b></h1>
     <input type="hidden" id="Id" th:value="${ntc.id}">
-
     <table>
       <tr class="write_title">
         <td colspan="6">
@@ -46,20 +58,27 @@
         </td>
       </tr>
       <tr class="write_info">
-        <td th:text="'작성자 ' + ${ntc.createBy}"></td>
-        <td th:text="'Date ' + ${#temporals.format(ntc.createDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="'작성자 : ' + ${ntc.createBy}"></td>
+        <td th:text="'Date : ' + ${#temporals.format(ntc.createDate, 'yyyy-MM-dd')}"></td>
         <td>조회수 : 조회수 값</td> <!-- 조회수 값을 적절한 값으로 대체 -->
       </tr>
       <tr>
         <td colspan="6">
-          <p style="white-space: pre-line" th:text="${ntc.content}"></p>
+          <div style="min-height: 600px; max-height: 600px;overflow-y: auto!important;">
+          <p th:utext="${#strings.replace(ntc.content, '\n', '<br>')}"></p>
+          </div>
         </td>
       </tr>
     </table>
 
-    <div style="padding: 30px; background-color: #f2f2f2; margin-bottom: 100px; display: flex; justify-content: flex-end;">
-      <a href="#" th:href="@{'/admin/ntc/' + ${ntcId}}" style="background-color: #fff; padding: 30px; border-radius: 5px; border: solid 1px black;">수정</a>
-      <a href="#" th:href="@{/community/ntcs}" style="background-color: #fff; padding: 30px; border-radius: 5px; border: solid 1px black;">리스트</a>
+    <div style="padding: 20px; background-color: #f7f7f7; margin-bottom: 50px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+      <a href="#" th:href="@{'/admin/ntc/' + ${ntcId}}" class="styled-link">
+        수정
+      </a>
+      <a href="#" th:href="@{/community/ntcs}" class="styled-link">
+        리스트
+      </a>
     </div>
 
 </div>

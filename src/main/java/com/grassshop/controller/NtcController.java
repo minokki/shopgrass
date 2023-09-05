@@ -61,7 +61,7 @@ public class NtcController {
             model.addAttribute("errorMessage","공지사항 작성중 에러발생");
             return "community/community_ntc_form";
         }
-        return "redirect:/";
+        return "redirect:/community/ntcs";
     }
 
     //게시글 불러오기(수정)

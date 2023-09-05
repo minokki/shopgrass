@@ -28,7 +28,7 @@ public class NtcRepositoryCustomImpl implements NtcRepositoryCustom {
 
         if (StringUtils.equals("all",searchDateType) || searchDateType == null){
             return null;
-        }else if(StringUtils.equals("1w",searchDateType)){
+        }else if(StringUtils.equals("1d",searchDateType)){
             dateTime = dateTime.minusDays(1);
         } else if (StringUtils.equals("1w", searchDateType)) {
             dateTime = dateTime.minusWeeks(1);

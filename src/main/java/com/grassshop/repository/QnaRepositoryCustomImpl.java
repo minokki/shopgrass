@@ -28,7 +28,7 @@ public class QnaRepositoryCustomImpl implements QnaRepositoryCustom{
 
         if (StringUtils.equals("all", searchDateType) || searchDateType == null) {
             return null;
-        } else if (StringUtils.equals("1w", searchDateType)) {
+        } else if (StringUtils.equals("1d", searchDateType)) {
             dateTime = dateTime.minusDays(1);
         } else if (StringUtils.equals("1w", searchDateType)) {
             dateTime = dateTime.minusWeeks(1);
@@ -42,9 +42,9 @@ public class QnaRepositoryCustomImpl implements QnaRepositoryCustom{
 
     private BooleanExpression searchByLike(String searchBy, String searchQuery) {
         if (StringUtils.equals("title", searchBy)) {
-            return QQna.qna.title.like("%" + searchBy + "%");
+            return QQna.qna.title.like("%" + searchQuery + "%");
         } else if (StringUtils.equals("createBy", searchBy)) {
-            return QQna.qna.createBy.like("%" + searchBy + "%");
+            return QQna.qna.createBy.like("%" + searchQuery + "%");
         }
         return null;
     }
@@ -61,7 +61,7 @@ public class QnaRepositoryCustomImpl implements QnaRepositoryCustom{
                 .fetch();
 
         long total = queryFactory.select(Wildcard.count).from(QQna.qna)
-                .where(regDtsAfter(qnaSearchDto.getSearchBy()),
+                .where(regDtsAfter(qnaSearchDto.getSearchDateType()),
                         searchByLike(qnaSearchDto.getSearchBy(), qnaSearchDto.getSearchQuery()))
                 .fetchOne();
 

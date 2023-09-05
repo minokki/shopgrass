@@ -3,7 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout_board}">
-
+<head>
+  <!-- 섬머노트 css -->
+  <link rel="stylesheet" href="/node_modules/summernote/dist/summernote-bs4.min.css">
+</head>
 <div layout:fragment="content">
   <div class="container">
 
@@ -25,9 +28,9 @@
 
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text">상품 상세 내용</span>
+
         </div>
-        <textarea class="form-control" aria-label="With textarea" th:field="*{content}"></textarea>
+        <textarea id="summernote" class="form-control" aria-label="With textarea" th:field="*{content}"></textarea>
       </div>
       <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect data</p>
 
@@ -54,7 +57,7 @@
       </div>
 
       <div th:if="${#strings.isEmpty(boardMainFormDto.id)}" style="text-align: center">
-        <button th:formaction="@{/admin/boardMain/new}" type="submit" class="btn btn-primary">저장</button>
+        <button th:formaction="@{/admin/boardMain/write}" type="submit" class="btn btn-primary">저장</button>
       </div>
       <div th:unless="${#strings.isEmpty(boardMainFormDto.id)}" style="text-align: center">
         <button th:formaction="@{'/admin/boardMain/' + ${boardMainFormDto.id} }" type="submit" class="btn btn-primary">수정</button>
@@ -64,7 +67,17 @@
     </form>
 
   </div>
-
+ <!-- 섬머노트 -->
+  <script src="/node_modules/summernote/dist/summernote-bs4.js"></script>
+  <script>
+    $(function () {
+      $('#summernote').summernote({
+        fontNames:['Arial','Arial Black', 'Comic Sans Ms', 'Courier New','Noto Sans KR', 'Merriweather'],
+        placeholder: '내용을 작성해주세요',
+        height:400
+      });
+    });
+  </script>
 </div>
 
 </html>

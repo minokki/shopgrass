@@ -31,7 +31,7 @@ public class QnaController {
 
     @GetMapping(value = {"/community/qnas", "/community/qnas/{page}"})
     public String qnaManage(QnaSearchDto qnaSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
         Page<Qna> qnas = qnaService.getQnaPage(qnaSearchDto, pageable);
         model.addAttribute("qnas", qnas);
         model.addAttribute("qnaSearchDto", qnaSearchDto);
