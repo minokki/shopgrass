@@ -12,26 +12,6 @@
             font-size: 18px;
         }
 
-        /* 제목 스타일링 */
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        /* 테이블 스타일링 */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-
         /* 링크 스타일링 */
         a {
             color: #333;
@@ -40,8 +20,9 @@
         }
 
         .table td {
-            padding: 20px 20px;
+            padding: 18px 18px;
         }
+
         .write_info td {
             text-align: center;
             background-color: #f2f2f2;
@@ -49,23 +30,23 @@
         }
 
             /* 제목 컨테이너 스타일링 */
-            .title-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 30px;
-            }
+        .title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
 
-            /* 제목 양 옆에 구분선 스타일링 */
-            .title-container::before,
-            .title-container::after {
-                content: "";
-                flex: 1;
-                height: 1px;
-                background-color: #ccc;
-                margin: 0 5%; /* 왼쪽 및 오른쪽 여백을 5%로 설정 */
+        /* 제목 양 옆에 구분선 스타일링 */
+        .title-container::before,
+        .title-container::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #ccc;
+            margin: 0 5%; /* 왼쪽 및 오른쪽 여백을 5%로 설정 */
 
-            }
+        }
 
     </style>
 </head>
@@ -78,9 +59,9 @@
                     <div class="title-container">
                         <h1 class="text-center">공지사항</h1>
                     </div>
-                    <table class="table border">
-                        <thead >
-                        <tr class="write_info">
+                    <table class="table table-hover table_custom">
+                        <thead class="table-dark">
+                        <tr>
                             <td>게시글 번호</td>
                             <td>제목</td>
                             <td>작성자</td>

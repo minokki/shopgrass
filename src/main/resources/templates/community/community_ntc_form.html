@@ -75,7 +75,7 @@
 </head>
 
 <div layout:fragment="content">
-  <div class="container" style="margin-bottom: 50px; padding: 24px 24px;">
+  <div class="container" id="container_community">
 
     <form role="form" class="form-custom" method="post" th:object="${ntcFormDto}">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

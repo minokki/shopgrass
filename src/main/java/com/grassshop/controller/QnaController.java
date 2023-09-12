@@ -1,8 +1,9 @@
 package com.grassshop.controller;
 
-import com.grassshop.dto.NtcFormDto;
-import com.grassshop.dto.QnaFormDto;
-import com.grassshop.dto.QnaSearchDto;
+import com.grassshop.account.CurrentUser;
+import com.grassshop.dto.*;
+import com.grassshop.entity.Account;
+import com.grassshop.entity.Comment;
 import com.grassshop.entity.Ntc;
 import com.grassshop.entity.Qna;
 import com.grassshop.service.QnaService;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -56,7 +59,7 @@ public class QnaController {
             model.addAttribute("errorMessage", "Q&A 작성중 에러발생");
             return "community/community_qna_form";
         }
-        return "redirect:/";
+        return "redirect:/community/qnas";
     }
 
     @GetMapping(value = "/qna/{qnaId}")
@@ -82,13 +85,30 @@ public class QnaController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "게시글 수정시 에러 발생");
         }
-        return "redirect:/";
+        return "redirect:/community/qna/{qnaId}";
     }
 
     @GetMapping(value = "/community/qna/{qnaId}")
-    public String getQnaDtl(@PathVariable("qnaId") Long qnaId, Model model) {
-        QnaFormDto qnaFormDto = qnaService.getCommunityQna(qnaId);
-        model.addAttribute("qna", qnaFormDto);
+    public String getQnaDtl(@PathVariable("qnaId") Long qnaId, @CurrentUser Account account, Model model) {
+//        QnaFormDto qnaFormDto = qnaService.getCommunityQna(qnaId);
+//        model.addAttribute("qna", qnaFormDto);
+        if(account != null){
+            model.addAttribute(account);
+        }
+        QnaResponseDto dto = qnaService.getQnaById(qnaId);
+        List<CommentResponseDto> comments = dto.getComments();
+        /* 댓글 관련 */
+        if (comments != null && !comments.isEmpty()) {
+            model.addAttribute("comments", comments);
+            model.addAttribute("commentCount", comments.size());
+        } else {
+            model.addAttribute("commentCount", 0);
+        }
+
+        model.addAttribute("qna", dto);
+
         return "community/community_qna_detail";
     }
+
+
 }

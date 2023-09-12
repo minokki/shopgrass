@@ -6,6 +6,11 @@
 
 <head>
     <style>
+        /* 컨테이너 스타일링 */
+        .container {
+            padding: 20px;
+            font-size: 18px;
+        }
         .img-container {
             position: relative;
         }
@@ -21,14 +26,33 @@
             right: 0;
             margin: 10px;
         }
+        /* 제목 컨테이너 스타일링 */
+        .title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* 제목 양 옆에 구분선 스타일링 */
+        .title-container::before,
+        .title-container::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #ccc;
+            margin: 0 5%; /* 왼쪽 및 오른쪽 여백을 5%로 설정 */
+
+        }
 
     </style>
 </head>
 <div layout:fragment="content">
 
     <div class="container">
-        <h1 style="text-align: center; flex: 1;"><b>시공사례</b></h1>
-
+        <div class="title-container">
+            <h1 class="text-center">시공사례</h1>
+        </div>
         <div style="display: flex; justify-content: end; align-items: center;">
 
             <form class="form-inline my-2 my-lg-0" th:action="@{/boardMain/boardMains}" method="get" style="width: 300px;">
@@ -72,11 +96,10 @@
                 </div>
             </th:block>
         </div>
-        <div class="new_button" sec:authorize="hasRole('ROLE_ADMIN')">
-            <form class="needs-validation col-12" action="#" th:action="@{/boardMain/new}">
-                <button class="btn btn-outline-success" type="submit"> 게시글 작성 </button>
-            </form>
+        <div style="padding: 20px; background-color: #f7f7f7; margin-bottom: 50px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="#" th:href="@{/boardMain/new}" class="styled-link">게시글 작성</a>
         </div>
+
 
         <div class="paging" th:with="start=${(boardMains.number/maxPage)*maxPage + 1}, end=(${(boardMains.totalPages == 0) ? 1 : (start + (maxPage - 1) < boardMains.totalPages ? start + (maxPage - 1) : boardMains.totalPages)})" >
             <ul class="pagination justify-content-center">

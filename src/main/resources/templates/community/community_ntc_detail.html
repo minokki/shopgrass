@@ -5,39 +5,14 @@
       layout:decorate="~{layouts/layout_community}">
 <head>
 <style>
-  table {
-    width: 100%;
-    border-collapse: collapse; /* 테이블 셀 경계 제거 */
-    margin-bottom: 20px;
+  .table_custom{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-  }
-
-  th, td {
-    padding: 16px;
-    text-align: left;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #f2f2f2; /* 데이터 셀 아래에 경계선 추가 */
-  }
-
-  th {
-    background-color: #f7f7f7;
-    font-weight: bold;
   }
 
   .write_info td {
     text-align: center;
-    background-color: #f2f2f2;
-  }
-
-  .write_title td {
-    background-color: #f2f2f2;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-  }
-
-  .container {
-    padding: 20px;
+    padding: 16px;
+    font-size: 18px;
   }
 
   .image-container {
@@ -48,10 +23,11 @@
 </style>
 </head>
 <div layout:fragment="content">
-  <div class="container">
+  <div class="container" id="container_community">
     <h1 style="text-align: center; padding: 24px;"><b>공지사항</b></h1>
     <input type="hidden" id="Id" th:value="${ntc.id}">
-    <table>
+    <table class="table table_custom">
+      <thead class="table-dark">
       <tr class="write_title">
         <td colspan="6">
           <h4 th:text="${ntc.title}"></h4>
@@ -62,6 +38,7 @@
         <td th:text="'Date : ' + ${#temporals.format(ntc.createDate, 'yyyy-MM-dd')}"></td>
         <td>조회수 : 조회수 값</td> <!-- 조회수 값을 적절한 값으로 대체 -->
       </tr>
+      </thead>
       <tr>
         <td colspan="6">
           <div style="min-height: 600px; max-height: 600px;overflow-y: auto!important;">

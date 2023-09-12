@@ -66,7 +66,10 @@ public class NtcController {
 
     //게시글 불러오기(수정)
     @GetMapping(value = "/admin/ntc/{ntcId}")
-    public String getNtcForm(@PathVariable("ntcId") Long ntcId, Model model){
+    public String getNtcForm(@CurrentUser Account account,@PathVariable("ntcId") Long ntcId, Model model){
+        if(account != null){
+            model.addAttribute(account);
+        }
         try {
             NtcFormDto communityNtc = ntcService.getCommunityNtc(ntcId);
             model.addAttribute("ntcFormDto", communityNtc);
@@ -90,11 +93,15 @@ public class NtcController {
             model.addAttribute("errorMessage", "게시글 수정중 에러 발생");
             return "community/community_ntc_form";
         }
-        return "redirect:/";
+        return "redirect:/community/ntc/{ntcId}";
     }
 
     @GetMapping(value = "/community/ntc/{ntcId}")
-    public String getNtcDtl(Model model, @PathVariable("ntcId") Long ntcId) {
+    public String getNtcDtl(@CurrentUser Account account,Model model, @PathVariable("ntcId") Long ntcId) {
+        if(account != null){
+            model.addAttribute(account);
+        }
+
         NtcFormDto ntcFormDto = ntcService.getCommunityNtc(ntcId);
         model.addAttribute("ntc", ntcFormDto);
         return "community/community_ntc_detail";

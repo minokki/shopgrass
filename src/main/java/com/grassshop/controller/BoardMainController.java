@@ -46,7 +46,7 @@ public class BoardMainController {
         return "boardMain/board_form";
     }
 
-    @PostMapping(value = "/admin/boardMain/new")
+    @PostMapping(value = "/admin/boardMain/write")
     public String boardMainNew(@Valid BoardMainFormDto boardMainFormDto, BindingResult bindingResult, Model model,
                                @RequestParam("boardMainImgFile") List<MultipartFile> multipartFiles) {
         if (bindingResult.hasErrors()) {
@@ -102,7 +102,7 @@ public class BoardMainController {
             model.addAttribute("errorMessage", "게시글 수정중 에러 발생");
             return "boardMain/board_form";
         }
-        return "redirect:/";
+        return "redirect:/boardMain/{boardMainId}";
     }
 
     @GetMapping(value = {"/admin/boardMains", "/admin/boardMains/{page}"})

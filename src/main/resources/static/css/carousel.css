@@ -2,6 +2,9 @@
 .carousel-inner .carousel-item .image-container {
     position: relative;
 }
+.carousel-item{
+    height: 250px;
+}
 
 /* 캐러셀 텍스트 */
 .carousel-caption {

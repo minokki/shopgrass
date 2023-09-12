@@ -83,13 +83,10 @@ a {
 /* 커스텀 */
 /* 반응형 레이아웃 */
 .con {
-    max-width:1760px;
+    max-width:1520px;
 }
 
-.footer-con {
-    max-width:1630px;
-    margin:0 auto;
-}
+
 
 .main > .main-container {
     margin-left:60px;

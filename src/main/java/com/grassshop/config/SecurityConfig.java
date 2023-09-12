@@ -31,10 +31,11 @@ public class SecurityConfig {
         return http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up", "/check-email-token","/login-by-email",
                         "/email-login", "/check-email-login","terms","/company/*", "login-link", "/profile/*").permitAll()
-                .mvcMatchers("/boardMain/*","/item/*")
+                .mvcMatchers("/boardMain/*","/item/*","/community/*","/community/qna/*","/community/ntc/*")
                 .permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .mvcMatchers("/images/**").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/qna/*/comments").authenticated() // 해당 엔드포인트를 인증된 사용자만 접근 허용
                 .mvcMatchers("/admin/**").hasRole("ADMIN") //  ADMIN 권한 필요
                 .anyRequest().authenticated()
                 .and()

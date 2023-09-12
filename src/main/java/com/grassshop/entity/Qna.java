@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +26,13 @@ public class Qna extends BaseEntity{
     @Lob
     @Column(nullable = false)
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+    @OneToMany(mappedBy = "qna",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
 
     public void updateQna(QnaFormDto qnaFormDto) {
         this.title = qnaFormDto.getTitle();

@@ -5,26 +5,14 @@
       layout:decorate="~{layouts/layout_board}">
 <head>
   <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-bottom: 50px;
+    .table_custom{
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    th, td {
-      border: 1px solid #ddd;
-      padding: 24px 12px;
-
-    }
-    .write_info td{
+    .write_info td {
       text-align: center;
-    }
-    .write_info,.write_title td{
-      background-color: #f2f2f2;
-    }
-
-    th {
-      background-color: #f2f2f2;
+      padding: 16px;
+      font-size: 18px;
     }
 
     .image-container {
@@ -32,15 +20,15 @@
       justify-content: space-between;
       padding-bottom: 50px;
     }
-
   </style>
 </head>
 <div layout:fragment="content">
-  <div class="container">
-    <h1 style="text-align: center; flex: 1;"><b>시공사례</b></h1>
+  <div class="container" id="container_community">
+    <h1 style="text-align: center; padding: 24px;"><b>시공사례</b></h1>
   <input type="hidden" id="Id" th:value="${boardMain.id}">
 
-    <table>
+    <table class="table table_custom">
+      <thead class="table-dark">
       <tr class="write_title">
         <td colspan="6">
           <h4 th:text="${boardMain.title}"></h4>
@@ -51,13 +39,17 @@
         <td th:text="'Date ' + ${#temporals.format(boardMain.createDate, 'yyyy-MM-dd')}"></td>
         <td>조회수 : 조회수 값</td> <!-- 조회수 값을 적절한 값으로 대체 -->
       </tr>
+      </thead>
       <tr>
         <td colspan="6">
-          <div class="image-container" style="display: flex; justify-content:center; padding-bottom: 50px;">
-            <img th:src="${boardMain.beforeImgUrl}" alt="Before Image" height="400" width="600">
-            <img th:src="${boardMain.afterImgUrl}" alt="After Image" height="400" width="600">
+          <div style="padding:20px; min-height: 600px; max-height: 600px;overflow-y: auto!important;">
+          <div class="image-container" style="display: flex; justify-content:center; padding-bottom: 10px;">
+            <img th:src="${boardMain.beforeImgUrl}" alt="Before Image" height="400" width="600" style="padding: 10px">
+            <img th:src="${boardMain.afterImgUrl}" alt="After Image" height="400" width="600" style="padding: 10px">
           </div>
-          <p style="white-space: pre-line" th:text="${boardMain.content}"></p>
+
+            <p th:utext="${#strings.replace(boardMain.content, '\n', '<br>')}"></p>
+          </div>
         </td>
       </tr>
     </table>
