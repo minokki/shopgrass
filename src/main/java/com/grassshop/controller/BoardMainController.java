@@ -65,7 +65,7 @@ public class BoardMainController {
             model.addAttribute("errorMessage", "상품등록중 에러 발생");
             return "boardMain/board_form";
         }
-        return "redirect:/";
+        return "redirect:/boardMain/boardMains";
     }
 
     /* 시공사례 수정(GET) */
@@ -139,8 +139,10 @@ public class BoardMainController {
         if( account != null) {
             model.addAttribute(account);
         }
+        BoardMain boardMain = boardMainService.viewBoardMain(boardMainId);
         BoardMainFormDto boardMainFormDto = boardMainService.getBoardMainDtl(boardMainId);
         model.addAttribute("boardMain", boardMainFormDto);
+        model.addAttribute("boardMainViews", boardMain);
         return "boardMain/board_detail";
     }
 }

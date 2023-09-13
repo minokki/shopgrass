@@ -26,11 +26,15 @@ public class NtcFormDto {
 
     private String createBy;
 
+    private Long views;
+
     private String isImportant;
 
     private static ModelMapper modelMapper = new ModelMapper();
 
     public Ntc createNtc(){
-        return modelMapper.map(this, Ntc.class);
+        Ntc ntc = modelMapper.map(this, Ntc.class);
+        ntc.setViews(0l);
+        return ntc;
     }
 }

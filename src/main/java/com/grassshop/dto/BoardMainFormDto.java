@@ -32,6 +32,8 @@ public class BoardMainFormDto {
 
     private String createBy;
 
+    private Long views;
+
     //게시글 수정시 이미지 정보 저장하는 리스트
     private List<BoardMainImgDto> boardMainImgDtoList = new ArrayList<>();
 
@@ -40,7 +42,9 @@ public class BoardMainFormDto {
 
     private static ModelMapper modelMapper = new ModelMapper();
     public BoardMain createBoardMain(){
-        return modelMapper.map(this, BoardMain.class);
+        BoardMain boardMain = modelMapper.map(this, BoardMain.class);
+        boardMain.setViews(0l);
+        return boardMain;
     }
 
     public static BoardMainFormDto ofv(BoardMain boardMain) {

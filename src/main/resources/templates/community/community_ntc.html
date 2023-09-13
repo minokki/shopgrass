@@ -85,7 +85,7 @@
                             </td>
                             <td th:text="${ntc.createBy}"></td>
                             <td th:text="${ntc.regTime != null ? #temporals.format(ntc.regTime, 'yyyy-MM-dd') : ''}"></td>
-                            <td>조회수</td>
+                            <td th:text="${ntc.views}">조회수</td>
                         </tr>
                         </tbody>
                     </table>

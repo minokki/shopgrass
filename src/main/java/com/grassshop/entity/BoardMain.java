@@ -29,6 +29,8 @@ public class BoardMain extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Long views = 0L;
 
     public void updateBoardMain(BoardMainFormDto boardMainFormDto) {
         this.title = boardMainFormDto.getTitle();

@@ -3,6 +3,7 @@ package com.grassshop.service;
 import com.grassshop.dto.NtcFormDto;
 import com.grassshop.dto.NtcSearchDto;
 import com.grassshop.entity.Ntc;
+import com.grassshop.entity.Qna;
 import com.grassshop.repository.NtcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -52,4 +55,22 @@ public class NtcService {
     public Page<Ntc> getNtcPage(NtcSearchDto ntcSearchDto, Pageable pageable) {
         return ntcRepository.getNtcPage(ntcSearchDto, pageable);
     }
+
+    /* 공지사항 조회수 */
+    public Ntc viewNtc(Long ntcId) {
+        Optional<Ntc> optionalNtc = ntcRepository.findById(ntcId);
+
+        if (optionalNtc.isPresent()) {
+            Ntc ntc = optionalNtc.get();
+
+            // 조회수 증가
+            ntc.setViews(ntc.getViews() + 1L);
+            ntcRepository.save(ntc);
+
+            return ntc;
+        } else {
+            throw new EntityNotFoundException("게시물을 찾을 수 없습니다."); // 예외 처리
+        }
+    }
+
 }

@@ -104,9 +104,11 @@ public class NtcController {
         if(account != null){
             model.addAttribute(account);
         }
-
+        Ntc ntc = ntcService.viewNtc(ntcId);
         NtcFormDto ntcFormDto = ntcService.getCommunityNtc(ntcId);
+
         model.addAttribute("ntc", ntcFormDto);
+        model.addAttribute("ntcViews", ntc);
         return "community/community_ntc_detail";
     }
 

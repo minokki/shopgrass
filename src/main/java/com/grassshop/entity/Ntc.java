@@ -26,6 +26,9 @@ public class Ntc extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Long views = 0L;
+
     private String isImportant;
 
     public void updateNtc(NtcFormDto ntcFormDto) {

@@ -7,6 +7,7 @@ import com.grassshop.dto.BoardSearchDto;
 import com.grassshop.dto.MainBoardDto;
 import com.grassshop.entity.BoardMain;
 import com.grassshop.entity.BoardMainImg;
+import com.grassshop.entity.Qna;
 import com.grassshop.repository.BoardMainImgRepository;
 import com.grassshop.repository.BoardMainRepository;
 import lombok.RequiredArgsConstructor;
@@ -107,5 +108,22 @@ public class BoardMainService {
     @Transactional(readOnly = true)
     public Page<MainBoardDto> getMainBoardPage(BoardSearchDto boardSearchDto, Pageable pageable) {
         return boardMainRepository.getMainBoardPage(boardSearchDto, pageable);
+    }
+
+    /* 시공사레 조회수 */
+    public BoardMain viewBoardMain(Long boardMainId) {
+        Optional<BoardMain> optionalBoardMain = boardMainRepository.findById(boardMainId);
+
+        if (optionalBoardMain.isPresent()) {
+            BoardMain boardMain = optionalBoardMain.get();
+
+            // 조회수 증가
+            boardMain.setViews(boardMain.getViews() + 1L);
+            boardMainRepository.save(boardMain);
+
+            return boardMain;
+        } else {
+            throw new EntityNotFoundException("게시물을 찾을 수 없습니다."); // 예외 처리
+        }
     }
 }
