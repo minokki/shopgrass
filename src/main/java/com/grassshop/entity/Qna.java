@@ -27,6 +27,9 @@ public class Qna extends BaseEntity{
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Long views = 0L;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;

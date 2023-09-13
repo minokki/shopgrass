@@ -32,6 +32,7 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    /* 상품 SAVE(GET) */
     @GetMapping(value = "/admin/item/new")
     public String itemForm(@CurrentUser Account account, Model model) {
         model.addAttribute("itemFormDto", new ItemFormDto());
@@ -39,14 +40,13 @@ public class ItemController {
         return "item/item_form";
     }
 
-    //상품등록
+    /* 상품 SAVE(POST)*/
     @PostMapping(value = "/admin/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
         if (bindingResult.hasErrors()) {
             return "item/item_form";
         }
-
         List<MultipartFile> validItemImgFileList = itemImgFileList.stream()  //업로드된 이미지만 변수에 저장
                 .filter(file -> file.getSize() > 0)
                 .collect(Collectors.toList());
@@ -55,18 +55,16 @@ public class ItemController {
             model.addAttribute("errorMessage", "첫번째 이미지는 필수값");
             return "item/item_form";
         }
-
         try {
             itemService.saveItem(itemFormDto, validItemImgFileList); //상품 저장 로직
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품등록중 에러가 발생했습니다");
             return "item/item_form";
         }
-
         return "redirect:/";
-
     }
 
+    /* 상품 UPDATE(GET) */
     @GetMapping(value = "admin/item/{itemId}")
     public String itemDtl(@CurrentUser Account account, @PathVariable("itemId") Long itemId, Model model) {
         try {
@@ -81,6 +79,7 @@ public class ItemController {
         return "item/item_form";
     }
 
+    /* 상품 UPDATE(POST) */
     @PostMapping(value = "/admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
                              @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
@@ -90,24 +89,20 @@ public class ItemController {
         List<MultipartFile> validItemImgFileList = itemImgFileList.stream()  //업로드된 이미지만 변수에 저장
                 .filter(file -> file.getSize() > 0)
                 .collect(Collectors.toList());
-
         if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "item/item_form";
         }
-
-
         try {
             itemService.updateItem(itemFormDto, validItemImgFileList);
-
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
             return "item/item_form";
         }
-
         return "redirect:/";
     }
 
+    /* 상품 목록(ADMIN) */
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
     public String itemManage(@CurrentUser Account account, ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
@@ -120,7 +115,7 @@ public class ItemController {
         return "item/item_mng";
     }
 
-    //물품 목록이동
+    /* 상품목록 */
     @GetMapping(value = "/item/items")
     public String getItemMain(@CurrentUser Account account, ItemSearchDto itemSearchDto, Optional<Integer> page, Model model) {
         if( account != null) {
@@ -136,6 +131,7 @@ public class ItemController {
         return "item/item_main";
     }
 
+    /* 상품 DETAIL */
     @GetMapping(value = "/item/{itemId}")
     public String getItemDetail(@CurrentUser Account account, Model model, @PathVariable("itemId") Long itemId) {
         if( account != null) {

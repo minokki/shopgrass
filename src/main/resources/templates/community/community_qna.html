@@ -74,12 +74,12 @@
                             </td>
                             <td th:text="${qna.createBy}"></td>
                             <td th:text="${qna.regTime != null ? #temporals.format(qna.regTime, 'yyyy-MM-dd') : ''}"></td>
-                            <td>조회수</td>
+                            <td th:text="${qna.views}">조회수</td>
                         </tr>
                         </tbody>
                     </table>
                     <div style="padding: 20px; background-color: #f7f7f7; margin-bottom: 50px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                        <a href="/qna/new" class="styled-link">게시글 작성</a>
+                        <a th:if="${#request.isUserInRole('ADMIN')}" href="/qna/new" class="styled-link">게시글 작성</a>
                     </div>
 
                     <div class="form-inline justify-content-center" th:object="${qnaSearchDto}" style="display: flex; flex-wrap: wrap; margin-bottom: 30px">

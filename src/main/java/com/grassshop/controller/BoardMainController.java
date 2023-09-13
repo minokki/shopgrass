@@ -31,6 +31,7 @@ public class BoardMainController {
 
     private final BoardMainService boardMainService;
 
+    /* 작업소개 페이지 이동 */
     @GetMapping(value = "/boardMain/info")
     public String boardMainInfo(@CurrentUser Account account, Model model){
         if( account != null) {
@@ -39,6 +40,7 @@ public class BoardMainController {
         return "boardMain/board_info";
     }
 
+    /* 시공사례 SAVE(GET) */
     @GetMapping(value = "/boardMain/new")
     public String boardMainForm(@CurrentUser Account account,Model model) {
         model.addAttribute("boardMainFormDto", new BoardMainFormDto());
@@ -46,31 +48,29 @@ public class BoardMainController {
         return "boardMain/board_form";
     }
 
+    /* 시공사레 SAVE(POST) */
     @PostMapping(value = "/admin/boardMain/write")
     public String boardMainNew(@Valid BoardMainFormDto boardMainFormDto, BindingResult bindingResult, Model model,
                                @RequestParam("boardMainImgFile") List<MultipartFile> multipartFiles) {
         if (bindingResult.hasErrors()) {
             return "boardMain/board_form";
         }
-
         if (multipartFiles.get(0).isEmpty() && boardMainFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 이미지는 필수 입력");
             return "boardMain/board_form";
         }
-
         try {
-
             boardMainService.saveBoardMain(boardMainFormDto, multipartFiles);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품등록중 에러 발생");
             return "boardMain/board_form";
         }
         return "redirect:/";
-
     }
 
+    /* 시공사례 수정(GET) */
     @GetMapping("/admin/boardMain/{boardMainId}")
-    public String boardMainDtl(@CurrentUser Account account, @PathVariable("boardMainId") Long boardMainId, Model model) {
+    public String boardMainUpdategGet(@CurrentUser Account account, @PathVariable("boardMainId") Long boardMainId, Model model) {
         try {
             BoardMainFormDto boardMainFormDto = boardMainService.getBoardMainDtl(boardMainId);
             model.addAttribute(account);
@@ -83,10 +83,10 @@ public class BoardMainController {
         return "boardMain/board_form";
     }
 
+    /* 시공사례 수정(POST) */
     @PostMapping("/admin/boardMain/{boardMainId}")
-    public String boardMainUpdate(@Valid BoardMainFormDto boardMainFormDto, BindingResult bindingResult,
+    public String boardMainUpdatePost(@Valid BoardMainFormDto boardMainFormDto, BindingResult bindingResult,
                                   @RequestParam("boardMainImgFile") List<MultipartFile> multipartFiles, Model model) {
-
         if (bindingResult.hasErrors()) {
             return "boardMain/board_form";
         }
@@ -105,6 +105,7 @@ public class BoardMainController {
         return "redirect:/boardMain/{boardMainId}";
     }
 
+    /* 시공사례 목록(ADMIN) */
     @GetMapping(value = {"/admin/boardMains", "/admin/boardMains/{page}"})
     public String boardMainManage(@CurrentUser Account account, BoardSearchDto boardSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
@@ -117,6 +118,7 @@ public class BoardMainController {
         return "boardMain/board_mng";
     }
 
+    /*시공사레 목록 */
     @GetMapping(value = "/boardMain/boardMains")
     public String getBoardMain(@CurrentUser Account account, BoardSearchDto boardSearchDto, Optional<Integer> page, Model model) {
         if( account != null) {
@@ -131,6 +133,7 @@ public class BoardMainController {
         return "boardMain/board_main";
     }
 
+    /* 시공사례 DETAIL */
     @GetMapping(value = "/boardMain/{boardMainId}")
     public String boardMainDtl(@CurrentUser Account account, Model model, @PathVariable("boardMainId") Long boardMainId) {
         if( account != null) {

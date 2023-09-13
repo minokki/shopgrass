@@ -26,6 +26,8 @@ public class NtcFormDto {
 
     private String createBy;
 
+    private String isImportant;
+
     private static ModelMapper modelMapper = new ModelMapper();
 
     public Ntc createNtc(){

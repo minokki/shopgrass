@@ -93,6 +93,15 @@
       </div>
       <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect data</p>
 
+      <!--셀렉트 form-->
+      <div class="form-group" style="margin-top: 15px;">
+        <label for="isImportant">강조 여부:</label>
+        <select class="form-control" id="isImportant" name="isImportant">
+          <option value="N" th:selected="${ntcFormDto.isImportant == 'N'}">강조 안 함</option>
+          <option value="Y" th:selected="${ntcFormDto.isImportant == 'Y'}">강조</option>
+        </select>
+      </div>
+
       <div class="input-group">
         <div class="input-group-prepend">
         </div>

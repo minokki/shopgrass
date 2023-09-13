@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommentApiController {
     private final CommentService commentService;
 
-    //댓글 작성
+    /* 댓글 SAVE */
     @PostMapping("/qna/{qnaId}/comments")
     public ResponseEntity commentSave(@PathVariable Long qnaId, @RequestBody CommentRequestDto dto,
                                       @CurrentUser Account account) {
@@ -22,12 +22,14 @@ public class CommentApiController {
         return ResponseEntity.ok(commentService.commentSave(account.getNickname(), qnaId, dto));
     }
 
+    /* 댓글 UPDATE */
     @PutMapping({"/qna/{qnaId}/comments/{commentId}"})
     public ResponseEntity<Long> update(@PathVariable Long qnaId, @PathVariable Long commentId, @RequestBody CommentRequestDto dto) {
         commentService.commentUpdate(qnaId, commentId, dto);
         return ResponseEntity.ok(commentId);
     }
 
+    /* 댓글 DELETE */
     @DeleteMapping({"/qna/{qnaId}/comments/{commentId}"})
     public ResponseEntity<Long> delete(@PathVariable Long qnaId, @PathVariable Long commentId) {
         commentService.commentDelete(qnaId, commentId);

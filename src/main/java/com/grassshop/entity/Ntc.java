@@ -26,8 +26,11 @@ public class Ntc extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
+    private String isImportant;
+
     public void updateNtc(NtcFormDto ntcFormDto) {
         this.title = ntcFormDto.getTitle();
         this.content = ntcFormDto.getContent();
+        this.isImportant=ntcFormDto.getIsImportant();
     }
 }

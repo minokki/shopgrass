@@ -27,6 +27,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemImgService itemImgService;
 
+    /* 상품 저장 */
     public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
         //상품 등록
         Item item = itemFormDto.createItem();
@@ -44,7 +45,7 @@ public class ItemService {
         return item.getId();
     }
 
-    //상품 수정 정보불러오기
+    /* 상품 수정 불러오기 */
     @Transactional(readOnly = true)
     public ItemFormDto getItemDtl(Long itemId) {
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
@@ -59,7 +60,7 @@ public class ItemService {
         return itemImgDto;
     }
 
-    //상품 수정 업데이트
+    /* 상품수정 업데이트 */
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
         //상품 수정
         Item item = itemRepository.findById(itemFormDto.getId())
@@ -75,12 +76,13 @@ public class ItemService {
         return item.getId();
     }
 
-    //상품데이터 조회
+    /* 상품목록 PAGING(ADMIN) */
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 
+    /* 상품목록 PAGING */
     @Transactional(readOnly = true)
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
 

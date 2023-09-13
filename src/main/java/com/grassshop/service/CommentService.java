@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class CommentService {
@@ -21,8 +22,7 @@ public class CommentService {
     private final AccountRepository accountRepository;
     private final QnaRepository qnaRepository;
 
-    //댓글작성
-    @Transactional
+    /* 댓글 작성 */
     public Long commentSave(String nickname, Long id, CommentRequestDto dto) {
         Account account = accountRepository.findByNickname(nickname);
 
@@ -36,7 +36,7 @@ public class CommentService {
         return dto.getId();
     }
 
-    @Transactional
+    /* 댓글 UPDATE */
     public void commentUpdate(Long qnaId, Long commentId, CommentRequestDto dto) {
 
         Comment comment = commentRepository.findByQnaIdAndId(qnaId, commentId)
@@ -45,7 +45,7 @@ public class CommentService {
         comment.update(dto.getComment());
     }
 
-    @Transactional
+    /* 댓글 DELETE */
     public void commentDelete(Long qnaId, Long commentId) {
         Comment comment = commentRepository.findByQnaIdAndId(qnaId, commentId).orElseThrow(() ->
                 new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + commentId));

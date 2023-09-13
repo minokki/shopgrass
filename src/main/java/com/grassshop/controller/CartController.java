@@ -23,6 +23,7 @@ import java.util.List;
 public class CartController {
     private final CartService cartService;
 
+    /* 장바구니 추가(POST) */
     @PostMapping(value = "/cart")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid CartItemDto cartItemDto, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {

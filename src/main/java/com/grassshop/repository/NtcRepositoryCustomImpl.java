@@ -55,7 +55,7 @@ public class NtcRepositoryCustomImpl implements NtcRepositoryCustom {
                 .where(regDtsAfter(ntcSearchDto.getSearchDateType()),
                         searchByLike(ntcSearchDto.getSearchBy(),
                                 ntcSearchDto.getSearchQuery()))
-                .orderBy(QNtc.ntc.id.desc())
+                .orderBy(QNtc.ntc.isImportant.desc(), QNtc.ntc.id.desc()) // isImportant 내림차순, id 내림차순
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

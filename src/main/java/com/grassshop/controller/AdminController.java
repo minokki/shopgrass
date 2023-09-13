@@ -20,17 +20,7 @@ public class AdminController {
 
     private final NicknameFormValidator nicknameValidator;
 
-//    @InitBinder("passwordForm")
-//    public void passwordInitBinder(WebDataBinder webDataBinder) {
-//        webDataBinder.addValidators(new PasswordFormValidator());
-//    }
-//
-//    @InitBinder("nicknameForm")
-//    public void nicknameInitBinder(WebDataBinder webDataBinder) {
-//        webDataBinder.addValidators(nicknameValidator);
-//    }
-
-    //프로필 수정
+    /* 관리자 페이지 이동 */
     @GetMapping("/admin_page/main")
     public String adminMainPage(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
@@ -38,55 +28,5 @@ public class AdminController {
         return "admin/admin_main";
     }
 
-//    @PostMapping("/settings/profile")
-//    public String profileUpdateForm(@CurrentUser Account account, @Valid @ModelAttribute Profile profile, Errors errors,
-//                                    Model model, RedirectAttributes attributes) {
-//        if (errors.hasErrors()) {
-//            model.addAttribute(account);
-//            return "settings/setting_profile";
-//        }
-//        accountService.updateProfile(account, profile);
-//        attributes.addFlashAttribute("message", "프로필을 수정했습니다");
-//        return "redirect:" + "/settings/profile";
-//    }
-//
-//    //패스워드 변경
-//    @GetMapping("/settings/password")
-//    public String passwordUpdateForm(@CurrentUser Account account, Model model) {
-//        model.addAttribute(account);
-//        model.addAttribute(new PasswordForm());
-//        return "settings/setting_password";
-//    }
-//
-//    @PostMapping("/settings/password")
-//    public String passwordUpdate(@CurrentUser Account account, @Valid PasswordForm passwordForm,
-//                                 Errors errors, Model model, RedirectAttributes attributes) {
-//        if (errors.hasErrors()) {
-//            model.addAttribute(account);
-//            return "settings/setting_password";
-//        }
-//        accountService.updatePassword(account, passwordForm.getNewPassword());
-//        attributes.addFlashAttribute("message", "패스워드를 변경했습니다");
-//        return "redirect:" + "/settings/password";
-//    }
-//
-//    //닉네임 변경
-//    @GetMapping("/settings/nickname")
-//    public String nicknameUpdateForm(@CurrentUser Account account, Model model) {
-//        model.addAttribute(account);
-//        model.addAttribute(new NicknameForm());
-//        return "settings/setting_nickname";
-//    }
-//
-//    @PostMapping("/settings/nickname")
-//    public String nicknameUpdate(@CurrentUser Account account, @Valid NicknameForm nicknameForm, Errors errors,
-//                                 Model model, RedirectAttributes attributes) {
-//        if (errors.hasErrors()) {
-//            model.addAttribute(account);
-//            return "settings/setting_nickname";
-//        }
-//        accountService.updateNickname(account, nicknameForm.getNickname());
-//        attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
-//        return "redirect:" + "/settings/nickname";
-//    }
+
 }

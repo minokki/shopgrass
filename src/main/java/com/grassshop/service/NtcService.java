@@ -18,12 +18,14 @@ import javax.persistence.EntityExistsException;
 public class NtcService {
     private final NtcRepository ntcRepository;
 
+    /* 공지사항 저장 */
     public Long saveCommunityNtc(NtcFormDto ntcFormDto) {
         Ntc ntc = ntcFormDto.createNtc();
         ntcRepository.save(ntc);
         return ntc.getId();
     }
 
+    /* 공지사항 READ */
     @Transactional(readOnly = true)
     public NtcFormDto getCommunityNtc(Long ntcId) {
         Ntc ntc = ntcRepository.findById(ntcId).orElseThrow(EntityExistsException::new);
@@ -38,12 +40,14 @@ public class NtcService {
         return ntcFormDto;
     }
 
+    /* 공지사항 UPDATE */
     public Long updateCommunityNtc(NtcFormDto ntcFormDto) throws Exception {
         Ntc ntc = ntcRepository.findById(ntcFormDto.getId()).orElseThrow(EntityExistsException::new);
         ntc.updateNtc(ntcFormDto);
         return ntc.getId();
     }
 
+    /* 공지사항 PAGING */
     @Transactional(readOnly = true)
     public Page<Ntc> getNtcPage(NtcSearchDto ntcSearchDto, Pageable pageable) {
         return ntcRepository.getNtcPage(ntcSearchDto, pageable);

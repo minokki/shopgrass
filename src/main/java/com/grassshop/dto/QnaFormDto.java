@@ -26,12 +26,16 @@ public class QnaFormDto {
     @Column(updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createDate;
 
+    private Long views;
+
     private String createBy;
 
     private static ModelMapper modelMapper = new ModelMapper();
 
     public Qna createQna(){
-        return modelMapper.map(this, Qna.class);
+        Qna qna = modelMapper.map(this, Qna.class);
+        qna.setViews(0L); // views를 0으로 초기화
+        return qna;
     }
 
 }

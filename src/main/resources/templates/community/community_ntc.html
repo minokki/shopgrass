@@ -25,7 +25,6 @@
 
         .write_info td {
             text-align: center;
-            background-color: #f2f2f2;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
@@ -46,6 +45,11 @@
             background-color: #ccc;
             margin: 0 5%; /* 왼쪽 및 오른쪽 여백을 5%로 설정 */
 
+        }
+        .important_custom td{
+            background-color: #f2f2f2;
+            font-weight: bold;
+            /* 원하는 스타일 추가 */
         }
 
     </style>
@@ -70,10 +74,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="ntc : ${ntcs.getContent()}">
-                            <td th:text="${ntc.id}"></td>
+                        <tr th:each="ntc : ${ntcs.getContent()}" th:class="${ntc.isImportant eq 'Y'} ? 'important_custom' : ''">
+                            <td th:text="${ntc.isImportant eq 'N' ? ntc.id : '공지'}"></td>
                             <td>
-                                <a th:href="'/community/ntc/'+${ntc.id}" th:text="${ntc.title}"></a>
+                                <a th:href="'/community/ntc/'+${ntc.id}">
+                                    <span th:if="${ntc.isImportant == 'Y'}">※&nbsp;</span>
+                                    <span th:text="${ntc.title}"></span>
+<!--                                    <span th:if="${ntc.isImportant == 'Y'}"> ─</span>-->
+                                </a>
                             </td>
                             <td th:text="${ntc.createBy}"></td>
                             <td th:text="${ntc.regTime != null ? #temporals.format(ntc.regTime, 'yyyy-MM-dd') : ''}"></td>
@@ -82,7 +90,7 @@
                         </tbody>
                     </table>
                     <div style="padding: 20px; background-color: #f7f7f7; margin-bottom: 50px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                        <a href="/admin/ntc/new" class="styled-link">게시글 작성</a>
+                        <a th:if="${#request.isUserInRole('ADMIN')}" href="/admin/ntc/new" class="styled-link">게시글 작성</a>
                     </div>
 
                     <div class="form-inline justify-content-center" th:object="${ntcSearchDto}" style="display: flex; flex-wrap: wrap; margin-bottom: 30px">

@@ -10,7 +10,7 @@ import java.util.UUID;
 @Service
 @Log
 public class FileService {
-    //상품 이미지
+    /* 상품 이미지 UPLOAD */
     public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception {
         UUID uuid = UUID.randomUUID();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -22,7 +22,8 @@ public class FileService {
         return savedFileName;
 
     }
-    //시공사례 이미지
+
+    /* 시공사례 이미지 UPLOAD*/
     public String exampleUploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception {
         UUID uuid = UUID.randomUUID();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -35,6 +36,7 @@ public class FileService {
 
     }
 
+    /* 이미지파일 삭제 */
     public void deleteFile(String filePath) {
         File deleteFile = new File(filePath);
 

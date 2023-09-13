@@ -27,7 +27,7 @@ public class NtcController {
 
     private final NtcService ntcService;
 
-    //공지사항 페이지 이동
+    /* 공지사항 목록 */
     @GetMapping(value = {"/community/ntcs", "/community/ntcs/{page}"})
     public String ntcManage(@CurrentUser Account account, NtcSearchDto ntcSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         if(account != null){
@@ -42,14 +42,16 @@ public class NtcController {
         return "community/community_ntc";
 
     }
-    //글작성 페이지 이동
+
+    /* 공지사항 작성(GET) */
     @GetMapping(value = "/admin/ntc/new")
     public String adminNtcForm(@CurrentUser Account account,Model model) {
         model.addAttribute("ntcFormDto", new NtcFormDto());
         model.addAttribute(account);
         return "community/community_ntc_form";
     }
-    //글작성 post
+
+    /* 공지사항 작성(POST) */
     @PostMapping(value = "/admin/ntc/write")
     public String ntcWrite(@Valid NtcFormDto ntcFormDto, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
@@ -64,7 +66,7 @@ public class NtcController {
         return "redirect:/community/ntcs";
     }
 
-    //게시글 불러오기(수정)
+    /* 공지사항 수정(GET) */
     @GetMapping(value = "/admin/ntc/{ntcId}")
     public String getNtcForm(@CurrentUser Account account,@PathVariable("ntcId") Long ntcId, Model model){
         if(account != null){
@@ -81,7 +83,7 @@ public class NtcController {
         return "community/community_ntc_form";
     }
 
-    //게시글 수정 post
+    /* 공지사항 수정(POST) */
     @PostMapping(value = "/admin/ntc/{ntcId}")
     public String ntcUpdate(@Valid NtcFormDto ntcFormDto, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
@@ -96,6 +98,7 @@ public class NtcController {
         return "redirect:/community/ntc/{ntcId}";
     }
 
+    /* 공지사항 DETAIL */
     @GetMapping(value = "/community/ntc/{ntcId}")
     public String getNtcDtl(@CurrentUser Account account,Model model, @PathVariable("ntcId") Long ntcId) {
         if(account != null){

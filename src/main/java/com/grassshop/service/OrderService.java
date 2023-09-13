@@ -31,6 +31,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ItemImgRepository itemImgRepository;
 
+    /* 주문 SAVE */
     public Long order(OrderDto orderDto, String email) {
         Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
         Account account = accountRepository.findByEmail(email);
@@ -45,6 +46,7 @@ public class OrderService {
         return order.getId();
     }
 
+    /* 주문 READ */
     @Transactional(readOnly = true)
     public Page<OrderInfoDto> getOrderList(String email, Pageable pageable) {
         List<Order> orderByEmail = orderRepository.findOrders(email, pageable);
@@ -66,6 +68,7 @@ public class OrderService {
         return new PageImpl<OrderInfoDto>(orderInfoDtoList, pageable, totalCount);
     }
 
+    /* 주문 VALIDATE */
     @Transactional(readOnly = true)
     public boolean validateOrder(Long orderId, String email) {
         Account byEmail = accountRepository.findByEmail(email);
@@ -78,12 +81,13 @@ public class OrderService {
         return true;
     }
 
-
+    /* 주문 CANCEL */
     public void cancelOrder(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
         order.cancelOrder();
     }
 
+    /* 주문 PAGING(ADMIN) */
     @Transactional(readOnly = true)
     public Page<Order> getAdminOrderPage(OrderSearchDto orderSearchDto, Pageable pageable) {
         return orderRepository.getAdminOrderPage(orderSearchDto, pageable);

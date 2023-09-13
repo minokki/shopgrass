@@ -30,6 +30,7 @@ public class BoardMainService {
     private final BoardMainRepository boardMainRepository;
     private final BoardMainImgService boardMainImgService;
 
+    /* 시공사례 등록 */
     public Long saveBoardMain(BoardMainFormDto boardMainFormDto, List<MultipartFile> multipartFiles) throws Exception {
 
         //게시글 등록
@@ -50,6 +51,7 @@ public class BoardMainService {
         return boardMain.getId();
     }
 
+    /* 시공사례 조회 */
     @Transactional(readOnly = true)
     public BoardMainFormDto getBoardMainDtl(Long boardMainId) {
         // boardMainId에 해당하는 BoardMain 엔티티 조회
@@ -79,11 +81,10 @@ public class BoardMainService {
             // 이미지 정보를 리스트에 추가
             boardMainFormDto.getBoardMainImgDtoList().add(boardMainImgDto);
         }
-
-        // 반환
         return boardMainFormDto;
     }
 
+    /* 시공사례 UPDATE */
     public Long updateBoardMain(BoardMainFormDto boardMainFormDto, List<MultipartFile> multipartFiles) throws Exception {
 
         BoardMain boardMain = boardMainRepository.findById(boardMainFormDto.getId()).orElseThrow(EntityNotFoundException::new);
@@ -97,10 +98,12 @@ public class BoardMainService {
         return boardMain.getId();
     }
 
+    /* 시공사례 PAGING(관리자) */
     public Page<BoardMain> getAdminBoardMainPage(BoardSearchDto boardSearchDto, Pageable pageable) {
         return boardMainRepository.getAdminBoardMainPage(boardSearchDto, pageable);
     }
 
+    /* 시공사례 PAGING */
     @Transactional(readOnly = true)
     public Page<MainBoardDto> getMainBoardPage(BoardSearchDto boardSearchDto, Pageable pageable) {
         return boardMainRepository.getMainBoardPage(boardSearchDto, pageable);

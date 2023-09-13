@@ -36,7 +36,7 @@ public class AccountService implements UserDetailsService {
     private final TemplateEngine templateEngine;
     private final AppProperties appProperties;
 
-
+    /* 회원가입 토큰생성 */
     public Account processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm); //아래 메서드는 영속성 컨텍스트 상태임. 그 정보를 가지고 토큰 생성후 저장하려면, 트랜젝션 어노테이션 작성해줘야함
         //이메일 체크토큰 생성
@@ -44,6 +44,8 @@ public class AccountService implements UserDetailsService {
 //        sentConfirmEmail(newAccount);
         return newAccount;
     }
+
+    /* 회원가입 */
     public Account saveNewAccount(SignUpForm signUpForm) {
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
@@ -56,7 +58,7 @@ public class AccountService implements UserDetailsService {
         return newAccount;
     }
 
-    //인증 이메일 보내기
+    /* 인증 이메일 보내기 */
     public void sentConfirmEmail(Account newAccount) {
         Context context = new Context();
         context.setVariable("link","/check-email-token?token=" + newAccount.getEmailCheckToken() +
@@ -75,7 +77,7 @@ public class AccountService implements UserDetailsService {
         emailService.sendEmail(emailMessage);
     }
 
-//로그인
+    /* 로그인 */
     public void login(Account account) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 new UserAccount(account), //사용자 정보
@@ -83,8 +85,9 @@ public class AccountService implements UserDetailsService {
                 new UserAccount(account).getAuthorities()); // 여기서 authorities 메서드를 이용하여 권한 추가
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(token);
-}
+    }
 
+    /* ??? */
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String emailOrNickname) throws UsernameNotFoundException {
@@ -100,11 +103,13 @@ public class AccountService implements UserDetailsService {
         return new UserAccount(account);
     }
 
+    /* 회원가입시 자동로그인 */
     public void completeSingUP(Account account) {
         account.completeSignUp();
         login(account);
     }
 
+    /* 프로필 UPDATE */
     public void updateProfile(Account account, Profile profile) {
         account.setUrl(profile.getUrl());
         account.setOccupation(profile.getOccupation());
@@ -114,19 +119,19 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
     }
 
-
+    /* 프로필 PASSWORD */
     public void updatePassword(Account account, String newPassword) {
         account.setPassword(passwordEncoder.encode(newPassword));
         accountRepository.save(account);
     }
-
+    /* 프로필 NICKNAME */
     public void updateNickname(Account account, String nickname) {
         account.setNickname(nickname);
         accountRepository.save(account);
         login(account);
     }
 
-//    로그인링크
+    /* 이메일-로그인링크 */
     public void sendLoginLing(Account account) {
         Context context = new Context();
         context.setVariable("link","/login-by-email?token=" + account.getEmailCheckToken() + "&email=" + account.getEmail());

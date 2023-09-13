@@ -9,11 +9,10 @@ import javax.validation.Valid;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
-    // application.properties 에 설정한 uploadPath 프로퍼티 값을 읽어옴
+    /* 이미지 동적처리 */
+    /* application.properties 에 설정한 uploadPath 프로퍼티 값을 읽어옴 */
     @Value("${uploadPath}")
     String uploadPath;
-//
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**").

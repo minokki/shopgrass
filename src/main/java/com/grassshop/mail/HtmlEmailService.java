@@ -19,6 +19,7 @@ public class HtmlEmailService implements EmailService{
 
     private final JavaMailSender javaMailSender;
 
+    /* 이메일 SEND */
     @Override
     public void sendEmail(EmailMessage emailMessage) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();

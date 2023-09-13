@@ -18,13 +18,13 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Transactional
 public class BoardMainImgService {
+    /* 저장 경로 */
     @Value("${boardMainLocation}")
     private String boardMainLocation;
-
     private final BoardMainImgRepository boardMainImgRepository;
-
     private final FileService fileService;
 
+    /* 이미지 저장 */
     public void saveBoardMainImg(BoardMainImg boardMainImg, MultipartFile multipartFile) throws Exception {
         String oriImgName = multipartFile.getOriginalFilename();
         String imgName = "";
@@ -40,6 +40,7 @@ public class BoardMainImgService {
         boardMainImgRepository.save(boardMainImg);
     }
 
+    /* 이미지 UPDATE */
     public void updateBoardMainImg(Long boardMainImgId, MultipartFile multipartFile) throws Exception{
         if (!multipartFile.isEmpty()) {
             BoardMainImg savedBoardMainImg = boardMainImgRepository.findById(boardMainImgId).orElseThrow(EntityNotFoundException::new);

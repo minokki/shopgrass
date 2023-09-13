@@ -31,6 +31,7 @@ import java.util.Optional;
 public class OrderController {
     private final OrderService orderService;
 
+    /* 주문 */
     @PostMapping(value = "/order")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
 

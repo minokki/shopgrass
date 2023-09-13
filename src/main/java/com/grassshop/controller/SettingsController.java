@@ -42,7 +42,7 @@ public class SettingsController {
         webDataBinder.addValidators(nicknameValidator);
     }
 
-    //프로필 수정
+    /* 프로필 수정 */
     @GetMapping("/settings/profile")
     public String profileUpdateForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
@@ -51,6 +51,7 @@ public class SettingsController {
         return "settings/setting_profile";
     }
 
+    /* 프로필 UPDATE */
     @PostMapping("/settings/profile")
     public String profileUpdateForm(@CurrentUser Account account, @Valid @ModelAttribute Profile profile, Errors errors,
                                     Model model, RedirectAttributes attributes) {
@@ -60,10 +61,10 @@ public class SettingsController {
         }
         accountService.updateProfile(account, profile);
         attributes.addFlashAttribute("message", "프로필을 수정했습니다");
-        return "redirect:" + "/settings/profile";
+        return "redirect:" + "/settings/setting_profile";
     }
 
-    //패스워드 변경
+    /* 비밀번호 변경(GET) */
     @GetMapping("/settings/password")
     public String passwordUpdateForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
@@ -71,6 +72,7 @@ public class SettingsController {
         return "settings/setting_password";
     }
 
+    /* 비밀번호 변경(POST) */
     @PostMapping("/settings/password")
     public String passwordUpdate(@CurrentUser Account account, @Valid PasswordForm passwordForm,
                                  Errors errors, Model model, RedirectAttributes attributes) {
@@ -80,10 +82,10 @@ public class SettingsController {
         }
         accountService.updatePassword(account, passwordForm.getNewPassword());
         attributes.addFlashAttribute("message", "패스워드를 변경했습니다");
-        return "redirect:" + "/settings/password";
+        return "redirect:" + "/settings/setting_password";
     }
 
-    //닉네임 변경
+    /* 닉네임 변경(GET) */
     @GetMapping("/settings/nickname")
     public String nicknameUpdateForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
@@ -91,6 +93,7 @@ public class SettingsController {
         return "settings/setting_nickname";
     }
 
+    /* 닉네임변경(POST) */
     @PostMapping("/settings/nickname")
     public String nicknameUpdate(@CurrentUser Account account, @Valid NicknameForm nicknameForm, Errors errors,
                                  Model model, RedirectAttributes attributes) {
@@ -100,6 +103,6 @@ public class SettingsController {
         }
         accountService.updateNickname(account, nicknameForm.getNickname());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
-        return "redirect:" + "/settings/nickname";
+        return "redirect:" + "/settings/setting_nickname";
     }
 }

@@ -16,7 +16,7 @@ import javax.persistence.EntityNotFoundException;
 @RequiredArgsConstructor
 @Transactional
 public class ItemImgService {
-
+    /* 저장 경로 */
     @Value("${itemImgLocation}")
     private String itemImgLocation;
 
@@ -26,7 +26,7 @@ public class ItemImgService {
 
     private final FileService fileService;
 
-    //이미지 저장
+    /* 이미지 저장 */
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
@@ -44,7 +44,7 @@ public class ItemImgService {
 
     }
 
-    //상품 이미지 수정
+    /* 상품 이미지 UPDATE */
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
         if(!itemImgFile.isEmpty()){
             ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
