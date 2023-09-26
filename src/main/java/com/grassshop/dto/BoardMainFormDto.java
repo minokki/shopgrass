@@ -15,10 +15,10 @@ import java.util.List;
 public class BoardMainFormDto {
     private Long id;
     
-    @NotBlank(message = "제목은필수")
+    @NotBlank(message = "제목을 작성해주세요!")
     private String title;
 
-    @NotBlank(message = "내용은필수")
+    @NotBlank(message = "내용을 작성해주세요!")
     private String content;
 
     private String imgUrl;

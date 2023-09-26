@@ -102,18 +102,6 @@ public class ItemController {
         return "redirect:/";
     }
 
-    /* 상품 목록(ADMIN) */
-    @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
-    public String itemManage(@CurrentUser Account account, ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-
-        Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
-        model.addAttribute(account);
-        model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
-        return "item/item_mng";
-    }
 
     /* 상품목록 */
     @GetMapping(value = "/item/items")

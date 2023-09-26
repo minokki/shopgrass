@@ -1,5 +1,6 @@
 package com.grassshop.service;
 
+import com.grassshop.dto.MemberSearchDto;
 import com.grassshop.repository.AccountRepository;
 import com.grassshop.account.UserAccount;
 import com.grassshop.config.AppProperties;
@@ -12,6 +13,8 @@ import com.grassshop.dto.Profile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -149,5 +152,9 @@ public class AccountService implements UserDetailsService {
 
         emailService.sendEmail(emailMessage);
 
+    }
+
+    public Page<Account> getAdminMemberPage(MemberSearchDto memberSearchDto, Pageable pageable) {
+        return accountRepository.getAdminMemberPage(memberSearchDto, pageable);
     }
 }

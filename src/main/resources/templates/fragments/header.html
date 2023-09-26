@@ -68,7 +68,7 @@
               <li><h3 sec:authentication="name">Username</h3></li>
               <li><a th:href="@{'/profile/' + ${#authentication.name}}">프로필</a></li>
               <li><a href="#" th:href="@{'/settings/profile'}">설정</a></li>
-              <li th:if="${#request.isUserInRole('ADMIN')}"><a href="#" th:href="@{/admin_page/main}">관리자 페이지</a></li>
+              <li th:if="${#request.isUserInRole('ADMIN')}"><a href="#" th:href="@{/admin/members}">관리자 페이지</a></li>
             </ul>
           </li>
           <li class="logout">
@@ -79,6 +79,9 @@
         </div>
       </ul>
     </nav>
+    <div class="alert alert-warning alert_custom" role="alert" th:if="${account != null && !account.emailVerified}" style="position: absolute; top: 0; left: 0; right: 0; z-index: 9;">
+      벌초박사 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요.
+    </div>
   </div>
 </div>
 

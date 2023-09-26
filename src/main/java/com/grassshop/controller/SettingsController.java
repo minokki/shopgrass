@@ -61,7 +61,7 @@ public class SettingsController {
         }
         accountService.updateProfile(account, profile);
         attributes.addFlashAttribute("message", "프로필을 수정했습니다");
-        return "redirect:" + "/settings/setting_profile";
+        return "redirect:" + "/settings/profile";
     }
 
     /* 비밀번호 변경(GET) */
@@ -82,7 +82,7 @@ public class SettingsController {
         }
         accountService.updatePassword(account, passwordForm.getNewPassword());
         attributes.addFlashAttribute("message", "패스워드를 변경했습니다");
-        return "redirect:" + "/settings/setting_password";
+        return "redirect:" + "/settings/password";
     }
 
     /* 닉네임 변경(GET) */
@@ -103,6 +103,6 @@ public class SettingsController {
         }
         accountService.updateNickname(account, nicknameForm.getNickname());
         attributes.addFlashAttribute("message", "닉네임을 수정했습니다.");
-        return "redirect:" + "/settings/setting_nickname";
+        return "redirect:" + "/settings/nickname";
     }
 }

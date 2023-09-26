@@ -82,17 +82,5 @@ public class OrderController {
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/admin/orders","/admin/orders/{page}"})
-    public String orderManage(@CurrentUser Account account,OrderSearchDto orderSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-
-        Page<Order> orders = orderService.getAdminOrderPage(orderSearchDto,pageable);
-        model.addAttribute(account);
-        model.addAttribute("orders", orders);
-        model.addAttribute("orderSearchDto", orderSearchDto);
-        model.addAttribute("maxPage", 5);
-
-        return "order/order_mng";
-    }
 }
 

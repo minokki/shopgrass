@@ -15,10 +15,10 @@ public class NtcFormDto {
 
     private Long id;
 
-    @NotBlank(message = "제목은 필수")
+    @NotBlank(message = "제목을 작성해 주시길 바랍니다.")
     private String title;
 
-    @NotBlank(message = "내용은 필수")
+    @NotBlank(message = "내용을 작성해 주시길 바랍니다.")
     private String content;
 
     @Column(updatable = false, columnDefinition = "DATETIME")

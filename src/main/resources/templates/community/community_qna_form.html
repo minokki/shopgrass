@@ -97,8 +97,8 @@
           <span class="input-group-text">상품 상세 내용</span>
         </div>
         <textarea id="summernote" class="form-control" aria-label="With textarea" th:field="*{content}"></textarea>
+        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect data</p>
       </div>
-      <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect data</p>
 
       <div th:if="${#strings.isEmpty(qnaFormDto.id)}" style="text-align: end">
         <button th:formaction="@{/qna/write}" type="submit" class="styled-link">저장</button>

@@ -4,6 +4,7 @@ import com.grassshop.account.CurrentUser;
 import com.grassshop.dto.*;
 import com.grassshop.entity.Account;
 import com.grassshop.entity.Qna;
+import com.grassshop.repository.QnaRepository;
 import com.grassshop.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,10 +28,14 @@ import java.util.Optional;
 public class QnaController {
 
     private final QnaService qnaService;
+    private final QnaRepository qnaRepository;
 
     /* 게시글 목록 */
     @GetMapping(value = {"/community/qnas", "/community/qnas/{page}"})
-    public String qnaManage(QnaSearchDto qnaSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+    public String qnaManage(@CurrentUser Account account,QnaSearchDto qnaSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+        if(account != null){
+            model.addAttribute(account);
+        }
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
         Page<Qna> qnas = qnaService.getQnaPage(qnaSearchDto, pageable);
         model.addAttribute("qnas", qnas);
@@ -39,16 +45,22 @@ public class QnaController {
     }
     /* Q&A 작성(GET) */
     @GetMapping(value = "/qna/new")
-    public String qnaForm(Model model) {
+    public String qnaForm(@CurrentUser Account account,Model model) {
+        if(account != null){
+            model.addAttribute(account);
+        }
         model.addAttribute("qnaFormDto", new QnaFormDto());
         return "community/community_qna_form";
     }
 
     /* Q&A 작성(POST) */
     @PostMapping(value = "/qna/write")
-    public String qnaWrite(@Valid QnaFormDto qnaFormDto, BindingResult bindingResult, Model model) {
+    public String qnaWrite(@CurrentUser Account account,@Valid QnaFormDto qnaFormDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "community/community_qna_form";
+        }
+        if(account != null){
+            model.addAttribute(account);
         }
         try {
             qnaService.saveCommunityQna(qnaFormDto);
@@ -61,7 +73,10 @@ public class QnaController {
 
     /* Q&A 수정(GET) */
     @GetMapping(value = "/qna/{qnaId}")
-    public String getQnaForm(@PathVariable("qnaId") Long qnaId, Model model) {
+    public String getQnaForm(@CurrentUser Account account,@PathVariable("qnaId") Long qnaId, Model model) {
+        if(account != null){
+            model.addAttribute(account);
+        }
         try {
             QnaFormDto qnaFormDto = qnaService.getCommunityQna(qnaId);
             model.addAttribute("qnaFormDto", qnaFormDto);
@@ -93,6 +108,7 @@ public class QnaController {
         if(account != null){
             model.addAttribute(account);
         }
+
         QnaResponseDto dto = qnaService.getQnaById(qnaId);
         /* 조회수 */
         Qna qna = qnaService.viewQna(qnaId);
@@ -106,6 +122,10 @@ public class QnaController {
         }
         model.addAttribute("qnaViews", qna);
         model.addAttribute("qna", dto);
+
+        // 작성자와 현재 사용자를 비교하여 수정 버튼을 표시할지 여부를 결정 (닉네임으로 판단)
+        boolean isAuthor = account.getNickname().equals(dto.getWriter());
+        model.addAttribute("isAuthor", isAuthor);
 
         return "community/community_qna_detail";
     }

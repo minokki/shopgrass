@@ -56,13 +56,17 @@ public class BoardMainController {
             return "boardMain/board_form";
         }
         if (multipartFiles.get(0).isEmpty() && boardMainFormDto.getId() == null) {
-            model.addAttribute("errorMessage", "첫번째 이미지는 필수 입력");
+            model.addAttribute("errorMessage", "이미지1, 이미지2 등록을 해주시길 바랍니다.");
+            return "boardMain/board_form";
+        }
+        if (multipartFiles.get(1).isEmpty() && boardMainFormDto.getId() == null) {
+            model.addAttribute("errorMessage", "이미지1, 이미지2 등록을 해주시길 바랍니다.");
             return "boardMain/board_form";
         }
         try {
             boardMainService.saveBoardMain(boardMainFormDto, multipartFiles);
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "상품등록중 에러 발생");
+            model.addAttribute("errorMessage", "등록중 에러 발생");
             return "boardMain/board_form";
         }
         return "redirect:/boardMain/boardMains";
@@ -105,18 +109,7 @@ public class BoardMainController {
         return "redirect:/boardMain/{boardMainId}";
     }
 
-    /* 시공사례 목록(ADMIN) */
-    @GetMapping(value = {"/admin/boardMains", "/admin/boardMains/{page}"})
-    public String boardMainManage(@CurrentUser Account account, BoardSearchDto boardSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 
-        Page<BoardMain> boardMains = boardMainService.getAdminBoardMainPage(boardSearchDto, pageable);
-        model.addAttribute(account);
-        model.addAttribute("boardMains", boardMains);
-        model.addAttribute("boardSearchDto", boardSearchDto);
-        model.addAttribute("maxPage", 5);
-        return "boardMain/board_mng";
-    }
 
     /*시공사레 목록 */
     @GetMapping(value = "/boardMain/boardMains")

@@ -21,9 +21,9 @@
 
 <!-- admin-menu -->
 <div th:fragment="admin-menu (adminMenu)" class="list-group">
-    <a class="list-group-item list-group-item-action" th:classappend="${adminMenu == 'main'}? active" href="#"
+    <a class="list-group-item list-group-item-action" th:classappend="${adminMenu == 'members'}? active" href="#"
        th:if="${#request.isUserInRole('ADMIN')}"
-       th:href="@{/admin_page/main}">통계</a>
+       th:href="@{/admin/members}">회원정보</a>
     <a class="list-group-item list-group-item-action" th:classappend="${adminMenu == 'orderAdmin'}? active" href="#"
        th:if="${#request.isUserInRole('ADMIN')}"
        th:href="@{/admin/orders}">주문목록</a>

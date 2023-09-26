@@ -148,7 +148,7 @@
 
       <div style="padding: 20px; background-color: #f7f7f7; margin-bottom: 50px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
 
-      <a href="#" th:href="@{'/qna/' + ${qnaId}}" class="styled-link">
+      <a href="#"th:if="${isAuthor}" th:href="@{'/qna/' + ${qnaId}}" class="styled-link">
         수정
       </a>
       <a href="#" th:href="@{/community/qnas}" class="styled-link">
