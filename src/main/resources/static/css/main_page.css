@@ -840,15 +840,14 @@ a {
 
 @media (max-width:767px) {
     .main-3 .title-box {
-        font-size:.4em;
+        margin-top: 50px;
+        font-size:.5em;
+    }
+    .main-3 .mobile-bg img{
+        height: 250px;
     }
 }
 
-@media (max-width:489px) {
-    .main-3 .title-box {
-        font-size:.2em;
-    }
-}
 
 @media (max-width:767px) {
     .main-3 .main-3-bg .web-bg {
@@ -930,5 +929,3 @@ a {
         background-position: center;
     }
 }
-
-

@@ -10,11 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
-    "bootstrap": "^5.3.0",
-    "cropper": "^4.1.0",
+    "bootstrap": "^5.3.2",
     "jdenticon": "^3.2.0",
-    "jquery": "^3.7.0",
-    "jquery-cropper": "^1.0.1",
-    "summernote": "^0.8.20"
+    "jquery": "^3.7.1"
   }
 }

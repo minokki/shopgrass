@@ -18,6 +18,17 @@ html {
     transition: all 0.4s;
     z-index: 997;
 }
+/* 이메일 얼럿*/
+.alert_custom{
+    margin-top: 100px;
+    text-align: center;
+}
+
+.alert-link:hover{
+    color: #1d7151;
+
+}
+
 
 .header.sticked {
     background: #fff;
@@ -50,6 +61,11 @@ html {
 /*--------------------------------------------------------------
 # Desktop Navigation
 --------------------------------------------------------------*/
+@media (max-width: 1365px){
+    .alert_custom{
+        margin-top: 90px;
+    }
+}
 @media (min-width: 1280px) {
     .toggle-nav{
       display: none;
@@ -230,7 +246,6 @@ html {
         padding: 12px 20px;
         font-family: "Noto Sans KR";
         font-size: 16px;
-        font-weight: 300;
         color: #000;
         white-space: nowrap;
         transition: 0.3s;

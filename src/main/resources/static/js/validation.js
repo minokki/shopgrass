@@ -1,19 +1,11 @@
-(function () {
-    'use strict';
-
-    window.addEventListener('load', function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-
-        // Loop over them and prevent submission
-        Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated')
-            }, false)
-        })
-    }, false)
-}())
+$(document).ready(function () {
+    // 폼 제출 이벤트 리스너 추가
+    $('form.needs-validation').on('submit', function (event) {
+        // 폼 유효성 검사 실행
+        if (this.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        $(this).addClass('was-validated');
+    });
+});
