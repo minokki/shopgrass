@@ -21,17 +21,12 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14' # 또는 필요한 버전으로 변경하세요
-
     - name: Install npm dependencies
       run: npm install
       working-directory: src/main/resources/static
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -e -X -B package --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
