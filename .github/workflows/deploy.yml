@@ -27,6 +27,14 @@ jobs:
       - name: Build with Maven
         run: mvn -X -B package --file pom.xml
 
+      - name: Generate deployment package
+        run: |
+          mkdir -p deploy
+          cp server-app/build/libs/server-app.jar deploy/gopang-ebextensions-1.jar
+          cp Procfile deploy/Procfile
+          cp -r .ebextensions deploy/.ebextensions
+          cd deploy && zip -r gopang-label-${{steps.current-time.outputs.formattedTime}}-${{github.sha}} .
+
       - name: Deploy Consumer to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
