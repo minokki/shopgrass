@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: gopang
 
 on:
   push:
@@ -27,24 +27,25 @@ jobs:
       - name: Build with Maven
         run: mvn -X -B package --file pom.xml
 
-      - name: Generate deployment package
+      - name: Generate deployment package # (1)
         run: |
           mkdir -p deploy
-          cp server-app/build/libs/server-app.jar deploy/gopang-ebextensions-1.jar
+          cp build/libs/*.jar deploy/application.jar
           cp Procfile deploy/Procfile
           cp -r .ebextensions deploy/.ebextensions
-          cd deploy && zip -r gopang-label-${{steps.current-time.outputs.formattedTime}}-${{github.sha}} .
+          cp -r .platform deploy/.platform
+          cd deploy && zip -r deploy.zip .
 
-      - name: Deploy Consumer to EB
+      - name: Deploy to EB # (2)
         uses: einaregilsson/beanstalk-deploy@v14
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: gopang
           environment_name: Gopang-env
-          version_label: gopang-label-${{ steps.current-time.outputs.formattedTime }}-${{ github.sha }}
+          version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
-          deployment_package: deploy/gopang-label-${{ steps.current-time.outputs.formattedTime }}-${{ github.sha }}.zip
+          deployment_package: deploy/deploy.zip
 
       - name: Set up GitHub API Token
         run: echo "GITHUB_API_TOKEN=${{ secrets.GOPANG }}" >> $GITHUB_ENV
