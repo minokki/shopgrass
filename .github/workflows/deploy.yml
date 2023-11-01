@@ -34,9 +34,9 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: gopang
           environment_name: Gopang-env
-          version_label: todo-application-prod-label-${{ steps.current-time.outputs.formattedTime }}-${{ github.sha }}
+          version_label: gopang-label-${{ steps.current-time.outputs.formattedTime }}-${{ github.sha }}
           region: ap-northeast-2
-          deployment_package: deploy/todo-application-prod-label-${{ steps.current-time.outputs.formattedTime }}-${{ github.sha }}.zip
+          deployment_package: deploy/gopang-label-${{ steps.current-time.outputs.formattedTime }}-${{ github.sha }}.zip
 
       - name: Set up GitHub API Token
         run: echo "GITHUB_API_TOKEN=${{ secrets.GOPANG }}" >> $GITHUB_ENV
