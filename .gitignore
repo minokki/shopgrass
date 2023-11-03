@@ -36,7 +36,3 @@ build/
 src/main/resources/static/node_modules
 src/main/resources/static/node
 
-### GIT ACTION ###
-.ebextensions
-.platform
-Procfile
